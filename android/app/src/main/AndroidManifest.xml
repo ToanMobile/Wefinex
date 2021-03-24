@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wefinex">
+    package="com.vantoan.wefinex">
    <application
         android:label="wefinex"
         android:icon="@mipmap/ic_launcher">
