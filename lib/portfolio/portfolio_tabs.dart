@@ -186,7 +186,7 @@ class PortfolioTabsState extends State<PortfolioTabs>
     }
 
     var response = await http.get(
-        Uri.encodeFull("https://min-api.cryptocompare.com/data/histo" +
+        Uri.tryParse("https://min-api.cryptocompare.com/data/histo" +
             periodOptions[periodSetting]["hist_type"].toString() +
             "?fsym=" +
             coin["symbol"] +

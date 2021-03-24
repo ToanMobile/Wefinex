@@ -154,7 +154,7 @@ class CoinDetailsState extends State<CoinDetails>
 
   Future<Null> getHistoryOHLCV() async {
     var response = await http.get(
-        Uri.encodeFull("https://min-api.cryptocompare.com/data/histo" +
+        Uri.tryParse("https://min-api.cryptocompare.com/data/histo" +
             ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][3] +
             "?fsym=" +
             symbol +
@@ -573,7 +573,7 @@ class CoinDetailsState extends State<CoinDetails>
 
   Future<Null> _getExchangeData() async {
     var response = await http.get(
-        Uri.encodeFull(
+        Uri.tryParse(
             "https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=" +
                 symbol +
                 "&tsym=USD&limit=1000"),

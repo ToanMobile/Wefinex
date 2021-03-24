@@ -300,7 +300,7 @@ class TransactionSheetState extends State<TransactionSheet> {
 
   Future<Null> _getExchangeList() async {
     var response = await http.get(
-        Uri.encodeFull(
+        Uri.tryParse(
             "https://min-api.cryptocompare.com/data/top/exchanges?fsym=" +
                 symbol +
                 "&tsym=USD&limit=100"),

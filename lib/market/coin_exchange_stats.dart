@@ -59,7 +59,7 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
 
   Future<Null> getPrice() async {
     var response = await http.get(
-        Uri.encodeFull("https://min-api.cryptocompare.com/data/price?fsym=" +
+        Uri.tryParse("https://min-api.cryptocompare.com/data/price?fsym=" +
             exchangeData["FROMSYMBOL"] +
             "&tsyms=" +
             toSym +
@@ -73,7 +73,7 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
 
   Future<Null> getHistoryOHLCV() async {
     var response = await http.get(
-        Uri.encodeFull("https://min-api.cryptocompare.com/data/histo" +
+        Uri.tryParse("https://min-api.cryptocompare.com/data/histo" +
             ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][3] +
             "?fsym=" +
             exchangeData["FROMSYMBOL"] +

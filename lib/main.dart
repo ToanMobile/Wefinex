@@ -31,7 +31,7 @@ Future<Null> getMarketData() async {
 
   Future<Null> _pullData(page) async {
     var response = await http.get(
-        Uri.encodeFull("https://min-api.cryptocompare.com/data/top/mktcapfull?tsym=USD&limit=100" +
+        Uri.tryParse("https://min-api.cryptocompare.com/data/top/mktcapfull?tsym=USD&limit=100" +
             "&page=" +
             page.toString()),
         headers: {"Accept": "application/json"});
