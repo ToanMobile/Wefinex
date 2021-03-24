@@ -1,0 +1,2 @@
+# Wefinex
+Wefinex is coin.
