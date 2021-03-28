@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 import '../market/coin_tabs.dart';
-import '../market_coin_item.dart';
+import '../trace/market_coin_item.dart';
 
 class PortfolioBreakdownItem extends StatelessWidget {
   PortfolioBreakdownItem({this.snapshot, this.totalValue, this.color});

@@ -2,6 +2,14 @@
 const Map<String, String> enUS = {
   'trace': 'Trace',
   'setting': 'Setting',
+  'delete':'Delete',
+  'cancel':'Cancel',
+  'success':'Success!',
+  'paste':'Paste',
+  'copy_clipboard':'Copied to Clipboard!',
+  'preferences':'Preferences',
+  'theme':'Theme',
+  'debug':'Debug',
 
   //Theme
   'automatic': 'Automatic',
@@ -45,4 +53,20 @@ const Map<String, String> enUS = {
   'bottom_markets': 'Markets',
   'bottom_transactions': 'Transactions',
   'bottom_aggregate': 'Aggregate Stats',
+
+  //Setting
+  'clear_portfolio':'Clear Portfolio?',
+  'transactions_delete_all':'This will permanently delete all transactions.',
+  'export_portfolio':'Export Portfolio',
+  'import_portfolio':'Import Portfolio',
+  'clear_portfolio_setting':'Clear Portfolio',
+  'abbreviate_numbers':'Abbreviate Numbers',
+  'oled_dark_mode':'OLED Dark Mode',
+  'issues_request':'Issues & Feature Requests',
+  'version':'Version',
+  'credit':'Credit',
+  'import':'Import',
+  'maintained':'Developer: ',
+  'overwrite_portfolio':'This will permanently overwrite current portfolio and transactions.',
+  'enter_portfolio_json':'Enter Portfolio JSON',
 };

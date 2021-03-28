@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'main.dart';
-import 'market_coin_item.dart';
+import 'trace/market_coin_item.dart';
 import 'portfolio/portfolio_tabs.dart';
 import 'portfolio/transaction_sheet.dart';
-import 'portfolio_item.dart';
+import 'trace/portfolio_item.dart';
 
 class Tabs extends StatefulWidget {
   Tabs(

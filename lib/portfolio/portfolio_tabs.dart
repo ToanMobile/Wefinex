@@ -7,7 +7,7 @@ import 'package:flutter_circular_chart_two/flutter_circular_chart_two.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
-import '../sparkline.dart';
+import '../trace/sparkline.dart';
 import 'breakdown_item.dart';
 import 'transaction_item.dart';
 

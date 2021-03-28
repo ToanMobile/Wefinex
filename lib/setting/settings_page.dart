@@ -1,24 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage(
-      {this.savePreferences,
-      this.toggleTheme,
-      this.darkEnabled,
-      this.themeMode,
-      this.switchOLED,
-      this.darkOLED});
+  SettingsPage({this.savePreferences, this.toggleTheme, this.darkEnabled, this.themeMode, this.switchOLED, this.darkOLED});
+
   final Function savePreferences;
   final Function toggleTheme;
   final bool darkEnabled;
@@ -36,18 +30,16 @@ class SettingsPageState extends State<SettingsPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Clear Portfolio?"),
-            content: Text("This will permanently delete all transactions."),
+            title: Text("clear_portfolio".tr),
+            content: Text("transactions_delete_all".tr),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                   onPressed: () async {
                     await _deletePortfolio();
                     Navigator.of(context).pop();
                   },
-                  child: Text("Delete")),
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text("Cancel"))
+                  child: Text("delete".tr)),
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("cancel".tr))
             ],
           );
         });
@@ -72,31 +64,22 @@ class SettingsPageState extends State<SettingsPage> {
             child: AppBar(
               titleSpacing: 0.0,
               elevation: appBarElevation,
-              title: Text("Export Portfolio"),
+              title: Text("export_portfolio".tr),
             ),
           ),
           body: SingleChildScrollView(
               child: InkWell(
-              onTap: () {
-                Clipboard.setData(ClipboardData(text: text));
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                    backgroundColor: Theme.of(context).indicatorColor,
-                    content: Text("Copied to Clipboard!")));
+            onTap: () {
+              Clipboard.setData(ClipboardData(text: text));
+              _scaffoldKey.currentState.showSnackBar(SnackBar(backgroundColor: Theme.of(context).indicatorColor, content: Text("copy_clipboard".tr)));
             },
-            child: Container(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(text,
-                    style: Theme.of(context)
-                        .textTheme
-                        .body1
-                        .apply(fontSizeFactor: 1.1))),
+            child: Container(padding: const EdgeInsets.all(10.0), child: Text(text, style: Theme.of(context).textTheme.body1.apply(fontSizeFactor: 1.1))),
           )));
     }));
   }
 
   _showImportPage() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => ImportPage()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ImportPage()));
   }
 
   _launchUrl(url) async {
@@ -109,15 +92,16 @@ class SettingsPageState extends State<SettingsPage> {
 
   String version = "";
   String buildNumber = "";
+
   _getVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     setState(() {
       version = packageInfo.version;
-      buildNumber = packageInfo.buildNumber; 
+      buildNumber = packageInfo.buildNumber;
     });
   }
 
-  void initState() { 
+  void initState() {
     super.initState();
     _getVersion();
   }
@@ -138,24 +122,21 @@ class SettingsPageState extends State<SettingsPage> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("Preferences",
-                style: Theme.of(context).textTheme.body2),
+            child: Text("preferences".tr, style: Theme.of(context).textTheme.body2),
           ),
           Container(
               color: Theme.of(context).cardColor,
               child: ListTile(
                 onTap: widget.toggleTheme,
-                leading: Icon(widget.darkEnabled
-                    ? Icons.brightness_3
-                    : Icons.brightness_7),
+                leading: Icon(widget.darkEnabled ? Icons.brightness_3 : Icons.brightness_7),
                 subtitle: Text(widget.themeMode),
-                title: Text("Theme"),
+                title: Text("theme".tr),
               )),
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
               leading: Icon(Icons.opacity),
-              title: Text("OLED Dark Mode"),
+              title: Text("oled_dark_mode".tr),
               trailing: Switch(
                 activeColor: Theme.of(context).accentColor,
                 value: widget.darkOLED,
@@ -170,7 +151,7 @@ class SettingsPageState extends State<SettingsPage> {
             color: Theme.of(context).cardColor,
             child: ListTile(
               leading: Icon(Icons.short_text),
-              title: Text("Abbreviate Numbers"),
+              title: Text("abbreviate_numbers".tr),
               trailing: Switch(
                   activeColor: Theme.of(context).accentColor,
                   value: shortenOn,
@@ -190,12 +171,12 @@ class SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("Debug", style: Theme.of(context).textTheme.body2),
+            child: Text("debug".tr, style: Theme.of(context).textTheme.body2),
           ),
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
-              title: Text("Export Portfolio"),
+              title: Text("export_portfolio".tr),
               leading: Icon(Icons.file_upload),
               onTap: _exportPortfolio,
             ),
@@ -203,7 +184,7 @@ class SettingsPageState extends State<SettingsPage> {
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
-              title: Text("Import Portfolio"),
+              title: Text("import_portfolio".tr),
               leading: Icon(Icons.file_download),
               onTap: _showImportPage,
             ),
@@ -211,7 +192,7 @@ class SettingsPageState extends State<SettingsPage> {
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
-              title: Text("Clear Portfolio"),
+              title: Text("clear_portfolio_setting".tr),
               leading: Icon(Icons.delete),
               onTap: _confirmDeletePortfolio,
             ),
@@ -219,16 +200,15 @@ class SettingsPageState extends State<SettingsPage> {
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
-              title: Text("Issues & Feature Requests"),
+              title: Text("issues_request".tr),
               leading: Icon(Icons.bug_report),
-              onTap: () =>
-                  _launchUrl("https://github.com/ToanMobile/Wefinex/issues"),
+              onTap: () => _launchUrl("https://github.com/ToanMobile/Wefinex/issues"),
             ),
           ),
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
-              title: Text("Version $version ($buildNumber)"),
+              title: Text("${"version".tr} $version ($buildNumber)"),
               subtitle: Text("https://github.com/ToanMobile/Wefinex"),
               leading: Icon(Icons.info_outline),
               onTap: () => _launchUrl("https://github.com/ToanMobile/Wefinex"),
@@ -236,21 +216,15 @@ class SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("Credit", style: Theme.of(context).textTheme.body2),
+            child: Text("credit".tr, style: Theme.of(context).textTheme.body2),
           ),
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
               title: RichText(
-                text: TextSpan(
-                  text: "Maintained with love by ",
-                  style: Theme.of(context).textTheme.subhead,
-                  children: <TextSpan>[
-                    TextSpan(text: "@TrentPiercy", style: Theme.of(context).textTheme.subhead
-                      .apply(color: Theme.of(context).buttonColor, fontWeightDelta: 2))
-                  ]
-                )
-              ),
+                  text: TextSpan(text: "maintained".tr, style: Theme.of(context).textTheme.subhead, children: <TextSpan>[
+                TextSpan(text: "@ToanDev", style: Theme.of(context).textTheme.subhead.apply(color: Theme.of(context).buttonColor, fontWeightDelta: 2))
+              ])),
               subtitle: Text("https://www.facebook.com/VanToanIT/"),
               leading: Icon(Icons.favorite),
               onTap: () => _launchUrl("https://www.facebook.com/VanToanIT/"),
@@ -290,9 +264,7 @@ class ImportPageState extends State<ImportPage> {
           throw "failed at emtpy transaction list";
         }
         for (Map transaction in transactions) {
-          if ((transaction.keys.toList()..sort()).toString() !=
-              ["exchange", "notes", "price_usd", "quantity", "time_epoch"]
-                  .toString()) {
+          if ((transaction.keys.toList()..sort()).toString() != ["exchange", "notes", "price_usd", "quantity", "time_epoch"].toString()) {
             throw "failed formatting check at transaction keys";
           }
           for (String K in transaction.keys) {
@@ -321,27 +293,21 @@ class ImportPageState extends State<ImportPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Import Portfolio?"),
-            content: Text(
-                "This will permanently overwrite current portfolio and transactions."),
+            title: Text("${"import_portfolio".tr}?"),
+            content: Text("overwrite_portfolio".tr),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                   onPressed: () async {
                     portfolioMap = newPortfolioMap;
-                    await getApplicationDocumentsDirectory()
-                        .then((Directory directory) {
-                      File jsonFile =
-                          File(directory.path + "/portfolio.json");
+                    await getApplicationDocumentsDirectory().then((Directory directory) {
+                      File jsonFile = File(directory.path + "/portfolio.json");
                       jsonFile.writeAsStringSync(json.encode(portfolioMap));
                     });
                     Navigator.of(context).pop();
-                    _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(content: Text("Success!")));
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("success".tr)));
                   },
-                  child: Text("Import")),
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text("Cancel"))
+                  child: Text("import".tr)),
+              TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("cancel".tr))
             ],
           );
         });
@@ -364,14 +330,14 @@ class ImportPageState extends State<ImportPage> {
           child: AppBar(
             titleSpacing: 0.0,
             elevation: appBarElevation,
-            title: Text("Import Portfolio"),
+            title: Text("import_portfolio".tr),
           ),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Padding(
-                    padding: EdgeInsets.only(top: 6.0),
+                padding: EdgeInsets.only(top: 6.0),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -382,26 +348,15 @@ class ImportPageState extends State<ImportPage> {
                       _importController.text = clipText;
                       _checkImport(clipText);
                     },
-                    child: Text("Paste",
-                        style: Theme.of(context)
-                            .textTheme
-                            .body2
-                            .apply(color: Theme.of(context).iconTheme.color)),
+                    child: Text("paste".tr, style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).iconTheme.color)),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
                   ),
                   ElevatedButton(
-                    onPressed: textColor != Colors.red ? _importPortfolio : null,
-                    child: Text("Import",
-                        style: Theme.of(context)
-                            .textTheme
-                            .body2
-                            .apply(color: Theme.of(context).iconTheme.color)),
-                    style: ElevatedButton.styleFrom(
-                      onPrimary: Colors.green
-                    )
-                  ),
+                      onPressed: textColor != Colors.red ? _importPortfolio : null,
+                      child: Text("import".tr, style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).iconTheme.color)),
+                      style: ElevatedButton.styleFrom(onPrimary: Colors.green)),
                 ],
               ),
               Container(
@@ -409,17 +364,11 @@ class ImportPageState extends State<ImportPage> {
                 child: TextField(
                   controller: _importController,
                   maxLines: null,
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .apply(color: textColor, fontSizeFactor: 1.1),
+                  style: Theme.of(context).textTheme.body1.apply(color: textColor, fontSizeFactor: 1.1),
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
-                              width: 2.0)),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).accentColor, width: 2.0)),
                       border: OutlineInputBorder(),
-                      hintText: "Enter Portfolio JSON"),
+                      hintText: "enter_portfolio_json".tr),
                   onChanged: _checkImport,
                 ),
               ),
