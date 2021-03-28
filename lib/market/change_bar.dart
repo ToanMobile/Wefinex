@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
 
 final Map ohlcvWidthOptions = {
   "1h": [
@@ -63,27 +62,27 @@ class QuickPercentChangeBar extends StatelessWidget {
         snapshot[K] = 0;
       }
     });
-    return new Container(
+    return Container(
       padding:
           const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 3.0, top: 3.0),
-      decoration: new BoxDecoration(
-          border: new Border(
-            top: new BorderSide(color: Theme.of(context).bottomAppBarColor),
+      decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Theme.of(context).bottomAppBarColor),
           ),
           color: Theme.of(context).primaryColor),
-      child: new Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          new Row(
+          Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              new Text("1h",
+              Text("1h",
                   style: Theme.of(context)
                       .textTheme
                       .body1
                       .apply(color: Theme.of(context).hintColor)),
-              new Padding(padding: const EdgeInsets.only(right: 3.0)),
-              new Text(
+              Padding(padding: const EdgeInsets.only(right: 3.0)),
+              Text(
                   snapshot["CHANGEPCTHOUR"] >= 0
                       ? "+" + snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%"
                       : snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%",
@@ -93,16 +92,16 @@ class QuickPercentChangeBar extends StatelessWidget {
                           : Colors.red))
             ],
           ),
-          new Row(
+          Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              new Text("24h",
+              Text("24h",
                   style: Theme.of(context)
                       .textTheme
                       .body1
                       .apply(color: Theme.of(context).hintColor)),
-              new Padding(padding: const EdgeInsets.only(right: 3.0)),
-              new Text(
+              Padding(padding: const EdgeInsets.only(right: 3.0)),
+              Text(
                   snapshot["CHANGEPCT24HOUR"] >= 0
                       ? "+" + snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%"
                       : snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%",
@@ -112,15 +111,15 @@ class QuickPercentChangeBar extends StatelessWidget {
                           : Colors.red))
             ],
           ),
-          // new Row(
+          // Row(
           //   mainAxisSize: MainAxisSize.min,
           //   children: <Widget>[
-          //     new Text("7D",
+          //     Text("7D",
           //         style: Theme.of(context)
           //             .textTheme
           //             .body1
           //             .apply(color: Theme.of(context).hintColor)),
-          //     new Padding(padding: const EdgeInsets.only(right: 3.0)),
+          //     Padding(padding: const EdgeInsets.only(right: 3.0)),
           //     new Text(
           //         snapshot["percent_change_7d"] >= 0
           //             ? "+" + snapshot["percent_change_7d"].toString() + "%"

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import '../flutter_candlesticks.dart';
-
 import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../flutter_candlesticks.dart';
 import '../main.dart';
 import 'change_bar.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'coin_exchange_stats.dart';
 import '../main.dart';
+import 'coin_exchange_stats.dart';
 
 class ExchangeListItem extends StatelessWidget {
   ExchangeListItem(this.exchangeDataSnapshot, this.columnProps);

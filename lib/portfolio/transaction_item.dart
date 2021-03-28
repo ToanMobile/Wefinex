@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'transaction_sheet.dart';
+
 import '../main.dart';
+import 'transaction_sheet.dart';
 
 class TransactionItem extends StatelessWidget {
   TransactionItem(
@@ -15,7 +16,7 @@ class TransactionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String date;
     final DateTime time =
-        new DateTime.fromMillisecondsSinceEpoch(snapshot["time_epoch"]);
+         DateTime.fromMillisecondsSinceEpoch(snapshot["time_epoch"]);
     final double changePercent =
         (currentPrice - snapshot["price_usd"]) / snapshot["price_usd"] * 100;
 
@@ -46,14 +47,14 @@ class TransactionItem extends StatelessWidget {
       exchange = "Aggregated";
     }
 
-    return new Card(
+    return  Card(
       elevation: 2.0,
-      child: new ListTile(
+      child:  ListTile(
         isThreeLine: false,
         contentPadding: const EdgeInsets.all(8.0),
         onTap: () => showBottomSheet(
             context: context,
-            builder: (context) => new TransactionSheet(
+            builder: (context) =>  TransactionSheet(
                   refreshPage,
                   marketListData,
                   editMode: true,
@@ -61,9 +62,9 @@ class TransactionItem extends StatelessWidget {
                   symbol: symbol,
                 )),
         leading: snapshot["quantity"] >= 0
-            ? new Icon(Icons.add_circle, color: Colors.green, size: 28.0)
-            : new Icon(Icons.remove_circle, color: Colors.red, size: 28.0),
-        title: new RichText(
+            ?  Icon(Icons.add_circle, color: Colors.green, size: 28.0)
+            :  Icon(Icons.remove_circle, color: Colors.red, size: 28.0),
+        title:  RichText(
             text: TextSpan(children: <TextSpan>[
           TextSpan(
               text: "${snapshot["quantity"]} $symbol",
@@ -84,13 +85,13 @@ class TransactionItem extends StatelessWidget {
                   .body2
                   .apply(color: changePercent > 0 ? Colors.green : Colors.red)),
         ])),
-        subtitle: new Text(
+        subtitle:  Text(
             "$exchange (\$${numCommaParse((snapshot["quantity"] * snapshot["price_usd"]).toStringAsFixed(2))})\n$date"),
         trailing: snapshot["notes"] != ""
-            ? new Container(
+            ?  Container(
                 alignment: Alignment.topRight,
                 width: MediaQuery.of(context).size.width * .3,
-                child: new Text(snapshot["notes"],
+                child:  Text(snapshot["notes"],
                     overflow: TextOverflow.ellipsis,
                     maxLines: 4,
                     style: Theme.of(context).textTheme.caption),

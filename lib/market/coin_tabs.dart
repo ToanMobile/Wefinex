@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../flutter_candlesticks.dart';
 
-import '../portfolio/transaction_sheet.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../flutter_candlesticks.dart';
 import '../main.dart';
+import '../portfolio/portfolio_tabs.dart';
+import '../portfolio/transaction_item.dart';
+import '../portfolio/transaction_sheet.dart';
 import 'change_bar.dart';
 import 'exchange_list_item.dart';
-import '../portfolio/transaction_item.dart';
-import '../portfolio/portfolio_tabs.dart';
 
 class CoinDetails extends StatefulWidget {
   CoinDetails({
@@ -21,7 +22,7 @@ class CoinDetails extends StatefulWidget {
   final snapshot;
 
   @override
-  CoinDetailsState createState() => new CoinDetailsState();
+  CoinDetailsState createState() =>  CoinDetailsState();
 }
 
 class CoinDetailsState extends State<CoinDetails>
@@ -31,21 +32,21 @@ class CoinDetailsState extends State<CoinDetails>
   List<Widget> _tabBarChildren;
   String symbol;
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
 
   _makeTabs() {
     if (widget.enableTransactions) {
       _tabAmt = 3;
       _tabBarChildren = [
-        new Tab(text: "Stats"),
-        new Tab(text: "Markets"),
-        new Tab(text: "Transactions")
+         Tab(text: "Stats"),
+         Tab(text: "Markets"),
+         Tab(text: "Transactions")
       ];
     } else {
       _tabAmt = 2;
       _tabBarChildren = [
-        new Tab(text: "Aggregate Stats"),
-        new Tab(text: "Markets")
+         Tab(text: "Aggregate Stats"),
+         Tab(text: "Markets")
       ];
     }
   }
@@ -54,7 +55,7 @@ class CoinDetailsState extends State<CoinDetails>
   void initState() {
     super.initState();
     _makeTabs();
-    _tabController = new TabController(length: _tabAmt, vsync: this);
+    _tabController =  TabController(length: _tabAmt, vsync: this);
 
     symbol = widget.snapshot["CoinInfo"]["Name"];
 
@@ -71,21 +72,21 @@ class CoinDetailsState extends State<CoinDetails>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return  Scaffold(
         key: _scaffoldKey,
-        appBar: new PreferredSize(
+        appBar:  PreferredSize(
           preferredSize: const Size.fromHeight(75.0),
-          child: new AppBar(
+          child:  AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             titleSpacing: 2.0,
             elevation: appBarElevation,
-            title: new Text(widget.snapshot["CoinInfo"]["FullName"],
+            title: Text(widget.snapshot["CoinInfo"]["FullName"],
                 style: Theme.of(context).textTheme.title),
-            bottom: new PreferredSize(
+            bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(25.0),
-                child: new Container(
+                child: Container(
                     height: 30.0,
-                    child: new TabBar(
+                    child: TabBar(
                       controller: _tabController,
                       indicatorColor: Theme.of(context).accentIconTheme.color,
                       indicatorWeight: 2.0,
@@ -95,23 +96,23 @@ class CoinDetailsState extends State<CoinDetails>
                     ))),
             actions: <Widget>[
               widget.enableTransactions
-                  ? new IconButton(
-                      icon: new Icon(Icons.add),
+                  ? IconButton(
+                      icon: Icon(Icons.add),
                       onPressed: () {
                         _scaffoldKey.currentState
                             .showBottomSheet((BuildContext context) {
-                          return new TransactionSheet(() {
+                          return TransactionSheet(() {
                             setState(() {
                               _refreshTransactions();
                             });
                           }, marketListData);
                         });
                       })
-                  : new Container(),
+                  : Container(),
             ],
           ),
         ),
-        body: new TabBarView(
+        body: TabBarView(
             controller: _tabController,
             children: widget.enableTransactions
                 ? [
@@ -166,7 +167,7 @@ class CoinDetailsState extends State<CoinDetails>
                 .toString()),
         headers: {"Accept": "application/json"});
     setState(() {
-      historyOHLCV = new JsonDecoder().convert(response.body)["Data"];
+      historyOHLCV = JsonDecoder().convert(response.body)["Data"];
       if (historyOHLCV == null) {
         historyOHLCV = [];
       }
@@ -221,19 +222,19 @@ class CoinDetailsState extends State<CoinDetails>
   }
 
   Widget aggregateStats(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: new Container(
-                child: new Column(
+      body: Container(
+                child: Column(
                   children: <Widget>[
-                    new Container(
+                    Container(
                       padding: const EdgeInsets.only(
                           left: 10.0, right: 10.0, top: 10.0, bottom: 4.0),
-                      child: new Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          new Text(
+                          Text(
                               "\$" +
                                   (generalStats != null
                                       ? normalizeNumNoCommas(
@@ -243,24 +244,24 @@ class CoinDetailsState extends State<CoinDetails>
                                   .textTheme
                                   .body2
                                   .apply(fontSizeFactor: 2.2)),
-                          new Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: <Widget>[
-                              new Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  new Text("Market Cap",
+                                  Text("Market Cap",
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption
                                           .apply(
                                               color:
                                                   Theme.of(context).hintColor)),
-                                  new Padding(
+                                  Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 2.0)),
-                                  new Text("24h Volume",
+                                  Text("24h Volume",
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption
@@ -269,13 +270,13 @@ class CoinDetailsState extends State<CoinDetails>
                                                   Theme.of(context).hintColor)),
                                 ],
                               ),
-                              new Padding(
+                              Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2.0)),
-                              new Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
-                                  new Text(
+                                  Text(
                                       generalStats != null
                                           ? "\$" +
                                               normalizeNum(
@@ -287,7 +288,7 @@ class CoinDetailsState extends State<CoinDetails>
                                           .apply(
                                               fontSizeFactor: 1.1,
                                               fontWeightDelta: 2)),
-                                  new Text(
+                                  Text(
                                       generalStats != null
                                           ? "\$" +
                                               normalizeNum(
@@ -308,26 +309,26 @@ class CoinDetailsState extends State<CoinDetails>
                         ],
                       ),
                     ),
-                    new Card(
+                    Card(
                       elevation: 2.0,
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
-                          new Flexible(
-                            child: new Container(
+                          Flexible(
+                            child: Container(
                                 padding: const EdgeInsets.all(6.0),
-                                child: new Column(
+                                child: Column(
                                   children: <Widget>[
-                                    new Row(
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        new Column(
+                                        Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            new Row(
+                                            Row(
                                               children: <Widget>[
-                                                new Text("Period",
+                                                Text("Period",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .body1
@@ -335,23 +336,23 @@ class CoinDetailsState extends State<CoinDetails>
                                                             color: Theme.of(
                                                                     context)
                                                                 .hintColor)),
-                                                new Padding(
+                                                Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             right: 3.0)),
-                                                new Text(historyTotal,
+                                                Text(historyTotal,
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .body2
                                                         .apply(
                                                             fontWeightDelta:
                                                                 2)),
-                                                new Padding(
+                                                Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             right: 4.0)),
                                                 historyOHLCV != null
-                                                    ? new Text(
+                                                    ? Text(
                                                         num.parse(_change) > 0
                                                             ? "+" +
                                                                 _change +
@@ -368,12 +369,12 @@ class CoinDetailsState extends State<CoinDetails>
                                                                         .green
                                                                     : Colors
                                                                         .red))
-                                                    : new Container()
+                                                    : Container()
                                               ],
                                             ),
-                                            new Row(
+                                            Row(
                                               children: <Widget>[
-                                                new Text("Candle Width",
+                                                Text("Candle Width",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .body1
@@ -381,11 +382,11 @@ class CoinDetailsState extends State<CoinDetails>
                                                             color: Theme.of(
                                                                     context)
                                                                 .hintColor)),
-                                                new Padding(
+                                                Padding(
                                                     padding:
                                                         const EdgeInsets.only(
                                                             right: 2.0)),
-                                                new Text(
+                                                Text(
                                                     ohlcvWidthOptions[
                                                                 historyTotal][
                                                             currentOHLCVWidthSetting]
@@ -400,14 +401,14 @@ class CoinDetailsState extends State<CoinDetails>
                                           ],
                                         ),
                                         historyOHLCV != null
-                                            ? new Row(
+                                            ? Row(
                                                 children: <Widget>[
-                                                  new Column(
+                                                  Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: <Widget>[
-                                                      new Text("High",
+                                                      Text("High",
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
@@ -416,7 +417,7 @@ class CoinDetailsState extends State<CoinDetails>
                                                                   color: Theme.of(
                                                                           context)
                                                                       .hintColor)),
-                                                      new Text("Low",
+                                                      Text("Low",
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
@@ -427,7 +428,7 @@ class CoinDetailsState extends State<CoinDetails>
                                                                       .hintColor)),
                                                     ],
                                                   ),
-                                                  new Padding(
+                                                  Padding(
                                                       padding: const EdgeInsets
                                                               .symmetric(
                                                           horizontal: 1.5)),

@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-
-import 'tabs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wefinex/languages/language.dart';
 import 'settings_page.dart';
+import 'tabs.dart';
 
 const double appBarHeight = 48.0;
 const double appBarElevation = 1.0;
@@ -36,7 +38,7 @@ Future<Null> getMarketData() async {
             page.toString()),
         headers: {"Accept": "application/json"});
 
-    List rawMarketListData = new JsonDecoder().convert(response.body)["Data"];
+    List rawMarketListData = JsonDecoder().convert(response.body)["Data"];
     tempMarketListData.addAll(rawMarketListData);
   }
 
@@ -55,10 +57,10 @@ Future<Null> getMarketData() async {
   }
 
   getApplicationDocumentsDirectory().then((Directory directory) async {
-    File jsonFile = new File(directory.path + "/marketData.json");
+    File jsonFile = File(directory.path + "/marketData.json");
     jsonFile.writeAsStringSync(json.encode(marketListData));
   });
-  print("Got new market data.");
+  print("Got market data.");
 
   lastUpdate = DateTime.now().millisecondsSinceEpoch;
 }
@@ -67,7 +69,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await getApplicationDocumentsDirectory().then((Directory directory) async {
-    File jsonFile = new File(directory.path + "/portfolio.json");
+    File jsonFile = File(directory.path + "/portfolio.json");
     if (jsonFile.existsSync()) {
       portfolioMap = json.decode(jsonFile.readAsStringSync());
     } else {
@@ -78,7 +80,7 @@ void main() async {
     if (portfolioMap == null) {
       portfolioMap = {};
     }
-    jsonFile = new File(directory.path + "/marketData.json");
+    jsonFile = File(directory.path + "/marketData.json");
     if (jsonFile.existsSync()) {
       marketListData = json.decode(jsonFile.readAsStringSync());
     } else {
@@ -99,13 +101,13 @@ void main() async {
     darkOLED = prefs.getBool("darkOLED");
   }
 
-  runApp(new TraceApp(themeMode, darkOLED));
+  runApp(TraceApp(themeMode, darkOLED));
 }
 
 numCommaParse(numString) {
   if (shortenOn) {
     String str = num.parse(numString ?? "0").round().toString().replaceAllMapped(
-        new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
     List<String> strList = str.split(",");
 
     if (strList.length > 3) {
@@ -120,12 +122,12 @@ numCommaParse(numString) {
           "M";
     } else {
       return num.parse(numString ?? "0").toString().replaceAllMapped(
-          new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
     }
   }
 
   return num.parse(numString ?? "0").toString().replaceAllMapped(
-      new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
 }
 
 normalizeNum(num input) {
@@ -156,7 +158,7 @@ class TraceApp extends StatefulWidget {
   final darkOLED;
 
   @override
-  TraceAppState createState() => new TraceAppState();
+  TraceAppState createState() => TraceAppState();
 }
 
 class TraceAppState extends State<TraceApp> {
@@ -190,7 +192,7 @@ class TraceAppState extends State<TraceApp> {
   setDarkEnabled() {
     switch (themeMode) {
       case "Automatic":
-        int nowHour = new DateTime.now().hour;
+        int nowHour = DateTime.now().hour;
         if (nowHour > 6 && nowHour < 20) {
           darkEnabled = false;
         } else {
@@ -234,38 +236,38 @@ class TraceAppState extends State<TraceApp> {
     }
   }
 
-  final ThemeData lightTheme = new ThemeData(
+  final ThemeData lightTheme = ThemeData(
     primarySwatch: Colors.purple,
     brightness: Brightness.light,
     accentColor: Colors.purpleAccent[100],
     primaryColor: Colors.white,
     primaryColorLight: Colors.purple[700],
-    textSelectionHandleColor: Colors.purple[700],
+    textSelectionTheme: TextSelectionThemeData(selectionHandleColor: Colors.purple[700]),
     dividerColor: Colors.grey[200],
     bottomAppBarColor: Colors.grey[200],
     buttonColor: Colors.purple[700],
-    iconTheme: new IconThemeData(color: Colors.white),
-    primaryIconTheme: new IconThemeData(color: Colors.black),
-    accentIconTheme: new IconThemeData(color: Colors.purple[700]),
+    iconTheme: IconThemeData(color: Colors.white),
+    primaryIconTheme: IconThemeData(color: Colors.black),
+    accentIconTheme: IconThemeData(color: Colors.purple[700]),
     disabledColor: Colors.grey[500],
   );
 
-  final ThemeData darkTheme = new ThemeData(
+  final ThemeData darkTheme = ThemeData(
     primarySwatch: Colors.purple,
     brightness: Brightness.dark,
     accentColor: Colors.deepPurpleAccent[100],
     primaryColor: Color.fromRGBO(50, 50, 57, 1.0),
     primaryColorLight: Colors.deepPurpleAccent[100],
-    textSelectionHandleColor: Colors.deepPurpleAccent[100],
+    textSelectionTheme: TextSelectionThemeData(selectionHandleColor: Colors.deepPurpleAccent[100]),
     buttonColor: Colors.deepPurpleAccent[100],
-    iconTheme: new IconThemeData(color: Colors.white),
-    accentIconTheme: new IconThemeData(color: Colors.deepPurpleAccent[100]),
+    iconTheme: IconThemeData(color: Colors.white),
+    accentIconTheme: IconThemeData(color: Colors.deepPurpleAccent[100]),
     cardColor: Color.fromRGBO(55, 55, 55, 1.0),
     dividerColor: Color.fromRGBO(60, 60, 60, 1.0),
     bottomAppBarColor: Colors.black26,
   );
 
-  final ThemeData darkThemeOLED = new ThemeData(
+  final ThemeData darkThemeOLED = ThemeData(
     brightness: Brightness.dark,
     accentColor: Colors.deepPurpleAccent[100],
     primaryColor: Color.fromRGBO(5, 5, 5, 1.0),
@@ -273,13 +275,13 @@ class TraceAppState extends State<TraceApp> {
     canvasColor: Colors.black,
     primaryColorLight: Colors.deepPurple[300],
     buttonColor: Colors.deepPurpleAccent[100],
-    accentIconTheme: new IconThemeData(color: Colors.deepPurple[300]),
+    accentIconTheme: IconThemeData(color: Colors.deepPurple[300]),
     cardColor: Color.fromRGBO(16, 16, 16, 1.0),
     dividerColor: Color.fromRGBO(20, 20, 20, 1.0),
     bottomAppBarColor: Color.fromRGBO(19, 19, 19, 1.0),
     dialogBackgroundColor: Colors.black,
-    textSelectionHandleColor: Colors.deepPurpleAccent[100],
-    iconTheme: new IconThemeData(color: Colors.white),
+    textSelectionTheme: TextSelectionThemeData(selectionHandleColor: Colors.deepPurpleAccent[100]),
+    iconTheme: IconThemeData(color: Colors.white),
   );
 
   @override
@@ -298,12 +300,12 @@ class TraceAppState extends State<TraceApp> {
       downArrow = "↓";
     }
 
-    return new MaterialApp(
+    return GetMaterialApp(
       color: darkEnabled
           ? darkOLED ? darkThemeOLED.primaryColor : darkTheme.primaryColor
           : lightTheme.primaryColor,
-      title: "Trace",
-      home: new Tabs(
+      title: Text('trace'.tr).data,
+      home: Tabs(
         savePreferences: savePreferences,
         toggleTheme: toggleTheme,
         handleUpdate: handleUpdate,
@@ -314,7 +316,7 @@ class TraceAppState extends State<TraceApp> {
       ),
       theme: darkEnabled ? darkOLED ? darkThemeOLED : darkTheme : lightTheme,
       routes: <String, WidgetBuilder>{
-        "/settings": (BuildContext context) => new SettingsPage(
+        "/settings": (BuildContext context) => SettingsPage(
               savePreferences: savePreferences,
               toggleTheme: toggleTheme,
               darkEnabled: darkEnabled,
@@ -323,6 +325,9 @@ class TraceAppState extends State<TraceApp> {
               darkOLED: darkOLED,
             ),
       },
+      locale: Languages.locale,
+      fallbackLocale: Languages.fallbackLocale,
+      translations: Languages()
     );
   }
 }
