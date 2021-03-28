@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wefinex/languages/en_us.dart';
 import 'package:wefinex/languages/vi_vn.dart';
 
-class Languages extends Translations {
+class LocalizationService extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
     'en_US': enUS,

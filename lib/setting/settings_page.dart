@@ -9,7 +9,7 @@ import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'main.dart';
+import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage(

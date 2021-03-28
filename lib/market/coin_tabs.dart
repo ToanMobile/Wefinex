@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:get/get.dart';
 import '../flutter_candlesticks.dart';
 import '../main.dart';
 import '../portfolio/portfolio_tabs.dart';
@@ -38,15 +38,15 @@ class CoinDetailsState extends State<CoinDetails>
     if (widget.enableTransactions) {
       _tabAmt = 3;
       _tabBarChildren = [
-         Tab(text: "Stats"),
-         Tab(text: "Markets"),
-         Tab(text: "Transactions")
+         Tab(text: "bottom_stats".tr),
+         Tab(text: "bottom_markets".tr),
+         Tab(text: "bottom_transactions".tr)
       ];
     } else {
       _tabAmt = 2;
       _tabBarChildren = [
-         Tab(text: "Aggregate Stats"),
-         Tab(text: "Markets")
+         Tab(text: "bottom_aggregate".tr),
+         Tab(text: "bottom_markets".tr)
       ];
     }
   }
@@ -81,7 +81,7 @@ class CoinDetailsState extends State<CoinDetails>
             titleSpacing: 2.0,
             elevation: appBarElevation,
             title: Text(widget.snapshot["CoinInfo"]["FullName"],
-                style: Theme.of(context).textTheme.title),
+                style: Theme.of(context).textTheme.headline6),
             bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(25.0),
                 child: Container(
@@ -251,7 +251,7 @@ class CoinDetailsState extends State<CoinDetails>
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text("Market Cap",
+                                  Text("market_cap".tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption
@@ -261,7 +261,7 @@ class CoinDetailsState extends State<CoinDetails>
                                   Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 2.0)),
-                                  Text("24h Volume",
+                                  Text("24h_volume".tr,
                                       style: Theme.of(context)
                                           .textTheme
                                           .caption
@@ -328,7 +328,7 @@ class CoinDetailsState extends State<CoinDetails>
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text("Period",
+                                                Text("period".tr,
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .body1
@@ -374,7 +374,7 @@ class CoinDetailsState extends State<CoinDetails>
                                             ),
                                             Row(
                                               children: <Widget>[
-                                                Text("Candle Width",
+                                                Text("candle_width".tr,
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .body1
@@ -408,7 +408,7 @@ class CoinDetailsState extends State<CoinDetails>
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: <Widget>[
-                                                      Text("High",
+                                                      Text("high".tr,
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
@@ -417,7 +417,7 @@ class CoinDetailsState extends State<CoinDetails>
                                                                   color: Theme.of(
                                                                           context)
                                                                       .hintColor)),
-                                                      Text("Low",
+                                                      Text("low".tr,
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
@@ -432,16 +432,16 @@ class CoinDetailsState extends State<CoinDetails>
                                                       padding: const EdgeInsets
                                                               .symmetric(
                                                           horizontal: 1.5)),
-                                                  new Column(
+                                                  Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment.end,
                                                     children: <Widget>[
-                                                      new Text("\$" + _high,
+                                                      Text("\$" + _high,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
                                                                   .body2),
-                                                      new Text("\$" + _low,
+                                                      Text("\$" + _low,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -450,24 +450,24 @@ class CoinDetailsState extends State<CoinDetails>
                                                   ),
                                                 ],
                                               )
-                                            : new Container()
+                                            : Container()
                                       ],
                                     ),
                                   ],
                                 )),
                           ),
-                          new Container(
-                              child: new PopupMenuButton(
-                            tooltip: "Select Width",
-                            icon: new Icon(Icons.swap_horiz,
+                          Container(
+                              child: PopupMenuButton(
+                            tooltip: "select_width".tr,
+                            icon: Icon(Icons.swap_horiz,
                                 color: Theme.of(context).buttonColor),
                             itemBuilder: (BuildContext context) {
                               List<PopupMenuEntry<dynamic>> options = [];
                               for (int i = 0;
                                   i < ohlcvWidthOptions[historyTotal].length;
                                   i++) {
-                                options.add(new PopupMenuItem(
-                                    child: new Text(
+                                options.add(PopupMenuItem(
+                                    child: Text(
                                         ohlcvWidthOptions[historyTotal][i][0]),
                                     value: i));
                               }
@@ -477,41 +477,41 @@ class CoinDetailsState extends State<CoinDetails>
                               changeOHLCVWidth(result);
                             },
                           )),
-                          new Container(
-                              child: new PopupMenuButton(
-                            tooltip: "Select Period",
-                            icon: new Icon(Icons.access_time,
+                          Container(
+                              child: PopupMenuButton(
+                            tooltip: "select_period".tr,
+                            icon: Icon(Icons.access_time,
                                 color: Theme.of(context).buttonColor),
                             itemBuilder: (BuildContext context) => [
-                                  new PopupMenuItem(
-                                      child: new Text("1h"),
+                                  PopupMenuItem(
+                                      child: Text("1h"),
                                       value: ["minute", "60", "1h", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("6h"),
+                                  PopupMenuItem(
+                                      child: Text("6h"),
                                       value: ["minute", "360", "6h", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("12h"),
+                                  PopupMenuItem(
+                                      child: Text("12h"),
                                       value: ["minute", "720", "12h", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("24h"),
+                                  PopupMenuItem(
+                                      child: Text("24h"),
                                       value: ["minute", "720", "24h", "2"]),
-                                  new PopupMenuItem(
-                                      child: new Text("3D"),
+                                  PopupMenuItem(
+                                      child: Text("3D"),
                                       value: ["hour", "72", "3D", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("7D"),
+                                  PopupMenuItem(
+                                      child: Text("7D"),
                                       value: ["hour", "168", "7D", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("1M"),
+                                  PopupMenuItem(
+                                      child: Text("1M"),
                                       value: ["hour", "720", "1M", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("3M"),
+                                  PopupMenuItem(
+                                      child: Text("3M"),
                                       value: ["day", "90", "3M", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("6M"),
+                                  PopupMenuItem(
+                                      child: Text("6M"),
                                       value: ["day", "180", "6M", "1"]),
-                                  new PopupMenuItem(
-                                      child: new Text("1Y"),
+                                  PopupMenuItem(
+                                      child: Text("1Y"),
                                       value: ["day", "365", "1Y", "1"]),
                                 ],
                             onSelected: (result) {
@@ -522,13 +522,13 @@ class CoinDetailsState extends State<CoinDetails>
                         ],
                       ),
                     ),
-                    new Flexible(
+                    Flexible(
                       child: historyOHLCV != null
-                          ? new Container(
+                          ? Container(
                               padding: const EdgeInsets.only(
                                   left: 2.0, right: 1.0, top: 10.0),
                               child: historyOHLCV.isEmpty != true
-                                  ? new OHLCVGraph(
+                                  ? OHLCVGraph(
                                       data: historyOHLCV,
                                       enableGridLines: true,
                                       gridLineColor:
@@ -540,29 +540,29 @@ class CoinDetailsState extends State<CoinDetails>
                                       lineWidth: 1.0,
                                       decreaseColor: Colors.red[600],
                                     )
-                                  : new Container(
+                                  : Container(
                                       padding: const EdgeInsets.all(30.0),
                                       alignment: Alignment.topCenter,
-                                      child: new Text("No OHLCV data found :(",
+                                      child: Text("No OHLCV data found :(",
                                           style: Theme.of(context)
                                               .textTheme
                                               .caption),
                                     ),
                             )
-                          : new Container(
-                              child: new Center(
-                                child: new CircularProgressIndicator(),
+                          : Container(
+                              child: Center(
+                                child: CircularProgressIndicator(),
                               ),
                             ),
                     )
                   ],
             )
           ),
-      bottomNavigationBar: new BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         elevation: appBarElevation,
         child: generalStats != null
-            ? new QuickPercentChangeBar(snapshot: generalStats)
-            : new Container(
+            ? QuickPercentChangeBar(snapshot: generalStats)
+            : Container(
                 height: 0.0,
               ),
       ),
@@ -580,13 +580,13 @@ class CoinDetailsState extends State<CoinDetails>
                 "&tsym=USD&limit=1000"),
         headers: {"Accept": "application/json"});
 
-    if (new JsonDecoder().convert(response.body)["Response"] != "Success") {
+    if (JsonDecoder().convert(response.body)["Response"] != "Success") {
       setState(() {
         exchangeData = [];
       });
     } else {
       exchangeData =
-          new JsonDecoder().convert(response.body)["Data"]["Exchanges"];
+          JsonDecoder().convert(response.body)["Data"]["Exchanges"];
       _sortExchangeData();
     }
   }
@@ -615,24 +615,24 @@ class CoinDetailsState extends State<CoinDetails>
 
   Widget exchangeListPage(BuildContext context) {
     return exchangeData != null
-        ? new RefreshIndicator(
+        ? RefreshIndicator(
             onRefresh: () => _getExchangeData(),
             child: exchangeData.isEmpty != true
-                ? new CustomScrollView(
+                ? CustomScrollView(
                     slivers: <Widget>[
-                      new SliverList(
-                          delegate: new SliverChildListDelegate(<Widget>[
-                        new Container(
+                      SliverList(
+                          delegate: SliverChildListDelegate(<Widget>[
+                        Container(
                           margin: const EdgeInsets.only(left: 6.0, right: 6.0),
-                          decoration: new BoxDecoration(
-                              border: new Border(
-                                  bottom: new BorderSide(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
                                       color: Theme.of(context).dividerColor,
                                       width: 1.0))),
-                          child: new Row(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              new InkWell(
+                              InkWell(
                                 onTap: () {
                                   if (sortType[0] == "MARKET") {
                                     sortType[1] = !sortType[1];
@@ -643,19 +643,19 @@ class CoinDetailsState extends State<CoinDetails>
                                     _sortExchangeData();
                                   });
                                 },
-                                child: new Container(
+                                child: Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   width: MediaQuery.of(context).size.width *
                                       columnProps[0],
                                   child: sortType[0] == "MARKET"
-                                      ? new Text(
+                                      ? Text(
                                           sortType[1] == true
                                               ? "Exchange $upArrow"
                                               : "Exchange $downArrow",
                                           style:
                                               Theme.of(context).textTheme.body2)
-                                      : new Text(
+                                      : Text(
                                           "Exchange",
                                           style: Theme.of(context)
                                               .textTheme
@@ -666,7 +666,7 @@ class CoinDetailsState extends State<CoinDetails>
                                         ),
                                 ),
                               ),
-                              new InkWell(
+                              InkWell(
                                 onTap: () {
                                   if (sortType[0] == "VOLUME24HOURTO") {
                                     sortType[1] = !sortType[1];
@@ -677,20 +677,20 @@ class CoinDetailsState extends State<CoinDetails>
                                     _sortExchangeData();
                                   });
                                 },
-                                child: new Container(
+                                child: Container(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 8.0),
                                   alignment: Alignment.centerRight,
                                   width: MediaQuery.of(context).size.width *
                                       columnProps[1],
                                   child: sortType[0] == "VOLUME24HOURTO"
-                                      ? new Text(
+                                      ? Text(
                                           sortType[1] == true
-                                              ? "24h Volume $downArrow"
-                                              : "24h Volume $upArrow",
+                                              ? "${"24h_volume".tr} $downArrow"
+                                              : "${"24h_volume".tr} $upArrow",
                                           style:
                                               Theme.of(context).textTheme.body2)
-                                      : new Text("24h Volume",
+                                      : Text("24h_volume".tr,
                                           style: Theme.of(context)
                                               .textTheme
                                               .body2
@@ -699,13 +699,13 @@ class CoinDetailsState extends State<CoinDetails>
                                                       .hintColor)),
                                 ),
                               ),
-                              new Container(
+                              Container(
                                 width: MediaQuery.of(context).size.width *
                                     columnProps[2],
-                                child: new Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: <Widget>[
-                                    new InkWell(
+                                    InkWell(
                                       onTap: () {
                                         if (sortType[0] == "PRICE") {
                                           sortType[1] = !sortType[1];
@@ -716,18 +716,18 @@ class CoinDetailsState extends State<CoinDetails>
                                           _sortExchangeData();
                                         });
                                       },
-                                      child: new Padding(
+                                      child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
                                         child: sortType[0] == "PRICE"
-                                            ? new Text(
+                                            ? Text(
                                                 sortType[1] == true
-                                                    ? "Price $downArrow"
-                                                    : "Price $upArrow",
+                                                    ? "${'price'.tr} $downArrow"
+                                                    : "${'price'.tr} $upArrow",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .body2)
-                                            : new Text("Price",
+                                            : Text('price'.tr,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .body2
@@ -736,14 +736,14 @@ class CoinDetailsState extends State<CoinDetails>
                                                             .hintColor)),
                                       ),
                                     ),
-                                    new Text("/",
+                                    Text("/",
                                         style: Theme.of(context)
                                             .textTheme
                                             .body2
                                             .apply(
                                                 color: Theme.of(context)
                                                     .hintColor)),
-                                    new InkWell(
+                                    InkWell(
                                       onTap: () {
                                         if (sortType[0] == "CHANGEPCT24HOUR") {
                                           sortType[1] = !sortType[1];
@@ -754,16 +754,16 @@ class CoinDetailsState extends State<CoinDetails>
                                           _sortExchangeData();
                                         });
                                       },
-                                      child: new Padding(
+                                      child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
                                         child: sortType[0] == "CHANGEPCT24HOUR"
-                                            ? new Text(
+                                            ? Text(
                                                 sortType[1] ? "24h $downArrow" : "24h $upArrow",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .body2)
-                                            : new Text("24h",
+                                            : Text("24h",
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .body2
@@ -779,31 +779,31 @@ class CoinDetailsState extends State<CoinDetails>
                           ),
                         ),
                       ])),
-                      new SliverList(
-                          delegate: new SliverChildBuilderDelegate(
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) =>
-                            new ExchangeListItem(
+                            ExchangeListItem(
                                 exchangeData[index], columnProps),
                         childCount:
                             exchangeData == null ? 0 : exchangeData.length,
                       ))
                     ],
                   )
-                : new CustomScrollView(
+                : CustomScrollView(
                     slivers: <Widget>[
-                      new SliverList(
-                          delegate: new SliverChildListDelegate(<Widget>[
-                        new Container(
+                      SliverList(
+                          delegate: SliverChildListDelegate(<Widget>[
+                        Container(
                           padding: const EdgeInsets.all(30.0),
                           alignment: Alignment.topCenter,
-                          child: new Text("No exchanges found :(",
+                          child: Text("No exchanges found :(",
                               style: Theme.of(context).textTheme.caption),
                         )
                       ]))
                     ],
                   ))
-        : new Container(
-            child: new Center(child: new CircularProgressIndicator()),
+        : Container(
+            child: Center(child: CircularProgressIndicator()),
           );
   }
 
@@ -852,32 +852,32 @@ class CoinDetailsState extends State<CoinDetails>
   }
 
   Widget transactionPage(BuildContext context) {
-    return new CustomScrollView(
+    return CustomScrollView(
       slivers: <Widget>[
-        new SliverList(
-            delegate: new SliverChildListDelegate(<Widget>[
-          new Container(
+        SliverList(
+            delegate: SliverChildListDelegate(<Widget>[
+          Container(
             padding: const EdgeInsets.all(10.0),
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                new Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text("Total Value",
+                    Text("total_value".tr,
                         style: Theme.of(context).textTheme.caption),
-                    new Row(
+                    Row(
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-                        new Text("\$" + numCommaParse(value.toStringAsFixed(2)),
+                        Text("\$" + numCommaParse(value.toStringAsFixed(2)),
                             style: Theme.of(context)
                                 .textTheme
                                 .body2
                                 .apply(fontSizeFactor: 2.2)),
                       ],
                     ),
-                    new Text(
+                    Text(
                         num.parse(holdings.toStringAsPrecision(9)).toString() +
                             " " +
                             symbol,
@@ -887,23 +887,23 @@ class CoinDetailsState extends State<CoinDetails>
                             .apply(fontSizeFactor: 1.2)),
                   ],
                 ),
-                new Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text("Total Net",
+                    Text("total_net".tr,
                         style: Theme.of(context).textTheme.caption),
-                    new PercentDollarChange(
+                    PercentDollarChange(
                       exact: net,
                       percent: netPercent,
                     )
                   ],
                 ),
-                new Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    new Text("Total Cost",
+                    Text("total_cost".tr,
                         style: Theme.of(context).textTheme.caption),
-                    new Text("\$" + numCommaParse(cost.toStringAsFixed(2)),
+                    Text("\$" + numCommaParse(cost.toStringAsFixed(2)),
                         style: Theme.of(context)
                             .primaryTextTheme
                             .body2
@@ -914,9 +914,9 @@ class CoinDetailsState extends State<CoinDetails>
             ),
           ),
         ])),
-        new SliverList(
-            delegate: new SliverChildBuilderDelegate(
-                (context, index) => new TransactionItem(
+        SliverList(
+            delegate: SliverChildBuilderDelegate(
+                (context, index) => TransactionItem(
                       snapshot: transactionList[index],
                       currentPrice: generalStats["PRICE"],
                       symbol: symbol,

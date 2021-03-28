@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wefinex/languages/language.dart';
-import 'settings_page.dart';
+import 'setting/settings_page.dart';
 import 'tabs.dart';
 
 const double appBarHeight = 48.0;
@@ -27,24 +27,21 @@ String upArrow = "⬆";
 String downArrow = "⬇";
 
 int lastUpdate;
+
 Future<Null> getMarketData() async {
   int pages = 5;
   List tempMarketListData = [];
 
   Future<Null> _pullData(page) async {
-    var response = await http.get(
-        Uri.tryParse("https://min-api.cryptocompare.com/data/top/mktcapfull?tsym=USD&limit=100" +
-            "&page=" +
-            page.toString()),
-        headers: {"Accept": "application/json"});
-
+    var response = await http
+        .get(Uri.tryParse("https://min-api.cryptocompare.com/data/top/mktcapfull?tsym=USD&limit=100" + "&page=" + page.toString()), headers: {"Accept": "application/json"});
     List rawMarketListData = JsonDecoder().convert(response.body)["Data"];
     tempMarketListData.addAll(rawMarketListData);
   }
 
   List<Future> futures = [];
   for (int i = 0; i < pages; i++) {
-    futures.add(_pullData(i));                                       
+    futures.add(_pullData(i));
   }
   await Future.wait(futures);
 
@@ -94,10 +91,15 @@ void main() async {
   String themeMode = "Automatic";
   bool darkOLED = false;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.getBool("shortenOn") != null &&
-      prefs.getString("themeMode") != null) {
+  if (prefs.getBool("shortenOn") != null && prefs.getString("themeMode") != null) {
     shortenOn = prefs.getBool("shortenOn");
-    themeMode = prefs.getString("themeMode");
+    if (prefs.getString("themeMode") == "light".tr) {
+      themeMode = "Light";
+    } else if (prefs.getString("themeMode") == "dark".tr) {
+      themeMode = "Dark";
+    } else {
+      themeMode = "Automatic";
+    }
     darkOLED = prefs.getBool("darkOLED");
   }
 
@@ -106,33 +108,25 @@ void main() async {
 
 numCommaParse(numString) {
   if (shortenOn) {
-    String str = num.parse(numString ?? "0").round().toString().replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+    String str = num.parse(numString ?? "0").round().toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
     List<String> strList = str.split(",");
 
     if (strList.length > 3) {
-      return strList[0] +
-          "." +
-          strList[1].substring(0, 4 - strList[0].length) +
-          "B";
+      return strList[0] + "." + strList[1].substring(0, 4 - strList[0].length) + "B";
     } else if (strList.length > 2) {
-      return strList[0] +
-          "." +
-          strList[1].substring(0, 4 - strList[0].length) +
-          "M";
+      return strList[0] + "." + strList[1].substring(0, 4 - strList[0].length) + "M";
     } else {
-      return num.parse(numString ?? "0").toString().replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+      return num.parse(numString ?? "0").toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
     }
   }
 
-  return num.parse(numString ?? "0").toString().replaceAllMapped(
-      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
+  return num.parse(numString ?? "0").toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
 }
 
 normalizeNum(num input) {
   if (input == null) {
-    input = 0;}
+    input = 0;
+  }
   if (input >= 100000) {
     return numCommaParse(input.round().toString());
   } else if (input >= 1000) {
@@ -144,7 +138,8 @@ normalizeNum(num input) {
 
 normalizeNumNoCommas(num input) {
   if (input == null) {
-    input = 0;}
+    input = 0;
+  }
   if (input >= 1000) {
     return input.toStringAsFixed(2);
   } else {
@@ -154,6 +149,7 @@ normalizeNumNoCommas(num input) {
 
 class TraceApp extends StatefulWidget {
   TraceApp(this.themeMode, this.darkOLED);
+
   final themeMode;
   final darkOLED;
 
@@ -176,13 +172,13 @@ class TraceAppState extends State<TraceApp> {
   toggleTheme() {
     switch (themeMode) {
       case "Automatic":
-        themeMode = "Dark";
+        themeMode = "dark".tr;
         break;
       case "Dark":
-        themeMode = "Light";
+        themeMode = "light".tr;
         break;
       case "Light":
-        themeMode = "Automatic";
+        themeMode = "automatic".tr;
         break;
     }
     handleUpdate();
@@ -225,14 +221,11 @@ class TraceAppState extends State<TraceApp> {
 
   setNavBarColor() async {
     if (darkEnabled) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-          systemNavigationBarIconBrightness: Brightness.light,
-          systemNavigationBarColor:
-              darkOLED ? darkThemeOLED.primaryColor : darkTheme.primaryColor));
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
+          .copyWith(systemNavigationBarIconBrightness: Brightness.light, systemNavigationBarColor: darkOLED ? darkThemeOLED.primaryColor : darkTheme.primaryColor));
     } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: lightTheme.primaryColor));
+      SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle.dark.copyWith(systemNavigationBarIconBrightness: Brightness.dark, systemNavigationBarColor: lightTheme.primaryColor));
     }
   }
 
@@ -301,33 +294,38 @@ class TraceAppState extends State<TraceApp> {
     }
 
     return GetMaterialApp(
-      color: darkEnabled
-          ? darkOLED ? darkThemeOLED.primaryColor : darkTheme.primaryColor
-          : lightTheme.primaryColor,
-      title: Text('trace'.tr).data,
-      home: Tabs(
-        savePreferences: savePreferences,
-        toggleTheme: toggleTheme,
-        handleUpdate: handleUpdate,
-        darkEnabled: darkEnabled,
-        themeMode: themeMode,
-        switchOLED: switchOLED,
-        darkOLED: darkOLED,
-      ),
-      theme: darkEnabled ? darkOLED ? darkThemeOLED : darkTheme : lightTheme,
-      routes: <String, WidgetBuilder>{
-        "/settings": (BuildContext context) => SettingsPage(
-              savePreferences: savePreferences,
-              toggleTheme: toggleTheme,
-              darkEnabled: darkEnabled,
-              themeMode: themeMode,
-              switchOLED: switchOLED,
-              darkOLED: darkOLED,
-            ),
-      },
-      locale: Languages.locale,
-      fallbackLocale: Languages.fallbackLocale,
-      translations: Languages()
-    );
+        color: darkEnabled
+            ? darkOLED
+                ? darkThemeOLED.primaryColor
+                : darkTheme.primaryColor
+            : lightTheme.primaryColor,
+        title: Text('trace'.tr).data,
+        home: Tabs(
+          savePreferences: savePreferences,
+          toggleTheme: toggleTheme,
+          handleUpdate: handleUpdate,
+          darkEnabled: darkEnabled,
+          themeMode: themeMode,
+          switchOLED: switchOLED,
+          darkOLED: darkOLED,
+        ),
+        theme: darkEnabled
+            ? darkOLED
+                ? darkThemeOLED
+                : darkTheme
+            : lightTheme,
+        routes: <String, WidgetBuilder>{
+          "/settings": (BuildContext context) => SettingsPage(
+                savePreferences: savePreferences,
+                toggleTheme: toggleTheme,
+                darkEnabled: darkEnabled,
+                themeMode: themeMode,
+                switchOLED: switchOLED,
+                darkOLED: darkOLED,
+              ),
+        },
+        locale: LocalizationService.locale,
+        fallbackLocale: LocalizationService.fallbackLocale,
+        translations: LocalizationService());
   }
 }
