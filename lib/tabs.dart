@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:wefinex/define/constants.dart';
 import 'package:wefinex/login/login_screen.dart';
 import 'main.dart';
 import 'trace/market_coin_item.dart';
@@ -18,7 +19,7 @@ class Tabs extends StatefulWidget {
   final Function savePreferences;
 
   final bool darkEnabled;
-  final String themeMode;
+  final int themeMode;
 
   final Function switchOLED;
   final bool darkOLED;
@@ -169,6 +170,14 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    String theme = "automatic".tr;
+    if (widget.themeMode == themeDark)
+      theme = "dark".tr;
+    else if (widget.themeMode == themeLight) {
+      theme = "light".tr;
+    } else {
+      theme = "automatic".tr;
+    }
     return Scaffold(
         key: _scaffoldKey,
         drawer: Drawer(
@@ -181,7 +190,7 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
                     child: ListTile(
                       onTap: widget.toggleTheme,
                       leading: Icon(widget.darkEnabled ? Icons.brightness_3 : Icons.brightness_7, color: Theme.of(context).buttonColor),
-                      title: Text(widget.themeMode, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).buttonColor)),
+                      title: Text(theme, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).buttonColor)),
                     )),
                 body: ListView(
                   children: <Widget>[

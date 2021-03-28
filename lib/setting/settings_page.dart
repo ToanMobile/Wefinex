@@ -8,6 +8,7 @@ import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wefinex/define/constants.dart';
 import 'package:wefinex/languages/language.dart';
 import '../main.dart';
 
@@ -17,7 +18,7 @@ class SettingsPage extends StatefulWidget {
   final Function savePreferences;
   final Function toggleTheme;
   final bool darkEnabled;
-  final String themeMode;
+  final int themeMode;
   final Function switchOLED;
   final bool darkOLED;
 
@@ -123,6 +124,14 @@ class SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    String theme = "automatic".tr;
+    if (widget.themeMode == themeDark)
+      theme = "dark".tr;
+    else if (widget.themeMode == themeLight) {
+      theme = "light".tr;
+    } else {
+      theme = "automatic".tr;
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(appBarHeight),
@@ -154,7 +163,7 @@ class SettingsPageState extends State<SettingsPage> {
               child: ListTile(
                 onTap: widget.toggleTheme,
                 leading: Icon(widget.darkEnabled ? Icons.brightness_3 : Icons.brightness_7),
-                subtitle: Text(widget.themeMode),
+                subtitle: Text(theme),
                 title: Text("theme".tr),
               )),
           Container(

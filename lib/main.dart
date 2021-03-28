@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:get/get.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wefinex/define/constants.dart';
 import 'package:wefinex/languages/language.dart';
+
 import 'setting/settings_page.dart';
 import 'tabs.dart';
 
@@ -88,18 +91,12 @@ void main() async {
     }
   });
 
-  String themeMode = "Automatic";
+  int themeMode = themeAuto;
   bool darkOLED = false;
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.getBool("shortenOn") != null && prefs.getString("themeMode") != null) {
+  if (prefs.getBool("shortenOn") != null && prefs.getInt("themeMode") != null) {
     shortenOn = prefs.getBool("shortenOn");
-    if (prefs.getString("themeMode") == "light".tr) {
-      themeMode = "Light";
-    } else if (prefs.getString("themeMode") == "dark".tr) {
-      themeMode = "Dark";
-    } else {
-      themeMode = "Automatic";
-    }
+    themeMode = prefs.getInt("themeMode");
     darkOLED = prefs.getBool("darkOLED");
   }
 
@@ -159,26 +156,27 @@ class TraceApp extends StatefulWidget {
 
 class TraceAppState extends State<TraceApp> {
   bool darkEnabled;
-  String themeMode;
+  int themeMode;
   bool darkOLED;
 
   void savePreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("themeMode", themeMode);
+    prefs.setInt("themeMode", themeMode);
     prefs.setBool("shortenOn", shortenOn);
     prefs.setBool("darkOLED", darkOLED);
   }
 
   toggleTheme() {
+    print('themeMode=='+ themeMode.toString());
     switch (themeMode) {
-      case "Automatic":
-        themeMode = "dark".tr;
+      case themeAuto:
+        themeMode = themeDark;
         break;
-      case "Dark":
-        themeMode = "light".tr;
+      case themeDark:
+        themeMode = themeLight;
         break;
-      case "Light":
-        themeMode = "automatic".tr;
+      case themeLight:
+        themeMode = themeAuto;
         break;
     }
     handleUpdate();
@@ -187,7 +185,7 @@ class TraceAppState extends State<TraceApp> {
 
   setDarkEnabled() {
     switch (themeMode) {
-      case "Automatic":
+      case themeAuto:
         int nowHour = DateTime.now().hour;
         if (nowHour > 6 && nowHour < 20) {
           darkEnabled = false;
@@ -195,10 +193,10 @@ class TraceAppState extends State<TraceApp> {
           darkEnabled = true;
         }
         break;
-      case "Dark":
+      case themeDark:
         darkEnabled = true;
         break;
-      case "Light":
+      case themeLight:
         darkEnabled = false;
         break;
     }
