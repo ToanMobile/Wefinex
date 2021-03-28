@@ -15,6 +15,10 @@ const Map<String, String> enUS = {
   'english':'English',
   'vietnam':'Vietnamese',
 
+  //Login
+  'welcome':'WELCOME TO Wefinex',
+  'login':'Login',
+  'register':'Register',
   //Theme
   'automatic': 'Automatic',
   'dark': 'Dark',

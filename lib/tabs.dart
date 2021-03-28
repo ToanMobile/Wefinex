@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:wefinex/login/login_screen.dart';
 import 'main.dart';
 import 'trace/market_coin_item.dart';
 import 'portfolio/portfolio_tabs.dart';
@@ -184,6 +185,11 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
                     )),
                 body: ListView(
                   children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.home_rounded),
+                      title: Text("login".tr),
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen())),
+                    ),
                     ListTile(
                       leading: Icon(Icons.settings),
                       title: Text("setting".tr),

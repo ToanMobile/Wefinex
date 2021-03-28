@@ -14,6 +14,11 @@ const Map<String, String> viVN = {
   'english':'Tiếng anh',
   'vietnam':'Tiếng việt',
 
+  //Login
+  'welcome':'Xin chào tới Wefinex',
+  'login':'Đăng nhập',
+  'register':'Đăng ký',
+
   //Theme
   'automatic': 'Tự động',
   'dark': 'Tối',
