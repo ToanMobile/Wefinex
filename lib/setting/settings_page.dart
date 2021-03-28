@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wefinex/languages/language.dart';
 import '../main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -25,6 +26,20 @@ class SettingsPage extends StatefulWidget {
 }
 
 class SettingsPageState extends State<SettingsPage> {
+  bool enLanguage = false;
+
+  toggleLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool language = prefs.getBool("language") ?? false;
+    if (language) {
+      LocalizationService().changeLocale(LocalizationService.langs.last);
+    } else {
+      LocalizationService().changeLocale(LocalizationService.langs.first);
+    }
+    enLanguage = !language;
+    prefs.setBool("language", enLanguage);
+  }
+
   _confirmDeletePortfolio() {
     showDialog(
         context: context,
@@ -73,7 +88,7 @@ class SettingsPageState extends State<SettingsPage> {
               Clipboard.setData(ClipboardData(text: text));
               _scaffoldKey.currentState.showSnackBar(SnackBar(backgroundColor: Theme.of(context).indicatorColor, content: Text("copy_clipboard".tr)));
             },
-            child: Container(padding: const EdgeInsets.all(10.0), child: Text(text, style: Theme.of(context).textTheme.body1.apply(fontSizeFactor: 1.1))),
+            child: Container(padding: const EdgeInsets.all(10.0), child: Text(text, style: Theme.of(context).textTheme.bodyText2.apply(fontSizeFactor: 1.1))),
           )));
     }));
   }
@@ -115,15 +130,25 @@ class SettingsPageState extends State<SettingsPage> {
           backgroundColor: Theme.of(context).primaryColor,
           titleSpacing: 0.0,
           elevation: appBarElevation,
-          title: Text("setting".tr, style: Theme.of(context).textTheme.title),
+          title: Text("setting".tr, style: Theme.of(context).textTheme.headline6),
         ),
       ),
       body: ListView(
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("preferences".tr, style: Theme.of(context).textTheme.body2),
+            child: Text("preferences".tr, style: Theme.of(context).textTheme.bodyText1),
           ),
+          Container(
+              color: Theme.of(context).cardColor,
+              child: ListTile(
+                onTap: () async {
+                  toggleLanguage();
+                },
+                leading: Icon(enLanguage ? Icons.flag : Icons.flag_outlined),
+                subtitle: Text(enLanguage ? "english".tr : "vietnam".tr),
+                title: Text("language".tr),
+              )),
           Container(
               color: Theme.of(context).cardColor,
               child: ListTile(
@@ -171,7 +196,7 @@ class SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("debug".tr, style: Theme.of(context).textTheme.body2),
+            child: Text("debug".tr, style: Theme.of(context).textTheme.bodyText1),
           ),
           Container(
             color: Theme.of(context).cardColor,
@@ -216,14 +241,14 @@ class SettingsPageState extends State<SettingsPage> {
           ),
           Container(
             padding: const EdgeInsets.all(10.0),
-            child: Text("credit".tr, style: Theme.of(context).textTheme.body2),
+            child: Text("credit".tr, style: Theme.of(context).textTheme.bodyText1),
           ),
           Container(
             color: Theme.of(context).cardColor,
             child: ListTile(
               title: RichText(
-                  text: TextSpan(text: "maintained".tr, style: Theme.of(context).textTheme.subhead, children: <TextSpan>[
-                TextSpan(text: "@ToanDev", style: Theme.of(context).textTheme.subhead.apply(color: Theme.of(context).buttonColor, fontWeightDelta: 2))
+                  text: TextSpan(text: "maintained".tr, style: Theme.of(context).textTheme.subtitle1, children: <TextSpan>[
+                TextSpan(text: "@ToanDev", style: Theme.of(context).textTheme.subtitle1.apply(color: Theme.of(context).buttonColor, fontWeightDelta: 2))
               ])),
               subtitle: Text("https://www.facebook.com/VanToanIT/"),
               leading: Icon(Icons.favorite),
@@ -277,7 +302,7 @@ class ImportPageState extends State<ImportPage> {
 
       newPortfolioMap = checkMap;
       setState(() {
-        textColor = Theme.of(context).textTheme.body1.color;
+        textColor = Theme.of(context).textTheme.bodyText2.color;
       });
     } catch (e) {
       print("Invalid JSON: $e");
@@ -348,14 +373,14 @@ class ImportPageState extends State<ImportPage> {
                       _importController.text = clipText;
                       _checkImport(clipText);
                     },
-                    child: Text("paste".tr, style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).iconTheme.color)),
+                    child: Text("paste".tr, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).iconTheme.color)),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6.0),
                   ),
                   ElevatedButton(
                       onPressed: textColor != Colors.red ? _importPortfolio : null,
-                      child: Text("import".tr, style: Theme.of(context).textTheme.body2.apply(color: Theme.of(context).iconTheme.color)),
+                      child: Text("import".tr, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).iconTheme.color)),
                       style: ElevatedButton.styleFrom(onPrimary: Colors.green)),
                 ],
               ),
@@ -364,7 +389,7 @@ class ImportPageState extends State<ImportPage> {
                 child: TextField(
                   controller: _importController,
                   maxLines: null,
-                  style: Theme.of(context).textTheme.body1.apply(color: textColor, fontSizeFactor: 1.1),
+                  style: Theme.of(context).textTheme.bodyText2.apply(color: textColor, fontSizeFactor: 1.1),
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).accentColor, width: 2.0)),
                       border: OutlineInputBorder(),

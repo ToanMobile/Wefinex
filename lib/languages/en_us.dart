@@ -8,9 +8,12 @@ const Map<String, String> enUS = {
   'paste':'Paste',
   'copy_clipboard':'Copied to Clipboard!',
   'preferences':'Preferences',
+  'language':'Language',
   'theme':'Theme',
   'debug':'Debug',
   'empty':'No results found!',
+  'english':'English',
+  'vietnam':'Vietnamese',
 
   //Theme
   'automatic': 'Automatic',

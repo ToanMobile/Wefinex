@@ -7,9 +7,12 @@ const Map<String, String> viVN = {
   'paste':'Dán',
   'copy_clipboard':'Đã sao chép vào Clipboard!',
   'preferences':'Sở thích',
+  'language':'Ngôn ngữ',
   'theme':'Chủ đề',
   'debug':'Gỡ lỗi',
   'empty':'Không tìm thấy kết quả!',
+  'english':'Tiếng anh',
+  'vietnam':'Tiếng việt',
 
   //Theme
   'automatic': 'Tự động',

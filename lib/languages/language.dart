@@ -21,7 +21,7 @@ class LocalizationService extends Translations {
   // Needs to be same order with locales
   static final langs = [
     'English',
-    'VietNam',
+    'Vietnamese',
   ];
 
   // Supported locales
