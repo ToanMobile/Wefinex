@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
@@ -26,26 +26,26 @@ class TransactionSheet extends StatefulWidget {
   final String symbol;
 
   @override
-  TransactionSheetState createState() => new TransactionSheetState();
+  TransactionSheetState createState() => TransactionSheetState();
 }
 
 class TransactionSheetState extends State<TransactionSheet> {
-  TextEditingController _symbolController = new TextEditingController();
-  TextEditingController _priceController = new TextEditingController();
-  TextEditingController _quantityController = new TextEditingController();
-  TextEditingController _exchangeController = new TextEditingController();
-  TextEditingController _notesController = new TextEditingController();
+  TextEditingController _symbolController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+  TextEditingController _quantityController = TextEditingController();
+  TextEditingController _exchangeController = TextEditingController();
+  TextEditingController _notesController = TextEditingController();
 
-  FocusNode _priceFocusNode = new FocusNode();
-  FocusNode _quantityFocusNode = new FocusNode();
-  FocusNode _notesFocusNode = new FocusNode();
+  FocusNode _priceFocusNode = FocusNode();
+  FocusNode _quantityFocusNode = FocusNode();
+  FocusNode _notesFocusNode = FocusNode();
 
   Color errorColor = Colors.red;
   Color validColor;
 
   int radioValue = 0;
-  DateTime pickedDate = new DateTime.now();
-  TimeOfDay pickedTime = new TimeOfDay.now();
+  DateTime pickedDate = DateTime.now();
+  TimeOfDay pickedTime = TimeOfDay.now();
   int epochDate;
 
   List symbolList;
@@ -81,11 +81,7 @@ class TransactionSheetState extends State<TransactionSheet> {
   }
 
   Future<Null> _selectDate() async {
-    DateTime pick = await showDatePicker(
-        context: context,
-        initialDate: new DateTime.now(),
-        firstDate: new DateTime(1950),
-        lastDate: new DateTime.now());
+    DateTime pick = await showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1950), lastDate: DateTime.now());
     if (pick != null) {
       setState(() {
         pickedDate = pick;
@@ -95,8 +91,7 @@ class TransactionSheetState extends State<TransactionSheet> {
   }
 
   Future<Null> _selectTime() async {
-    TimeOfDay pick = await showTimePicker(
-        context: context, initialTime: new TimeOfDay.now());
+    TimeOfDay pick = await showTimePicker(context: context, initialTime: TimeOfDay.now());
     if (pick != null) {
       setState(() {
         pickedTime = pick;
@@ -106,9 +101,7 @@ class TransactionSheetState extends State<TransactionSheet> {
   }
 
   _makeEpoch() {
-    epochDate = new DateTime(pickedDate.year, pickedDate.month, pickedDate.day,
-            pickedTime.hour, pickedTime.minute)
-        .millisecondsSinceEpoch;
+    epochDate = DateTime(pickedDate.year, pickedDate.month, pickedDate.day, pickedTime.hour, pickedTime.minute).millisecondsSinceEpoch;
   }
 
   _checkValidSymbol(String inputSymbol) async {
@@ -150,8 +143,7 @@ class TransactionSheetState extends State<TransactionSheet> {
   _checkValidQuantity(String quantityString) {
     try {
       quantity = num.parse(quantityString);
-      if (quantity <= 0 ||
-          radioValue == 1 && totalQuantities[symbol] - quantity < 0) {
+      if (quantity <= 0 || radioValue == 1 && totalQuantities[symbol] - quantity < 0) {
         quantity = null;
         setState(() {
           quantityTextColor = errorColor;
@@ -191,26 +183,17 @@ class TransactionSheetState extends State<TransactionSheet> {
   }
 
   _handleSave() async {
-    if (symbol != null &&
-        quantity != null &&
-        exchange != null &&
-        price != null) {
+    if (symbol != null && quantity != null && exchange != null && price != null) {
       print("WRITING TO JSON...");
 
       await getApplicationDocumentsDirectory().then((Directory directory) {
-        File jsonFile = new File(directory.path + "/portfolio.json");
+        File jsonFile = File(directory.path + "/portfolio.json");
         if (jsonFile.existsSync()) {
           if (radioValue == 1) {
             quantity = -quantity;
           }
 
-          Map newEntry = {
-            "quantity": quantity,
-            "price_usd": price,
-            "exchange": exchange,
-            "time_epoch": epochDate,
-            "notes": _notesController.text
-          };
+          Map newEntry = {"quantity": quantity, "price_usd": price, "exchange": exchange, "time_epoch": epochDate, "notes": _notesController.text};
 
           Map jsonContent = json.decode(jsonFile.readAsStringSync());
           if (jsonContent == null) {
@@ -252,7 +235,7 @@ class TransactionSheetState extends State<TransactionSheet> {
 
   _deleteTransaction() async {
     await getApplicationDocumentsDirectory().then((Directory directory) {
-      File jsonFile = new File(directory.path + "/portfolio.json");
+      File jsonFile = File(directory.path + "/portfolio.json");
       if (jsonFile.existsSync()) {
         Map jsonContent = json.decode(jsonFile.readAsStringSync());
 
@@ -273,10 +256,10 @@ class TransactionSheetState extends State<TransactionSheet> {
         Navigator.of(context).pop();
         jsonFile.writeAsStringSync(json.encode(jsonContent));
 
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          duration: new Duration(seconds: 5),
-          content: new Text("Transaction Deleted."),
-          action: new SnackBarAction(
+        Scaffold.of(context).showSnackBar(SnackBar(
+          duration: Duration(seconds: 5),
+          content: Text("Transaction Deleted."),
+          action: SnackBarAction(
             label: "Undo",
             onPressed: () {
               if (jsonContent[widget.symbol] != null) {
@@ -300,16 +283,12 @@ class TransactionSheetState extends State<TransactionSheet> {
   }
 
   Future<Null> _getExchangeList() async {
-    var response = await http.get(
-        Uri.tryParse(
-            "https://min-api.cryptocompare.com/data/top/exchanges?fsym=" +
-                symbol +
-                "&tsym=USD&limit=100"),
-        headers: {"Accept": "application/json"});
+    var response =
+        await http.get(Uri.tryParse("https://min-api.cryptocompare.com/data/top/exchanges?fsym=" + symbol + "&tsym=USD&limit=100"), headers: {"Accept": "application/json"});
 
     exchangesList = [];
 
-    List exchangeData = new JsonDecoder().convert(response.body)["Data"];
+    List exchangeData = JsonDecoder().convert(response.body)["Data"];
     exchangeData.forEach((value) => exchangesList.add(value["exchange"]));
   }
 
@@ -336,9 +315,8 @@ class TransactionSheetState extends State<TransactionSheet> {
 
     _notesController.text = widget.snapshot["notes"];
 
-    pickedDate =
-        new DateTime.fromMillisecondsSinceEpoch(widget.snapshot["time_epoch"]);
-    pickedTime = new TimeOfDay.fromDateTime(pickedDate);
+    pickedDate = DateTime.fromMillisecondsSinceEpoch(widget.snapshot["time_epoch"]);
+    pickedTime = TimeOfDay.fromDateTime(pickedDate);
   }
 
   @override
@@ -358,248 +336,175 @@ class TransactionSheetState extends State<TransactionSheet> {
   @override
   Widget build(BuildContext context) {
     validColor = Theme.of(context).textTheme.body2.color;
-    return new Container(
-        decoration: new BoxDecoration(
-          border: new Border(
-              top: new BorderSide(color: Theme.of(context).bottomAppBarColor)),
+    return Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: Theme.of(context).bottomAppBarColor)),
           color: Theme.of(context).primaryColor,
         ),
-        padding: const EdgeInsets.only(
-            top: 8.0, bottom: 8.0, right: 16.0, left: 16.0),
-        child: new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-//                    new Container(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 16.0, left: 16.0),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+          Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: <Widget>[
+//                    Container(
 //                      padding: const EdgeInsets.symmetric(vertical: 4.0),
-//                      child: new Text(widget.editMode ? "Edit Transaction" : "Add Transaction", style: Theme.of(context).textTheme.body2.apply(fontSizeFactor: 1.2, fontWeightDelta: 2))
+//                      child: Text(widget.editMode ? "Edit Transaction" : "Add Transaction", style: Theme.of(context).textTheme.body2.apply(fontSizeFactor: 1.2, fontWeightDelta: 2))
 //                    ),
-                    new Row(
-                      children: <Widget>[
-                        new Text("Buy",
-                            style: Theme.of(context).textTheme.caption),
-                        new Radio(
-                            value: 0,
-                            groupValue: radioValue,
-                            onChanged: _handleRadioValueChange,
-                            activeColor: Theme.of(context).buttonColor),
-                        new Text("Sell",
-                            style: Theme.of(context).textTheme.caption),
-                        new Radio(
-                            value: 1,
-                            groupValue: radioValue,
-                            onChanged: _handleRadioValueChange,
-                            activeColor: Theme.of(context).buttonColor),
-                        new Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 6.0)),
-                        new GestureDetector(
-                          onTap: () => _selectDate(),
-                          child: new Text(
-                              pickedDate.month.toString() +
-                                  "/" +
-                                  pickedDate.day.toString() +
-                                  "/" +
-                                  pickedDate.year.toString().substring(2),
-                              style: Theme.of(context).textTheme.button),
-                        ),
-                        new Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0)),
-                        new GestureDetector(
-                          onTap: () => _selectTime(),
-                          child: new Text(
-                            (pickedTime.hourOfPeriod == 0
-                                    ? "12"
-                                    : pickedTime.hourOfPeriod.toString()) +
-                                ":" +
-                                (pickedTime.minute > 9
-                                    ? pickedTime.minute.toString()
-                                    : "0" + pickedTime.minute.toString()) +
-                                (pickedTime.hour >= 12 ? "PM" : "AM"),
-                            style: Theme.of(context).textTheme.button,
-                          ),
-                        ),
-                        new Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 6.0)),
-                      ],
+            Row(
+              children: <Widget>[
+                Text("buy".tr, style: Theme.of(context).textTheme.caption),
+                Radio(value: 0, groupValue: radioValue, onChanged: _handleRadioValueChange, activeColor: Theme.of(context).buttonColor),
+                Text("sell".tr, style: Theme.of(context).textTheme.caption),
+                Radio(value: 1, groupValue: radioValue, onChanged: _handleRadioValueChange, activeColor: Theme.of(context).buttonColor),
+                Padding(padding: const EdgeInsets.symmetric(horizontal: 6.0)),
+                GestureDetector(
+                  onTap: () => _selectDate(),
+                  child: Text(pickedDate.month.toString() + "/" + pickedDate.day.toString() + "/" + pickedDate.year.toString().substring(2),
+                      style: Theme.of(context).textTheme.button),
+                ),
+                Padding(padding: const EdgeInsets.symmetric(horizontal: 4.0)),
+                GestureDetector(
+                  onTap: () => _selectTime(),
+                  child: Text(
+                    (pickedTime.hourOfPeriod == 0 ? "12" : pickedTime.hourOfPeriod.toString()) +
+                        ":" +
+                        (pickedTime.minute > 9 ? pickedTime.minute.toString() : "0" + pickedTime.minute.toString()) +
+                        (pickedTime.hour >= 12 ? "PM" : "AM"),
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.symmetric(horizontal: 6.0)),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TextField(
+                    controller: _symbolController,
+                    autofocus: true,
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.characters,
+                    onChanged: _checkValidSymbol,
+                    onSubmitted: (_) => FocusScope.of(context).requestFocus(_quantityFocusNode),
+                    style: Theme.of(context).textTheme.body2.apply(color: symbolTextColor),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "symbol".tr,
                     ),
-                    new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: new TextField(
-                            controller: _symbolController,
-                            autofocus: true,
-                            autocorrect: false,
-                            textCapitalization: TextCapitalization.characters,
-                            onChanged: _checkValidSymbol,
-                            onSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_quantityFocusNode),
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .apply(color: symbolTextColor),
-                            decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Symbol",
-                            ),
-                          ),
-                        ),
-                        new Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: new TextField(
-                            focusNode: _quantityFocusNode,
-                            controller: _quantityController,
-                            autocorrect: false,
-                            onChanged: _checkValidQuantity,
-                            onSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_priceFocusNode),
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .apply(color: quantityTextColor),
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
-                            decoration: new InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Quantity",
-                            ),
-                          ),
-                        ),
-                        new Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          padding: const EdgeInsets.only(right: 4.0),
-                          child: new TextField(
-                            focusNode: _priceFocusNode,
-                            controller: _priceController,
-                            autocorrect: false,
-                            onChanged: _checkValidPrice,
-                            onSubmitted: (_) => FocusScope.of(context)
-                                .requestFocus(_notesFocusNode),
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .apply(color: priceTextColor),
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
-                            decoration: new InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Price",
-                                prefixText: "\$",
-                                prefixStyle: Theme.of(context)
-                                    .textTheme
-                                    .body2
-                                    .apply(color: priceTextColor)),
-                          ),
-                        )
-                      ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TextField(
+                    focusNode: _quantityFocusNode,
+                    controller: _quantityController,
+                    autocorrect: false,
+                    onChanged: _checkValidQuantity,
+                    onSubmitted: (_) => FocusScope.of(context).requestFocus(_priceFocusNode),
+                    style: Theme.of(context).textTheme.body2.apply(color: quantityTextColor),
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "quantity".tr,
                     ),
-                    new Row(
-                      children: <Widget>[
-                        new Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: new PopupMenuButton(
-                            itemBuilder: (BuildContext context) {
-                              List<PopupMenuEntry<dynamic>> options = [
-                                new PopupMenuItem(
-                                  child: new Text("Aggregated"),
-                                  value: "CCCAGG",
-                                ),
-                              ];
-                              if (exchangesList != null &&
-                                  exchangesList.isEmpty != true) {
-                                options.add(new PopupMenuDivider());
-                                exchangesList.forEach(
-                                    (exchange) => options.add(new PopupMenuItem(
-                                          child: new Text(exchange),
-                                          value: exchange,
-                                        )));
-                              }
-                              return options;
-                            },
-                            onSelected: (selected) {
-                              setState(() {
-                                exchange = selected;
-                                if (selected == "CCCAGG") {
-                                  _exchangeController.text = "Aggregated";
-                                } else {
-                                  _exchangeController.text = selected;
-                                }
-                                FocusScope.of(context)
-                                    .requestFocus(_notesFocusNode);
-                              });
-                            },
-                            child: new Text(
-                              _exchangeController.text == ""
-                                  ? "Exchange"
-                                  : _exchangeController.text,
-                              style: Theme.of(context).textTheme.body2.apply(
-                                  color: _exchangeController.text == ""
-                                      ? Theme.of(context).hintColor
-                                      : validColor),
-                            ),
-                          ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: TextField(
+                    focusNode: _priceFocusNode,
+                    controller: _priceController,
+                    autocorrect: false,
+                    onChanged: _checkValidPrice,
+                    onSubmitted: (_) => FocusScope.of(context).requestFocus(_notesFocusNode),
+                    style: Theme.of(context).textTheme.body2.apply(color: priceTextColor),
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                        border: InputBorder.none, hintText: "price".tr, prefixText: "\$", prefixStyle: Theme.of(context).textTheme.body2.apply(color: priceTextColor)),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: PopupMenuButton(
+                    itemBuilder: (BuildContext context) {
+                      List<PopupMenuEntry<dynamic>> options = [
+                        PopupMenuItem(
+                          child: Text("aggregated".tr),
+                          value: "CCCAGG",
                         ),
-                        new Container(
-                          width: MediaQuery.of(context).size.width * 0.50,
-                          child: new TextField(
-                            focusNode: _notesFocusNode,
-                            controller: _notesController,
-                            autocorrect: true,
-                            textCapitalization: TextCapitalization.none,
-                            style: Theme.of(context)
-                                .textTheme
-                                .body2
-                                .apply(color: validColor),
-                            keyboardType: TextInputType.text,
-                            decoration: new InputDecoration(
-                                border: InputBorder.none, hintText: "Notes"),
-                          ),
-                        ),
-                      ],
+                      ];
+                      if (exchangesList != null && exchangesList.isEmpty != true) {
+                        options.add(PopupMenuDivider());
+                        exchangesList.forEach((exchange) => options.add(PopupMenuItem(
+                              child: Text(exchange),
+                              value: exchange,
+                            )));
+                      }
+                      return options;
+                    },
+                    onSelected: (selected) {
+                      setState(() {
+                        exchange = selected;
+                        if (selected == "CCCAGG") {
+                          _exchangeController.text = "Aggregated";
+                        } else {
+                          _exchangeController.text = selected;
+                        }
+                        FocusScope.of(context).requestFocus(_notesFocusNode);
+                      });
+                    },
+                    child: Text(
+                      _exchangeController.text == "" ? "exchange".tr : _exchangeController.text,
+                      style: Theme.of(context).textTheme.body2.apply(color: _exchangeController.text == "" ? Theme.of(context).hintColor : validColor),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  child: TextField(
+                    focusNode: _notesFocusNode,
+                    controller: _notesController,
+                    autocorrect: true,
+                    textCapitalization: TextCapitalization.none,
+                    style: Theme.of(context).textTheme.body2.apply(color: validColor),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(border: InputBorder.none, hintText: "notes".tr),
+                  ),
+                ),
+              ],
+            )
+          ]),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              widget.editMode
+                  ? Container(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: FloatingActionButton(
+                          child: Icon(Icons.delete),
+                          backgroundColor: Colors.red,
+                          foregroundColor: Theme.of(context).iconTheme.color,
+                          elevation: 2.0,
+                          onPressed: _deleteTransaction),
                     )
-                  ]),
-              new Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  widget.editMode
-                      ? new Container(
-                          padding: const EdgeInsets.only(bottom: 16.0),
-                          child: new FloatingActionButton(
-                              child: Icon(Icons.delete),
-                              backgroundColor: Colors.red,
-                              foregroundColor:
-                                  Theme.of(context).iconTheme.color,
-                              elevation: 2.0,
-                              onPressed: _deleteTransaction),
-                        )
-                      : new Container(),
-                  new Container(
-                    child: new FloatingActionButton(
-                        child: Icon(Icons.check),
-                        elevation: symbol != null &&
-                                quantity != null &&
-                                exchange != null &&
-                                price != null
-                            ? 4.0
-                            : 0.0,
-                        backgroundColor: symbol != null &&
-                                quantity != null &&
-                                exchange != null &&
-                                price != null
-                            ? Colors.green
-                            : Theme.of(context).disabledColor,
-                        foregroundColor: Theme.of(context).iconTheme.color,
-                        onPressed: _handleSave),
-                  )
-                ],
+                  : Container(),
+              Container(
+                child: FloatingActionButton(
+                    child: Icon(Icons.check),
+                    elevation: symbol != null && quantity != null && exchange != null && price != null ? 4.0 : 0.0,
+                    backgroundColor: symbol != null && quantity != null && exchange != null && price != null ? Colors.green : Theme.of(context).disabledColor,
+                    foregroundColor: Theme.of(context).iconTheme.color,
+                    onPressed: _handleSave),
               )
-            ]));
+            ],
+          )
+        ]));
   }
 }

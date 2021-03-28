@@ -53,6 +53,7 @@ final Map ohlcvWidthOptions = {
 
 class QuickPercentChangeBar extends StatelessWidget {
   QuickPercentChangeBar({this.snapshot});
+
   final Map snapshot;
 
   @override
@@ -63,8 +64,7 @@ class QuickPercentChangeBar extends StatelessWidget {
       }
     });
     return Container(
-      padding:
-          const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 3.0, top: 3.0),
+      padding: const EdgeInsets.only(left: 6.0, right: 6.0, bottom: 3.0, top: 3.0),
       decoration: BoxDecoration(
           border: Border(
             top: BorderSide(color: Theme.of(context).bottomAppBarColor),
@@ -76,39 +76,19 @@ class QuickPercentChangeBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("1h",
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .apply(color: Theme.of(context).hintColor)),
+              Text("1h", style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
               Padding(padding: const EdgeInsets.only(right: 3.0)),
-              Text(
-                  snapshot["CHANGEPCTHOUR"] >= 0
-                      ? "+" + snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%"
-                      : snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%",
-                  style: Theme.of(context).primaryTextTheme.body2.apply(
-                      color: snapshot["CHANGEPCTHOUR"] >= 0
-                          ? Colors.green
-                          : Colors.red))
+              Text(snapshot["CHANGEPCTHOUR"] >= 0 ? "+" + snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%" : snapshot["CHANGEPCTHOUR"].toStringAsFixed(2) + "%",
+                  style: Theme.of(context).primaryTextTheme.body2.apply(color: snapshot["CHANGEPCTHOUR"] >= 0 ? Colors.green : Colors.red))
             ],
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text("24h",
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .apply(color: Theme.of(context).hintColor)),
+              Text("24h", style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
               Padding(padding: const EdgeInsets.only(right: 3.0)),
-              Text(
-                  snapshot["CHANGEPCT24HOUR"] >= 0
-                      ? "+" + snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%"
-                      : snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%",
-                  style: Theme.of(context).primaryTextTheme.body2.apply(
-                      color: snapshot["CHANGEPCT24HOUR"] >= 0
-                          ? Colors.green
-                          : Colors.red))
+              Text(snapshot["CHANGEPCT24HOUR"] >= 0 ? "+" + snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%" : snapshot["CHANGEPCT24HOUR"].toStringAsFixed(2) + "%",
+                  style: Theme.of(context).primaryTextTheme.body2.apply(color: snapshot["CHANGEPCT24HOUR"] >= 0 ? Colors.green : Colors.red))
             ],
           ),
           // Row(

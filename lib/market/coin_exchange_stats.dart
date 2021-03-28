@@ -58,13 +58,7 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
   }
 
   Future<Null> getPrice() async {
-    var response = await http.get(
-        Uri.tryParse("https://min-api.cryptocompare.com/data/price?fsym=" +
-            exchangeData["FROMSYMBOL"] +
-            "&tsyms=" +
-            toSym +
-            "&e=" +
-            e),
+    var response = await http.get(Uri.tryParse("https://min-api.cryptocompare.com/data/price?fsym=" + exchangeData["FROMSYMBOL"] + "&tsyms=" + toSym + "&e=" + e),
         headers: {"Accept": "application/json"});
     setState(() {
       price = JsonDecoder().convert(response.body)[toSym].toString();
@@ -78,11 +72,9 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
             "?fsym=" +
             exchangeData["FROMSYMBOL"] +
             "&tsym=USD&limit=" +
-            (ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][1] - 1)
-                .toString() +
+            (ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][1] - 1).toString() +
             "&aggregate=" +
-            ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][2]
-                .toString() +
+            ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][2].toString() +
             "&e=" +
             e),
         headers: {"Accept": "application/json"});
@@ -119,8 +111,7 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
     _change = changePercent.toString().substring(0, changePercent > 0 ? 5 : 6);
   }
 
-  Future<Null> changeHistory(
-      String type, String amt, String total, String agg) async {
+  Future<Null> changeHistory(String type, String amt, String total, String agg) async {
     setState(() {
       _high = "0";
       _low = "0";
@@ -150,283 +141,156 @@ class CoinMarketStatsState extends State<CoinMarketStats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(appBarHeight),
-        child: AppBar(
-          titleSpacing: 0.0,
-          elevation: appBarElevation,
-          title: Text(
-              exchangeData["FROMSYMBOL"] + " on " + exchangeData["MARKET"]),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(appBarHeight),
+          child: AppBar(
+            titleSpacing: 0.0,
+            elevation: appBarElevation,
+            title: Text(exchangeData["FROMSYMBOL"] + " on " + exchangeData["MARKET"]),
+          ),
         ),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Container(
-                child: Column(
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 10.0, bottom: 4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text("\$" + price.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .body2
-                                  .apply(fontSizeFactor: 2.2)),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text("24h_volume".tr,
-                                  style: Theme.of(context).textTheme.caption),
-                              Text(
-                                  "\$" + numCommaParse(exchangeData["VOLUME24HOURTO"].toStringAsFixed(0)),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .body2
-                                      .apply(
-                                          fontSizeFactor: 1.1,
-                                          fontWeightDelta: 2)),
-                            ],
-                          ),
-                        ],
-                      ),
+                    Text("\$" + price.toString(), style: Theme.of(context).textTheme.body2.apply(fontSizeFactor: 2.2)),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text("24h_volume".tr, style: Theme.of(context).textTheme.caption),
+                        Text("\$" + numCommaParse(exchangeData["VOLUME24HOURTO"].toStringAsFixed(0)),
+                            style: Theme.of(context).textTheme.body2.apply(fontSizeFactor: 1.1, fontWeightDelta: 2)),
+                      ],
                     ),
-                    Card(
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: Container(
-                                color: Theme.of(context).cardColor,
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                  ],
+                ),
+              ),
+              Card(
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: Container(
+                          color: Theme.of(context).cardColor,
+                          padding: const EdgeInsets.all(6.0),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Text("period".tr, style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
+                                          Padding(padding: const EdgeInsets.only(right: 3.0)),
+                                          Text(historyTotal, style: Theme.of(context).textTheme.body2.apply(fontWeightDelta: 2)),
+                                          Padding(padding: const EdgeInsets.only(right: 4.0)),
+                                          Text(num.parse(_change) > 0 ? "+" + _change + "%" : _change + "%",
+                                              style: Theme.of(context).primaryTextTheme.body1.apply(fontWeightDelta: 1, color: num.parse(_change) >= 0 ? Colors.green : Colors.red))
+                                        ],
+                                      ),
+                                      Padding(padding: const EdgeInsets.only(bottom: 1.5)),
+                                      Row(
+                                        children: <Widget>[
+                                          Text("candle_width".tr, style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
+                                          Padding(padding: const EdgeInsets.only(right: 3.0)),
+                                          Text(ohlcvWidthOptions[historyTotal][currentOHLCVWidthSetting][0], style: Theme.of(context).textTheme.body2.apply(fontWeightDelta: 2))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  historyOHLCV != null
+                                      ? Row(
                                           children: <Widget>[
-                                            Row(
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text("period".tr,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .body1
-                                                        .apply(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .hintColor)),
-                                                Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 3.0)),
-                                                Text(historyTotal,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .body2
-                                                        .apply(
-                                                            fontWeightDelta:
-                                                                2)),
-                                                Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 4.0)),
-                                                Text(
-                                                    num.parse(_change) > 0
-                                                        ? "+" + _change + "%"
-                                                        : _change + "%",
-                                                    style: Theme.of(context)
-                                                        .primaryTextTheme
-                                                        .body1
-                                                        .apply(
-                                                            fontWeightDelta: 1,
-                                                            color: num.parse(
-                                                                        _change) >=
-                                                                    0
-                                                                ? Colors.green
-                                                                : Colors.red))
+                                                Text("high".tr, style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
+                                                Text("low".tr, style: Theme.of(context).textTheme.body1.apply(color: Theme.of(context).hintColor)),
                                               ],
                                             ),
-                                            Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 1.5)),
-                                            Row(
+                                            Padding(padding: const EdgeInsets.symmetric(horizontal: 1.5)),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
                                               children: <Widget>[
-                                                Text("candle_width".tr,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .body1
-                                                        .apply(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .hintColor)),
-                                                Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 3.0)),
-                                                Text(
-                                                    ohlcvWidthOptions[
-                                                                historyTotal][
-                                                            currentOHLCVWidthSetting]
-                                                        [0],
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .body2
-                                                        .apply(
-                                                            fontWeightDelta: 2))
+                                                Text("\$" + _high, style: Theme.of(context).textTheme.body2),
+                                                Text("\$" + _low, style: Theme.of(context).textTheme.body2)
                                               ],
                                             ),
                                           ],
-                                        ),
-                                        historyOHLCV != null
-                                            ? Row(
-                                                children: <Widget>[
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: <Widget>[
-                                                      Text("high".tr,
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .body1
-                                                              .apply(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .hintColor)),
-                                                      Text("low".tr,
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .body1
-                                                              .apply(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .hintColor)),
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 1.5)),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: <Widget>[
-                                                      Text("\$" + _high,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .body2),
-                                                      Text("\$" + _low,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .body2)
-                                                    ],
-                                                  ),
-                                                ],
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          Container(
-                              child: PopupMenuButton(
-                            tooltip: "select_width".tr,
-                            icon: Icon(Icons.swap_horiz,
-                                color: Theme.of(context).buttonColor),
-                            itemBuilder: (BuildContext context) {
-                              List<PopupMenuEntry<dynamic>> options = [];
-                              for (int i = 0;
-                                  i < ohlcvWidthOptions[historyTotal].length;
-                                  i++) {
-                                options.add(PopupMenuItem(
-                                    child: Text(
-                                        ohlcvWidthOptions[historyTotal][i][0]),
-                                    value: i));
-                              }
-                              return options;
-                            },
-                            onSelected: (result) {
-                              changeOHLCVWidth(result);
-                            },
-                          )),
-                          Container(
-                              child: PopupMenuButton(
-                            tooltip: "select_period".tr,
-                            icon: Icon(Icons.access_time,
-                                color: Theme.of(context).buttonColor),
-                            itemBuilder: (BuildContext context) => [
-                                  PopupMenuItem(
-                                      child: Text("1h"),
-                                      value: ["minute", "60", "1h", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("6h"),
-                                      value: ["minute", "360", "6h", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("12h"),
-                                      value: ["minute", "720", "12h", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("24h"),
-                                      value: ["minute", "720", "24h", "2"]),
-                                  PopupMenuItem(
-                                      child: Text("3D"),
-                                      value: ["hour", "72", "3D", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("7D"),
-                                      value: ["hour", "168", "7D", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("1M"),
-                                      value: ["hour", "720", "1M", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("3M"),
-                                      value: ["day", "90", "3M", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("6M"),
-                                      value: ["day", "180", "6M", "1"]),
-                                  PopupMenuItem(
-                                      child: Text("1Y"),
-                                      value: ["day", "365", "1Y", "1"]),
+                                        )
+                                      : Container()
                                 ],
-                            onSelected: (result) {
-                              changeHistory(
-                                  result[0], result[1], result[2], result[3]);
-                            },
+                              ),
+                            ],
                           )),
-                        ],
-                      ),
                     ),
-                    Flexible(
-                      child: historyOHLCV != null
-                          ? Container(
-                              padding: const EdgeInsets.only(
-                                  left: 2.0, right: 1.0, top: 10.0),
-                              child: OHLCVGraph(
-                                data: historyOHLCV,
-                                enableGridLines: true,
-                                gridLineColor: Theme.of(context).dividerColor,
-                                gridLineLabelColor: Theme.of(context).hintColor,
-                                gridLineAmount: 4,
-                                volumeProp: 0.2,
-                              ),
-                            )
-                          : Container(
-                              child: Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                    )
+                    Container(
+                        child: PopupMenuButton(
+                      tooltip: "select_width".tr,
+                      icon: Icon(Icons.swap_horiz, color: Theme.of(context).buttonColor),
+                      itemBuilder: (BuildContext context) {
+                        List<PopupMenuEntry<dynamic>> options = [];
+                        for (int i = 0; i < ohlcvWidthOptions[historyTotal].length; i++) {
+                          options.add(PopupMenuItem(child: Text(ohlcvWidthOptions[historyTotal][i][0]), value: i));
+                        }
+                        return options;
+                      },
+                      onSelected: (result) {
+                        changeOHLCVWidth(result);
+                      },
+                    )),
+                    Container(
+                        child: PopupMenuButton(
+                      tooltip: "select_period".tr,
+                      icon: Icon(Icons.access_time, color: Theme.of(context).buttonColor),
+                      itemBuilder: (BuildContext context) => [
+                        PopupMenuItem(child: Text("1h"), value: ["minute", "60", "1h", "1"]),
+                        PopupMenuItem(child: Text("6h"), value: ["minute", "360", "6h", "1"]),
+                        PopupMenuItem(child: Text("12h"), value: ["minute", "720", "12h", "1"]),
+                        PopupMenuItem(child: Text("24h"), value: ["minute", "720", "24h", "2"]),
+                        PopupMenuItem(child: Text("3D"), value: ["hour", "72", "3D", "1"]),
+                        PopupMenuItem(child: Text("7D"), value: ["hour", "168", "7D", "1"]),
+                        PopupMenuItem(child: Text("1M"), value: ["hour", "720", "1M", "1"]),
+                        PopupMenuItem(child: Text("3M"), value: ["day", "90", "3M", "1"]),
+                        PopupMenuItem(child: Text("6M"), value: ["day", "180", "6M", "1"]),
+                        PopupMenuItem(child: Text("1Y"), value: ["day", "365", "1Y", "1"]),
+                      ],
+                      onSelected: (result) {
+                        changeHistory(result[0], result[1], result[2], result[3]);
+                      },
+                    )),
                   ],
                 ),
-          )
-    );
+              ),
+              Flexible(
+                child: historyOHLCV != null
+                    ? Container(
+                        padding: const EdgeInsets.only(left: 2.0, right: 1.0, top: 10.0),
+                        child: OHLCVGraph(
+                          data: historyOHLCV,
+                          enableGridLines: true,
+                          gridLineColor: Theme.of(context).dividerColor,
+                          gridLineLabelColor: Theme.of(context).hintColor,
+                          gridLineAmount: 4,
+                          volumeProp: 0.2,
+                        ),
+                      )
+                    : Container(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+              )
+            ],
+          ),
+        ));
   }
 }
