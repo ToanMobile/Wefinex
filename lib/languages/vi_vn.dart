@@ -9,6 +9,7 @@ const Map<String, String> viVN = {
   'preferences':'Sở thích',
   'theme':'Chủ đề',
   'debug':'Gỡ lỗi',
+  'empty':'Không tìm thấy kết quả!',
 
   //Theme
   'automatic': 'Tự động',
@@ -32,7 +33,6 @@ const Map<String, String> viVN = {
   'timeline': 'Dòng thời gian',
   'breakdown': 'Sự cố',
   'portfolio_value': 'Giá trị danh mục đầu tư',
-
   'now':'Ngay bây giờ',
   'currency':'Tiền tệ',
   'holdings':'Nắm giữ',
@@ -47,6 +47,15 @@ const Map<String, String> viVN = {
   'quantity':'Số lượng',
   'symbol':'Biểu tượng',
   'aggregated': 'Tổng hợp',
+  'transaction':'Giao dịch',
+  'add_transaction':'Thêm giao dịch',
+  'close_transaction':'Đóng giao dịch',
+  'total_portfolio_value':'Tổng giá trị danh mục đầu tư',
+  '1h_change':'1h Thay đổi',
+  '24h_change':'24h Thay đổi',
+  'price_24h':'Giá/24h',
+  'total_market_cap':'Tổng vốn hóa thị trường',
+  'total_24h_volume':'Tổng khối lượng 24h',
 
   //Bottom Tab
   'bottom_stats': 'Thống kê',
@@ -69,4 +78,8 @@ const Map<String, String> viVN = {
   'maintained':'Nhà phát triển: ',
   'overwrite_portfolio':'Điều này sẽ ghi đè vĩnh viễn danh mục đầu tư và giao dịch hiện tại.',
   'enter_portfolio_json':'Nhập JSON danh mục đầu tư',
+  'portfolio_timeline':'Dòng thời gian của danh mục đầu tư',
+  'portfolio_breakdown':'Phân tích danh mục đầu tư',
+  'aggregate_markets':'Tổng hợp thị trường ',
+  'search_name_symbols':'Tìm kiếm tên và ký hiệu ...'
 };

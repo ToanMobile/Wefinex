@@ -10,6 +10,7 @@ const Map<String, String> enUS = {
   'preferences':'Preferences',
   'theme':'Theme',
   'debug':'Debug',
+  'empty':'No results found!',
 
   //Theme
   'automatic': 'Automatic',
@@ -47,6 +48,15 @@ const Map<String, String> enUS = {
   'quantity':'Quantity',
   'symbol':'Symbol',
   'aggregated': 'Aggregated',
+  'transaction':'Transaction',
+  'add_transaction':'Add Transaction',
+  'close_transaction':'Close Transaction',
+  'total_portfolio_value':'Total Portfolio Value',
+  '1h_change':'1h Change',
+  '24h_change':'24h Change',
+  'price_24h':'Price/24h',
+  'total_market_cap':'Total Market Cap',
+  'total_24h_volume':'Total 24h Volume',
 
   //Bottom Tab
   'bottom_stats': 'Stats',
@@ -69,4 +79,8 @@ const Map<String, String> enUS = {
   'maintained':'Developer: ',
   'overwrite_portfolio':'This will permanently overwrite current portfolio and transactions.',
   'enter_portfolio_json':'Enter Portfolio JSON',
+  'portfolio_timeline':'Portfolio Timeline',
+  'portfolio_breakdown':'Portfolio Breakdown',
+  'aggregate_markets':'Aggregate Markets',
+  'search_name_symbols':'Search names and symbols...'
 };
