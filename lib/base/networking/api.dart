@@ -2,8 +2,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:wefinex/shared/constant/constants.dart';
-import 'package:wefinex/shared/constant/my_config.dart';
+import 'package:wefinex/shared/constant/common.dart';
 import 'result.dart';
 
 final box = GetStorage();
@@ -31,12 +30,12 @@ class ApiService {
 /// USE THIS VIA [ApiService] class
 class _Api extends GetConnect {
   final String API_NAME = "api/scan/";
-  Result _result = Result(status: false, isError: false, text: "${StringConstants().string.error_message}");
+  Result _result = Result(status: false, isError: false, text: "${Common().string.error_message}");
   bool _withToken = false;
 
   @override
   void onInit() async {
-    httpClient.baseUrl = MyConfig.BASE_URL;
+    httpClient.baseUrl = Common().myConfig.BASE_URL_XOSO;
     /* String deviceId = await MyDeviceInfo().deviceID();
     String deviceName = await MyDeviceInfo().deviceName();
     String pf = Platform.operatingSystem;
@@ -157,6 +156,6 @@ class _Api extends GetConnect {
 
   /// TO SHOW THE LOG WHEN DEBUG MODE TRUE
   _showLogWhenDebug(String status, String? e) {
-    if (kDebugMode) log("$status => ${e.toString()}", name: MyConfig.APP_NAME);
+    if (kDebugMode) log("$status => ${e.toString()}", name: Common().myConfig.APP_NAME);
   }
 }

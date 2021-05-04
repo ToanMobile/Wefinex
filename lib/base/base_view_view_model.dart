@@ -59,7 +59,7 @@ abstract class BaseViewModel<T extends BaseController> extends StatelessWidget {
 /// read the [Example] above.
 abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
-  const BaseView({required Key key}) : super(key: key);
+  const BaseView({Key? key}) : super(key: key);
 
   final String? tag = null;
   T get controller => GetInstance().find<T>(tag: tag);

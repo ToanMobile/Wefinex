@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.1.4
   get_storage: ^2.0.2
+  webfeed: ^0.7.0
   webview_flutter: ^2.0.4
   flutter_svg: ^0.22.0
 
@@ -30,3 +31,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/json/soxo.json
