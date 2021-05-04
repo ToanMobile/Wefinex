@@ -4,4 +4,9 @@ class XosoEntity with JsonConvert<XosoEntity> {
 	String? name;
 	String? icon;
 	String? link;
+
+	@override
+  String toString() {
+    return 'XosoEntity{name: $name, icon: $icon, link: $link}';
+  }
 }

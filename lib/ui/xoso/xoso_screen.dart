@@ -12,10 +12,11 @@ Email: hvtoan.dev@gmail.com
 class XoSoScreen extends BaseView<XoSoController> {
   @override
   Widget vBuilder() => Scaffold(
-        body: Text("Xoso")//_body(),
+        body: _body(),
       );
 
   _body() {
+    print('controller='+ controller.getScreenState.toString());
     if (controller.screenStateIsLoading) return Center(child: CircularProgressIndicator());
     if (controller.screenStateIsError) return Text(Common().string.error_message);
     if (controller.screenStateIsOK)
@@ -23,7 +24,7 @@ class XoSoScreen extends BaseView<XoSoController> {
         key: UniqueKey(),
         child: ListView(
           children: [
-            Text("${controller.listXoso.name}"),
+            Text("${controller.listXoso[0].toString()}"),
           ],
         ),
       );

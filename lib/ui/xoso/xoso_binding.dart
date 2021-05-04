@@ -12,22 +12,23 @@ class XoSoBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => XoSoController());
   }
-
 }
 
 class XoSoController extends BaseController {
-  var listXoso = XosoEntity();
+  var listXoso;
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await 1.delay();
     onGetListXoso();
-   /* MyTranslations.init();
-    logWhenDebug("CURRENT LANGUAGE : ", Get.locale.languageCode.toString());*/
+    logWhenDebug("CURRENT listXoso : ", listXoso.toString());
   }
 
   void onGetListXoso() async {
     showLoadingDialog();
     listXoso = await getDataXoso();
+    setScreenState = screenStateOk;
     hideDialog();
     update();
   }

@@ -21,10 +21,10 @@ Email: hvtoan.dev@gmail.com
 class Repositories {
   ApiService _service = ApiService();
 
-  Future<XosoEntity> getDataXoso() async {
+  Future<List<XosoEntity>> getDataXoso() async {
     final String response = await rootBundle.loadString(Common().assetsImage.getListXoso);
-    final listXoso = XosoEntity().fromJson(json.decode(response));
-    print('getDataXoso='+listXoso.toString());
+    final listXoso = List<XosoEntity>.from(json.decode(response).map((x) => XosoEntity().fromJson(x)));
+    print("111111");
     return listXoso;
   }
 
