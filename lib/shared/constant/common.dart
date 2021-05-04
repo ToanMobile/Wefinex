@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 /*
 Created by ToanDev on 02/05/2021
 Company: Netacom.
@@ -14,6 +14,7 @@ class Common {
   _MyConfig myConfig = _MyConfig();
   _Storage storage = _Storage();
   _Dimen dimen = _Dimen();
+  _TextStyle textStyle = _TextStyle();
 }
 
 class _AssetsImage {
@@ -25,6 +26,7 @@ class _AssetsImage {
   String icon_bottom_bongda = icons + 'settings_icon.svg';
 
   //Screen Soxo
+  String icon_soxo_path = icons;
   String icon_soxo = icons + 'soxo.webp';
 
   //Get data Xoso
@@ -36,17 +38,7 @@ class _String {
   String coin = 'coin'.tr;
   String xoso = 'xoso'.tr;
   String bongda = 'bongda'.tr;
-  String peringatan = 'peringatan'.tr;
-  String tutup = 'tutup'.tr;
-  String reload = 'reload'.tr;
   String error_message = 'error_message'.tr;
-  String beranda = 'beranda'.tr;
-  String change_lang = 'change_lang'.tr;
-  String increment = 'increment'.tr;
-  String goto_test = 'goto_test'.tr;
-  String test_screen = 'test_screen'.tr;
-  String my_flutter = 'my_flutter'.tr;
-  String change_theme = 'change_theme'.tr;
 }
 
 class _Storage {
@@ -101,14 +93,36 @@ class _Dimen {
   final double spaceXL = 32.0;
 }
 
+class _TextStyle {
+  final styleRegular10White = TextStyle(
+    color: Colors.white,
+    fontSize: 10,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleRegular12White = TextStyle(
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold18White = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+  );
+}
+
 class _MyConfig {
   /// APP CONFIG
   final String APP_NAME = "-- WEFINEX --";
-  final String BASE_URL_XOSO = "https://xskt.com.vn/";
+  final String BASE_URL_XOSO = "https://xskt.com.vn/rss-feed/";
   final String TOKEN_STRING_KEY = 'TOKEN_STRING_KEY';
   final String EMAIL_KEY = 'EMAIL_KEY';
   final String FCM_TOKEN_KEY = 'EMAIL_KEY';
-
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
 }

@@ -24,7 +24,6 @@ class Repositories {
   Future<List<XosoEntity>> getDataXoso() async {
     final String response = await rootBundle.loadString(Common().assetsImage.getListXoso);
     final listXoso = List<XosoEntity>.from(json.decode(response).map((x) => XosoEntity().fromJson(x)));
-    print("111111");
     return listXoso;
   }
 

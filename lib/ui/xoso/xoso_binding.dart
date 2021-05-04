@@ -20,16 +20,14 @@ class XoSoController extends BaseController {
   @override
   void onInit() async {
     super.onInit();
-    await 1.delay();
     onGetListXoso();
     logWhenDebug("CURRENT listXoso : ", listXoso.toString());
   }
 
   void onGetListXoso() async {
-    showLoadingDialog();
+    setScreenState = screenStateLoading;
     listXoso = await getDataXoso();
     setScreenState = screenStateOk;
-    hideDialog();
     update();
   }
 }

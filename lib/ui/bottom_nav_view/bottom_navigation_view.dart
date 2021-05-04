@@ -20,7 +20,7 @@ class BottomNavigationView extends BaseView<BottomNavigationViewController> {
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
-            Common().string.my_flutter,
+            Common().string.title_app,
             style: TextStyle(color: Colors.black),
           ),
         ),

@@ -1,10 +1,7 @@
 const Map<String, String> vi_VN = {
-  'covid': 'Corona Vírus',
-  'total_confirmed': 'Total confirmado',
-  'total_deaths': 'Total de mortes',
-  'fetch_country': 'Listar por país',
-  'corona_by_country': 'Corona por país',
-  'total_infecteds': 'Total de infectados',
-  'details': 'Detalhes',
-  'total_recovered': 'Total de recuperados'
+  'title_app': 'Wefinex',
+  'coin': 'Tiền ảo',
+  'xoso': 'Xổ số',
+  'bongda': 'Bóng đá',
+  'error_message':'Có lỗi xảy ra!',
 };
