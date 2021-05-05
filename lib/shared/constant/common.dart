@@ -67,29 +67,15 @@ Color hexToColor(String hex) {
 }
 
 class _Dimen {
-  /// Padding
-  final double paddingZero = 0.0;
-  final double paddingXS = 2.0;
-  final double paddingS = 4.0;
-  final double paddingM = 8.0;
-  final double paddingL = 16.0;
-  final double paddingXL = 32.0;
-  final double paddingXXL = 36.0;
-
-  /// Margin
-  final double marginZero = 0.0;
-  final double marginXS = 2.0;
-  final double marginS = 4.0;
-  final double marginM = 8.0;
-  final double marginL = 16.0;
-  final double marginXL = 32.0;
-
-  /// Spacing
-  final double spaceXS = 2.0;
-  final double spaceS = 4.0;
-  final double spaceM = 8.0;
-  final double spaceL = 16.0;
-  final double spaceXL = 32.0;
+  final double margin_0 = 0.0;
+  final double margin_4 = 4.0;
+  final double margin_8 = 8.0;
+  final double margin_10 = 10.0;
+  final double margin_12 = 12.0;
+  final double margin_16 = 16.0;
+  final double margin_20 = 20.0;
+  final double margin_24 = 24.0;
+  final double margin_30 = 30.0;
 }
 
 class _TextStyle {

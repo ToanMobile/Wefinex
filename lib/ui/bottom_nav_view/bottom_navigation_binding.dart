@@ -4,7 +4,6 @@ import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/ui/bongda/bongda_binding.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
 import 'package:wefinex/ui/xoso/xoso_binding.dart';
-
 import 'bottom_navigation_view_controller.dart';
 
 /*

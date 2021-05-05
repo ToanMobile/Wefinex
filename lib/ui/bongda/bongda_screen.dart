@@ -18,7 +18,7 @@ class BongDaScreen extends BaseView<BongDaController> {
           children: [
             buildWidgetTitle(),
             SizedBox(
-              height: Common().dimen.marginM,
+              height: Common().dimen.margin_10,
             ),
             buildWidgetGrid(),
           ],
@@ -62,7 +62,7 @@ class BongDaScreen extends BaseView<BongDaController> {
                         allowDrawingOutsideViewBox: true,
                       ),
                 SizedBox(
-                  height: Common().dimen.marginM,
+                  height: Common().dimen.margin_10,
                 ),
                 Text(controller.listData[index].name ?? "", style: Common().textStyle.styleRegular16Black),
               ],
