@@ -1,10 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/bongda/bongda_api_provider.dart';
-import 'package:wefinex/repository/bongda/bongda_repository.dart';
-import 'package:wefinex/repository/xoso/xoso_api_provider.dart';
-import 'package:wefinex/repository/xoso/xoso_repository.dart';
 import 'package:wefinex/ui/bongda/bongda_binding.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
 import 'package:wefinex/ui/xoso/xoso_binding.dart';
@@ -22,7 +18,7 @@ class BottomNavigationBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => BottomNavigationViewController());
     Get.lazyPut(() => HomeController());
-    //Get.lazyPut(() => XoSoController(xoSoRepository: XoSoRepository(provider: XoSoProvider())));
-    Get.lazyPut(() => BongDaController(bongDaRepository: BongDaRepository(provider: BongDaProvider())));
+    Get.lazyPut(() => XoSoController());
+    Get.lazyPut(() => BongDaController());
   }
 }

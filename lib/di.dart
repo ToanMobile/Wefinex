@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'services/services.dart';
 
 class DependencyInjection {

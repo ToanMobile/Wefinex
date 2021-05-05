@@ -1,8 +1,5 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
-import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/bongda/bongda_api_provider.dart';
-import 'package:wefinex/repository/bongda/bongda_repository.dart';
 import 'package:wefinex/repository/model/bong_da_entity.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
@@ -15,32 +12,20 @@ Email: hvtoan.dev@gmail.com
 class BongDaBinding extends Bindings {
   @override
   void dependencies() {
-   /* Get.lazyPut<IBongDaProvider>(() => BongDaProvider());
-    Get.lazyPut<IBongDaRepository>(() => BongDaRepository(provider: Get.find()));
-    Get.lazyPut(() => BongDaController(bongDaRepository: Get.find()));*/
-    Get.lazyPut(() => BongDaController(bongDaRepository: Get.find()));
+    Get.lazyPut(() => BongDaController());
   }
 }
 
-class BongDaController extends SuperBaseController<BongDaEntity> {
-  BongDaController({required this.bongDaRepository});
-
-  final IBongDaRepository bongDaRepository;
+class BongDaController extends BaseController {
+  var listData;
 
   @override
   void onInit() async {
     super.onInit();
-    bongDaRepository.getDataBongDa().then((data) {
-      change(data, status: RxStatus.success());
-      logWhenDebug("CURRENT listBongDa : ", data.toString());
-    }, onError: (err) {
-      print('Error : $err');
-      change(null, status: RxStatus.error(Common().string.error_message));
-    });
+    onGetListBongDa();
+    logWhenDebug("CURRENT listBongda : ", listData.toString());
   }
-//append(() => bongDaRepository.getDataBongDa);
-}
-/*
+
   void onGetListBongDa() async {
     setScreenState = screenStateLoading;
     final res = await getDataBongDa();
@@ -51,8 +36,8 @@ class BongDaController extends SuperBaseController<BongDaEntity> {
     }
     if (res.status == true) {
       try {
-        logWhenDebug("CURRENT res.body : ", res.body);
-        listBongda = BongDaEntity().fromJson(res.body).competitions;
+        logWhenDebug("CURRENT res.body : ", res.body["competitions"]);
+        listData = BongDaEntity().fromJson(res.body).competitions;
         setScreenState = screenStateOk;
       } catch (e) {
         text = e.toString();
@@ -65,4 +50,5 @@ class BongDaController extends SuperBaseController<BongDaEntity> {
       showSnackBar(title: "Response", message: text);
     }
     update();
-  }*/
+  }
+}

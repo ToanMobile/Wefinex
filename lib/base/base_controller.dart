@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wefinex/shared/utils/utilities.dart';
+
 import '../repository/repositories.dart';
 import 'base_common_widgets.dart';
 import 'widget_state.dart';
+
 export 'package:get/get.dart';
 
 /*
@@ -35,7 +37,7 @@ Email: hvtoan.dev@gmail.com
 /// Please extends to your [Controller].
 /// read the [Example] above.
 
-class BaseController extends GetxController with BaseCommonWidgets, Utilities, WidgetState, ScreenState {
+class BaseController extends GetxController with BaseCommonWidgets, Utilities, Repositories, WidgetState, ScreenState {
   final box = GetStorage();
   bool isLoadMore = false;
   bool withScrollController = false;

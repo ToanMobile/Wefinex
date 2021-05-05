@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wefinex/shared/utils/utilities.dart';
-import '../repository/repositories.dart';
+
 import 'base_common_widgets.dart';
+
 export 'package:get/get.dart';
 
 /*

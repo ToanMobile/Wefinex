@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
 import 'package:wefinex/shared/constant/common.dart';
+
 import 'bongda_binding.dart';
 
 /*
@@ -39,16 +40,16 @@ class BongDaScreen extends BaseView<BongDaController> {
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
         children: List.generate(
-          controller.state?.competitions?.length ?? 0,
+          controller.listData.competitions?.length ?? 0,
           (index) {
             return Column(
               children: [
                 SvgPicture.network(
-                  controller.state?.competitions?[index].emblemUrl ?? "",
+                  controller.listData.competitions?[index].emblemUrl ?? "",
                   width: 100,
                   height: 50,
                 ),
-                Text(controller.state?.competitions?[index].name ?? "", style: Common().textStyle.styleRegular12Black),
+                Text(controller.listData.competitions?[index].name ?? "", style: Common().textStyle.styleRegular12Black),
               ],
             );
           },

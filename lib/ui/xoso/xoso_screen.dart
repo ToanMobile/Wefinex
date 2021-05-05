@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
 import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/constant/common.dart';
+
 import 'xoso_binding.dart';
 
 /*
@@ -17,7 +18,7 @@ class XoSoScreen extends BaseView<XoSoController> {
       );
 
   _body() => ListView.builder(
-        itemCount: controller.state!.length,
+        itemCount: controller.listData.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -26,8 +27,8 @@ class XoSoScreen extends BaseView<XoSoController> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              title: buildWidgetTitle(controller.state![index].name),
-              leading: buildWidgetIcon(controller.state![index].icon),
+              title: buildWidgetTitle(controller.listData[index].name),
+              leading: buildWidgetIcon(controller.listData[index].icon),
               trailing: buildWidgetIconRight(),
               contentPadding: EdgeInsets.all(5.0),
               onTap: () async {

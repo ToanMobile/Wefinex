@@ -5,6 +5,7 @@ import 'package:wefinex/shared/constant/common.dart';
 import 'package:wefinex/ui/bongda/bongda_screen.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
 import 'package:wefinex/ui/xoso/xoso_screen.dart';
+
 import 'bottom_navigation_view_controller.dart';
 
 /*
@@ -43,7 +44,7 @@ class BottomNavigationView extends BaseView<BottomNavigationViewController> {
             index: controller.currentNavPageIndex,
             children: [
               BongDaScreen(),
-              HomeScreen(),
+              XoSoScreen(),
               HomeScreen(),
             ],
           ),

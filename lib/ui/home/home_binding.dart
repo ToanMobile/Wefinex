@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/model/bong_da_entity.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -15,7 +14,7 @@ class HomeBinding extends Bindings {
   }
 }
 
-class HomeController extends SuperBaseController<BongDaEntity> {
+class HomeController extends BaseController {
 
   @override
   void onInit() {

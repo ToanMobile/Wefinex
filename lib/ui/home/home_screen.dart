@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
-import 'package:wefinex/shared/constant/common.dart';
+
 import 'home_binding.dart';
 
 /*

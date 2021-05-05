@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'base_view_view_model.dart';
+
 import 'base_controller.dart';
+import 'base_view_view_model.dart';
 
 enum State {
   OK,

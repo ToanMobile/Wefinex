@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import 'di.dart';
 import 'lang/translation_service.dart';
 import 'routes/app_pages.dart';
