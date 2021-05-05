@@ -114,10 +114,24 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleRegular16Black = TextStyle(
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleBold18White = TextStyle(
     color: Colors.white,
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold18Black = TextStyle(
+    color: Colors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
     fontStyle: FontStyle.normal,
   );
 }

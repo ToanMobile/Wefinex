@@ -30,20 +30,21 @@ class BongDaController extends BaseController {
     setScreenState = screenStateLoading;
     final res = await getDataBongDa();
     String text = '';
-    if (res.isError == true) {
-      text = Common().string.error_message;
-      setScreenState = screenStateError;
-    }
-    if (res.status == true) {
+    print("onGetListBongDa="+ res.toString());
+    if (res.status == true && res.body != null) {
       try {
-        logWhenDebug("CURRENT res.body : ", res.body["competitions"]);
         listData = BongDaEntity().fromJson(res.body).competitions;
+        print("listData=="+ listData.toString());
         setScreenState = screenStateOk;
       } catch (e) {
         text = e.toString();
       }
     } else {
       text = res.text ?? Common().string.error_message;
+      setScreenState = screenStateError;
+    }
+    if (res.isError == true) {
+      text = Common().string.error_message;
       setScreenState = screenStateError;
     }
     if (text.isNotEmpty) {

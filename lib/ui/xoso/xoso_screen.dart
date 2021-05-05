@@ -17,7 +17,11 @@ class XoSoScreen extends BaseView<XoSoController> {
         body: _body(),
       );
 
-  _body() => ListView.builder(
+  _body() {
+    if (controller.screenStateIsLoading) return Center(child: CircularProgressIndicator());
+    if (controller.screenStateIsError) return Text(Common().string.error_message);
+    if (controller.screenStateIsOK)
+      return ListView.builder(
         itemCount: controller.listData.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
@@ -38,6 +42,7 @@ class XoSoScreen extends BaseView<XoSoController> {
           );
         },
       );
+  }
 
   buildWidgetTitle(title) => Text(
         title,

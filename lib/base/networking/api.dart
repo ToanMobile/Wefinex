@@ -79,7 +79,6 @@ class _Api extends GetConnect {
         return _result;
       } else {
         _showLogWhenDebug("ERROR 0", res.bodyString);
-        _result.status = true;
         _result.isError = true;
         _result.text = "Terjadi kesalahan, coba beberapa saat lagi...";
         return _result;
@@ -108,12 +107,12 @@ class _Api extends GetConnect {
       if (res.isOk) {
         _showLogWhenDebug("LOADED", res.bodyString);
         _result = Result.fromJson(res.bodyString ?? "");
+        _result.status = true;
         _result.body = res.body;
         _showLogWhenDebug("PARSING", "SUCCESS");
         return _result;
       } else {
         _showLogWhenDebug("ERROR 0", res.bodyString);
-        _result.status = true;
         _result.isError = true;
         _result.text = "Error ...";
         return _result;
@@ -139,12 +138,12 @@ class _Api extends GetConnect {
       if (res.isOk) {
         _showLogWhenDebug("LOADED", res.bodyString);
         _result = Result.fromJson(res.bodyString ?? "");
+        _result.status = true;
         _result.body = res.body;
         _showLogWhenDebug("PARSING", "SUCCESS");
         return _result;
       } else {
         _showLogWhenDebug("ERROR 0", res.bodyString);
-        _result.status = true;
         _result.isError = true;
         _result.text = "Error ...";
         return _result;
