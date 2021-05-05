@@ -27,5 +27,7 @@ class Repositories {
     return listXoSo;
   }
 
-  Future<Result> getDataBongDa() async => await _service.getData(endPoint: "competitions", withToken: true);
+  Future<Result> getDataBongDa() async => await _service.getData(baseUrl: Common().myConfig.BASE_URL_BONGDA, endPoint: "v2/competitions", withToken: true);
+
+  Future<Result> getDataCoin() async => await _service.getData(baseUrl: Common().myConfig.BASE_URL_COIN, endPoint: "data/top/mktcapfull?tsym=USD&limit=100");
 }

@@ -18,8 +18,8 @@ class ApiService {
     return await _api.callManualy(method: method, endPoint: endPoint, param: param, withToken: withToken);
   }
 
-  Future<Result> getData({required String endPoint, Map<String, String>? query, bool withToken = false}) async {
-    return await _api.getData(endPoint: endPoint, query: query, withToken: withToken);
+  Future<Result> getData({String? baseUrl, required String endPoint, Map<String, String>? query, bool withToken = false}) async {
+    return await _api.getData(baseUrl : baseUrl, endPoint: endPoint, query: query, withToken: withToken);
   }
 
   Future<Result> postData({required String endPoint, Map? data, bool withToken = false}) async {
@@ -30,13 +30,12 @@ class ApiService {
 /// PRIVATE CLASS
 /// USE THIS VIA [ApiService] class
 class _Api extends GetConnect {
-  final String API_NAME = "v2/";
   Result _result = Result(status: false, isError: false, text: "${Common().string.error_message}");
   bool _withToken = false;
-
+  String baseURL = "";
   @override
   void onInit() async {
-    httpClient.baseUrl = Common().myConfig.BASE_URL_BONGDA;
+    httpClient.baseUrl = baseURL;
     httpClient.addRequestModifier((request) {
    /*   request.headers['platform'] = pf;
       request.headers['device-id'] = "$deviceId";
@@ -59,16 +58,16 @@ class _Api extends GetConnect {
     _withToken = withToken;
     onInit();
 
-    _showLogWhenDebug(method == Method.GET ? "GET" : "POST", (httpClient.baseUrl ?? "") + API_NAME + endPoint);
+    _showLogWhenDebug(method == Method.GET ? "GET" : "POST", (httpClient.baseUrl ?? "") + endPoint);
     _showLogWhenDebug("PARAMS", query.toString());
     _showLogWhenDebug("TOKEN", _withToken.toString());
 
     try {
       var res;
       if (method == Method.GET) {
-        res = await get(API_NAME + endPoint, query: param);
+        res = await get(endPoint, query: param);
       } else {
-        res = await post(API_NAME + endPoint, param);
+        res = await post(endPoint, param);
       }
 
       if (res.isOk) {
@@ -80,7 +79,7 @@ class _Api extends GetConnect {
       } else {
         _showLogWhenDebug("ERROR 0", res.bodyString);
         _result.isError = true;
-        _result.text = "Terjadi kesalahan, coba beberapa saat lagi...";
+        _result.text = "Error ...";
         return _result;
       }
     } catch (e) {
@@ -93,17 +92,15 @@ class _Api extends GetConnect {
 
   /// FOR NETWORKING WITH THE [Method.GET]
   /// RETURN DATA WITH [Result] MODEL
-  Future<Result> getData({String endPoint = "", Map<String, String>? query, bool withToken = false}) async {
+  Future<Result> getData({String? baseUrl, String endPoint = "", Map<String, String>? query, bool withToken = false}) async {
     _withToken = withToken;
+    baseURL = baseUrl ?? Common().myConfig.BASE_URL_BONGDA;
     onInit();
-    _showLogWhenDebug("GET", (httpClient.baseUrl ?? "") + API_NAME + endPoint);
+    _showLogWhenDebug("GET", (httpClient.baseUrl ?? "") + endPoint);
     _showLogWhenDebug("PARAMS", query.toString());
     _showLogWhenDebug("TOKEN", _withToken.toString());
     try {
-      /*final headers = {
-        "X-Auth-Token": "${Common().myConfig.TOKEN_STRING_KEY}",
-      };*/
-      var res = await get(API_NAME + endPoint, query: query);
+      var res = await get(endPoint, query: query);
       if (res.isOk) {
         _showLogWhenDebug("LOADED", res.bodyString);
         _result = Result.fromJson(res.bodyString ?? "");
@@ -130,11 +127,11 @@ class _Api extends GetConnect {
   Future<Result> postData({String endPoint = "", Map? data, bool withToken = false}) async {
     _withToken = withToken;
     onInit();
-    _showLogWhenDebug("POST", (httpClient.baseUrl ?? "") + API_NAME + endPoint);
+    _showLogWhenDebug("POST", (httpClient.baseUrl ?? "") + endPoint);
     _showLogWhenDebug("PARAMS", data.toString());
     _showLogWhenDebug("TOKEN", _withToken.toString());
     try {
-      var res = await httpClient.post(API_NAME + endPoint, body: data);
+      var res = await httpClient.post(endPoint, body: data);
       if (res.isOk) {
         _showLogWhenDebug("LOADED", res.bodyString);
         _result = Result.fromJson(res.bodyString ?? "");

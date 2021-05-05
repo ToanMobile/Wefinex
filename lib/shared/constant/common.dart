@@ -38,6 +38,11 @@ class _String {
   String xoso = 'xoso'.tr;
   String bongda = 'bongda'.tr;
   String error_message = 'error_message'.tr;
+  String currency = 'currency'.tr;
+  String market_cap = 'market_cap'.tr;
+  String total_market_cap = 'total_market_cap'.tr;
+  String total_24h_volume = 'total_24h_volume'.tr;
+  String price_24h = 'price_24h'.tr;
 }
 
 class _Storage {
@@ -128,6 +133,7 @@ class _MyConfig {
   final String BASE_URL_XOSO = "https://xskt.com.vn/rss-feed/";
   final String BASE_URL_BONGDA = "https://api.football-data.org/";
   final String BASE_URL_GITHUB = "https://api.github.com/";
+  final String BASE_URL_COIN = "https://min-api.cryptocompare.com/";
   final String TOKEN_STRING_KEY = '1e6002e19a5144a387916a5129045c12';
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
