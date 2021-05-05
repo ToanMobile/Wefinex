@@ -108,6 +108,13 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleRegular12Black = TextStyle(
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleBold18White = TextStyle(
     color: Colors.white,
     fontSize: 18,
@@ -120,9 +127,9 @@ class _MyConfig {
   /// APP CONFIG
   final String APP_NAME = "-- WEFINEX --";
   final String BASE_URL_XOSO = "https://xskt.com.vn/rss-feed/";
-  final String TOKEN_STRING_KEY = 'TOKEN_STRING_KEY';
-  final String EMAIL_KEY = 'EMAIL_KEY';
-  final String FCM_TOKEN_KEY = 'EMAIL_KEY';
+  final String BASE_URL_BONGDA = "https://api.football-data.org/";
+  final String BASE_URL_GITHUB = "https://api.github.com/";
+  final String TOKEN_STRING_KEY = '1e6002e19a5144a387916a5129045c12';
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
 }

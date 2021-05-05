@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
+import 'package:wefinex/base/super_base_controller.dart';
+import 'package:wefinex/repository/model/bong_da_entity.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
 /*
@@ -10,7 +12,7 @@ Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
 
-class BottomNavigationViewController extends BaseController {
+class BottomNavigationViewController extends SuperBaseController<BongDaEntity> {
   // Fields
   RxInt _currentNavPageIndex = 0.obs;
 

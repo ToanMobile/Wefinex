@@ -42,9 +42,9 @@ class BottomNavigationView extends BaseView<BottomNavigationViewController> {
           () => IndexedStack(
             index: controller.currentNavPageIndex,
             children: [
-              XoSoScreen(),
-              HomeScreen(),
               BongDaScreen(),
+              HomeScreen(),
+              HomeScreen(),
             ],
           ),
         ),

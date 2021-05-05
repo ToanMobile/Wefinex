@@ -57,7 +57,7 @@ abstract class BaseViewModel<T extends BaseController> extends StatelessWidget {
 /// RECOMENDED FOR you'r [Screen] / [View] / [Page].
 /// Please extends to your [Screen] / [View] / [Page].
 /// read the [Example] above.
-abstract class BaseView<T extends BaseController> extends StatelessWidget {
+abstract class BaseView<T extends SuperController> extends StatelessWidget {
 
   const BaseView({Key? key}) : super(key: key);
 

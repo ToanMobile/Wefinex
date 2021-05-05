@@ -1,21 +1,21 @@
-import 'package:wefinex/repository/model/bongda_entity.dart';
+import 'package:wefinex/repository/model/bong_da_entity.dart';
 
-bongdaModelEntityFromJson(BongdaModelEntity data, Map<String, dynamic> json) {
+bongDaEntityFromJson(BongDaEntity data, Map<String, dynamic> json) {
 	if (json['count'] != null) {
 		data.count = json['count'] is String
 				? int.tryParse(json['count'])
 				: json['count'].toInt();
 	}
 	if (json['filters'] != null) {
-		data.filters = BongdaModelFilters().fromJson(json['filters']);
+		data.filters = BongDaFilters().fromJson(json['filters']);
 	}
 	if (json['competitions'] != null) {
-		data.competitions = (json['competitions'] as List).map((v) => BongdaModelCompetitions().fromJson(v)).toList();
+		data.competitions = (json['competitions'] as List).map((v) => BongDaCompetitions().fromJson(v)).toList();
 	}
 	return data;
 }
 
-Map<String, dynamic> bongdaModelEntityToJson(BongdaModelEntity entity) {
+Map<String, dynamic> bongDaEntityToJson(BongDaEntity entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['count'] = entity.count;
 	data['filters'] = entity.filters?.toJson();
@@ -23,23 +23,23 @@ Map<String, dynamic> bongdaModelEntityToJson(BongdaModelEntity entity) {
 	return data;
 }
 
-bongdaModelFiltersFromJson(BongdaModelFilters data, Map<String, dynamic> json) {
+bongDaFiltersFromJson(BongDaFilters data, Map<String, dynamic> json) {
 	return data;
 }
 
-Map<String, dynamic> bongdaModelFiltersToJson(BongdaModelFilters entity) {
+Map<String, dynamic> bongDaFiltersToJson(BongDaFilters entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	return data;
 }
 
-bongdaModelCompetitionsFromJson(BongdaModelCompetitions data, Map<String, dynamic> json) {
+bongDaCompetitionsFromJson(BongDaCompetitions data, Map<String, dynamic> json) {
 	if (json['id'] != null) {
 		data.id = json['id'] is String
 				? int.tryParse(json['id'])
 				: json['id'].toInt();
 	}
 	if (json['area'] != null) {
-		data.area = BongdaModelCompetitionsArea().fromJson(json['area']);
+		data.area = BongDaCompetitionsArea().fromJson(json['area']);
 	}
 	if (json['name'] != null) {
 		data.name = json['name'].toString();
@@ -54,7 +54,7 @@ bongdaModelCompetitionsFromJson(BongdaModelCompetitions data, Map<String, dynami
 		data.plan = json['plan'].toString();
 	}
 	if (json['currentSeason'] != null) {
-		data.currentSeason = BongdaModelCompetitionsCurrentSeason().fromJson(json['currentSeason']);
+		data.currentSeason = BongDaCompetitionsCurrentSeason().fromJson(json['currentSeason']);
 	}
 	if (json['numberOfAvailableSeasons'] != null) {
 		data.numberOfAvailableSeasons = json['numberOfAvailableSeasons'] is String
@@ -67,7 +67,7 @@ bongdaModelCompetitionsFromJson(BongdaModelCompetitions data, Map<String, dynami
 	return data;
 }
 
-Map<String, dynamic> bongdaModelCompetitionsToJson(BongdaModelCompetitions entity) {
+Map<String, dynamic> bongDaCompetitionsToJson(BongDaCompetitions entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['id'] = entity.id;
 	data['area'] = entity.area?.toJson();
@@ -81,7 +81,7 @@ Map<String, dynamic> bongdaModelCompetitionsToJson(BongdaModelCompetitions entit
 	return data;
 }
 
-bongdaModelCompetitionsAreaFromJson(BongdaModelCompetitionsArea data, Map<String, dynamic> json) {
+bongDaCompetitionsAreaFromJson(BongDaCompetitionsArea data, Map<String, dynamic> json) {
 	if (json['id'] != null) {
 		data.id = json['id'] is String
 				? int.tryParse(json['id'])
@@ -99,7 +99,7 @@ bongdaModelCompetitionsAreaFromJson(BongdaModelCompetitionsArea data, Map<String
 	return data;
 }
 
-Map<String, dynamic> bongdaModelCompetitionsAreaToJson(BongdaModelCompetitionsArea entity) {
+Map<String, dynamic> bongDaCompetitionsAreaToJson(BongDaCompetitionsArea entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['id'] = entity.id;
 	data['name'] = entity.name;
@@ -108,7 +108,7 @@ Map<String, dynamic> bongdaModelCompetitionsAreaToJson(BongdaModelCompetitionsAr
 	return data;
 }
 
-bongdaModelCompetitionsCurrentSeasonFromJson(BongdaModelCompetitionsCurrentSeason data, Map<String, dynamic> json) {
+bongDaCompetitionsCurrentSeasonFromJson(BongDaCompetitionsCurrentSeason data, Map<String, dynamic> json) {
 	if (json['id'] != null) {
 		data.id = json['id'] is String
 				? int.tryParse(json['id'])
@@ -131,7 +131,7 @@ bongdaModelCompetitionsCurrentSeasonFromJson(BongdaModelCompetitionsCurrentSeaso
 	return data;
 }
 
-Map<String, dynamic> bongdaModelCompetitionsCurrentSeasonToJson(BongdaModelCompetitionsCurrentSeason entity) {
+Map<String, dynamic> bongDaCompetitionsCurrentSeasonToJson(BongDaCompetitionsCurrentSeason entity) {
 	final Map<String, dynamic> data = new Map<String, dynamic>();
 	data['id'] = entity.id;
 	data['startDate'] = entity.startDate;

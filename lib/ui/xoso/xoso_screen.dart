@@ -16,13 +16,8 @@ class XoSoScreen extends BaseView<XoSoController> {
         body: _body(),
       );
 
-  _body() {
-    print('controller=' + controller.getScreenState.toString());
-    if (controller.screenStateIsLoading) return Center(child: CircularProgressIndicator());
-    if (controller.screenStateIsError) return Text(Common().string.error_message);
-    if (controller.screenStateIsOK)
-      return ListView.builder(
-        itemCount: controller.listXoso.length,
+  _body() => ListView.builder(
+        itemCount: controller.state!.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -31,8 +26,8 @@ class XoSoScreen extends BaseView<XoSoController> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              title: buildWidgetTitle(controller.listXoso[index].name),
-              leading: buildWidgetIcon(controller.listXoso[index].icon),
+              title: buildWidgetTitle(controller.state![index].name),
+              leading: buildWidgetIcon(controller.state![index].icon),
               trailing: buildWidgetIconRight(),
               contentPadding: EdgeInsets.all(5.0),
               onTap: () async {
@@ -42,7 +37,6 @@ class XoSoScreen extends BaseView<XoSoController> {
           );
         },
       );
-  }
 
   buildWidgetTitle(title) => Text(
         title,

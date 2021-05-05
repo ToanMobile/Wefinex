@@ -35,7 +35,7 @@ Email: hvtoan.dev@gmail.com
 /// Please extends to your [Controller].
 /// read the [Example] above.
 
-class BaseController extends GetxController with BaseCommonWidgets, Utilities, Repositories, WidgetState, ScreenState {
+class BaseController extends GetxController with BaseCommonWidgets, Utilities, WidgetState, ScreenState {
   final box = GetStorage();
   bool isLoadMore = false;
   bool withScrollController = false;
