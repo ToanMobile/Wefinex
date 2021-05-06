@@ -1,4 +1,4 @@
-package com.example.wefinex
+package com.tradebo.wefinex.olacity
 
 import io.flutter.embedding.android.FlutterActivity
 

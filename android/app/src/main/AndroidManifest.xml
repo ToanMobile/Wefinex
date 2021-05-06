@@ -2,7 +2,7 @@
     package="com.tradebo.wefinex.olacity">
    <application
         android:label="My Wefinex"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

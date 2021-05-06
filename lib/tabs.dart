@@ -340,7 +340,6 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   Future<Null> _refreshPortfolioPage() async {
     await getMarketData();
-    getGlobalData();
     _makePortfolioDisplay();
     _filterMarketData();
     setState(() {});
@@ -519,20 +518,9 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   final marketColumnProps = [.32, .35, .28];
   List filteredMarketData;
-  Map globalData;
-
-  Future<Null> getGlobalData() async {
-    // var response = await http.get(
-    //     Uri.encodeFull("https://api.coinmarketcap.com/v1/global-metrics/quotes/latest"),
-    //     headers: {"Accept": "application/json"});
-
-    // globalData = JsonDecoder().convert(response.body)["data"]["quotes"]["USD"];
-    globalData = null;
-  }
 
   Future<Null> _refreshMarketPage() async {
     await getMarketData();
-    await getGlobalData();
     _makePortfolioDisplay();
     _filterMarketData();
     setState(() {});
@@ -595,34 +583,6 @@ class TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
               slivers: <Widget>[
                 SliverList(
                     delegate: SliverChildListDelegate(<Widget>[
-                  globalData != null && isSearching != true
-                      ? Container(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text("total_market_cap".tr, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).hintColor)),
-                                  Padding(padding: const EdgeInsets.symmetric(vertical: 1.0)),
-                                  Text("total_24h_volume".tr, style: Theme.of(context).textTheme.bodyText1.apply(color: Theme.of(context).hintColor)),
-                                ],
-                              ),
-                              Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0)),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Text("\$" + normalizeNum(globalData["total_market_cap"]),
-                                      style: Theme.of(context).textTheme.bodyText1.apply(fontSizeFactor: 1.2, fontWeightDelta: 2)),
-                                  Text("\$" + normalizeNum(globalData["total_volume_24h"]),
-                                      style: Theme.of(context).textTheme.bodyText1.apply(fontSizeFactor: 1.2, fontWeightDelta: 2)),
-                                ],
-                              )
-                            ],
-                          ))
-                      : Container(),
                   Container(
                     margin: const EdgeInsets.only(left: 6.0, right: 6.0),
                     decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1.0))),
