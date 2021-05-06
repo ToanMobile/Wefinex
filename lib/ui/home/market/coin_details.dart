@@ -1,25 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import '../trace/flutter_candlesticks.dart';
-import '../main.dart';
-import '../portfolio/portfolio_tabs.dart';
-import '../portfolio/transaction_item.dart';
-import '../portfolio/transaction_sheet.dart';
-import 'change_bar.dart';
-import 'exchange_list_item.dart';
+import 'package:wefinex/shared/constant/common.dart';
 
 class CoinDetails extends StatefulWidget {
-  CoinDetails({
-    this.snapshot,
-    this.enableTransactions = false,
-  });
-
-  final bool enableTransactions;
-  final snapshot;
 
   @override
   CoinDetailsState createState() => CoinDetailsState();
@@ -30,16 +13,17 @@ class CoinDetailsState extends State<CoinDetails> with SingleTickerProviderState
   late int _tabAmt;
   late List<Widget> _tabBarChildren;
   late String symbol;
-
+  Map? snapshot;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final bool enableTransactions = false;
 
   _makeTabs() {
-    if (widget.enableTransactions) {
+    if (enableTransactions) {
       _tabAmt = 3;
-      _tabBarChildren = [Tab(text: "bottom_stats".tr), Tab(text: "bottom_markets".tr), Tab(text: "bottom_transactions".tr)];
+      _tabBarChildren = [Tab(text: Common().string.bottom_stats), Tab(text: Common().string.bottom_markets), Tab(text: Common().string.bottom_transactions)];
     } else {
       _tabAmt = 2;
-      _tabBarChildren = [Tab(text: "bottom_aggregate".tr), Tab(text: "bottom_markets".tr)];
+      _tabBarChildren = [Tab(text: Common().string.bottom_aggregate), Tab(text: Common().string.bottom_markets)];
     }
   }
 
@@ -48,9 +32,9 @@ class CoinDetailsState extends State<CoinDetails> with SingleTickerProviderState
     super.initState();
     _makeTabs();
     _tabController = TabController(length: _tabAmt, vsync: this);
-
-    symbol = widget.snapshot["CoinInfo"]["Name"];
-
+    snapshot = Get.arguments;
+    symbol = snapshot?["CoinInfo"]["Name"];
+/*
     _makeGeneralStats();
     if (historyOHLCV == null) {
       changeHistory(historyType, historyAmt, historyTotal, historyAgg);
@@ -59,57 +43,58 @@ class CoinDetailsState extends State<CoinDetails> with SingleTickerProviderState
       _getExchangeData();
     }
 
-    _refreshTransactions();
+    _refreshTransactions();*/
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(75.0),
-          child: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            titleSpacing: 2.0,
-            elevation: appBarElevation,
-            title: Text(widget.snapshot["CoinInfo"]["FullName"], style: Theme.of(context).textTheme.headline6),
-            bottom: PreferredSize(
-                preferredSize: const Size.fromHeight(25.0),
-                child: Container(
-                    height: 30.0,
-                    child: TabBar(
-                      controller: _tabController,
-                      indicatorColor: Theme.of(context).accentIconTheme.color,
-                      indicatorWeight: 2.0,
-                      unselectedLabelColor: Theme.of(context).disabledColor,
-                      labelColor: Theme.of(context).primaryIconTheme.color,
-                      tabs: _tabBarChildren,
-                    ))),
-            actions: <Widget>[
-              widget.enableTransactions
-                  ? IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        _scaffoldKey.currentState.showBottomSheet((BuildContext context) {
-                          return TransactionSheet(() {
-                            setState(() {
-                              _refreshTransactions();
-                            });
-                          }, marketListData);
-                        });
-                      })
-                  : Container(),
-            ],
-          ),
+      /*key: _scaffoldKey,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(75.0),
+        child: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          titleSpacing: 2.0,
+          elevation: appBarElevation,
+          title: Text(widget.snapshot["CoinInfo"]["FullName"], style: Theme.of(context).textTheme.headline6),
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(25.0),
+              child: Container(
+                  height: 30.0,
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorColor: Theme.of(context).accentIconTheme.color,
+                    indicatorWeight: 2.0,
+                    unselectedLabelColor: Theme.of(context).disabledColor,
+                    labelColor: Theme.of(context).primaryIconTheme.color,
+                    tabs: _tabBarChildren,
+                  ))),
+          actions: <Widget>[
+            enableTransactions
+                ? IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      _scaffoldKey.currentState.showBottomSheet((BuildContext context) {
+                        return TransactionSheet(() {
+                          setState(() {
+                            _refreshTransactions();
+                          });
+                        }, marketListData);
+                      });
+                    })
+                : Container(),
+          ],
         ),
-        body: TabBarView(
-            controller: _tabController,
-            children:
-                widget.enableTransactions ? [aggregateStats(context), exchangeListPage(context), transactionPage(context)] : [aggregateStats(context), exchangeListPage(context)]));
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: enableTransactions ? [aggregateStats(context), exchangeListPage(context), transactionPage(context)] : [aggregateStats(context), exchangeListPage(context)],
+      ),*/
+    );
   }
 
-  Map generalStats;
-  List historyOHLCV;
+ /* Map? generalStats;
+  List? historyOHLCV;
 
   String _high = "0";
   String _low = "0";
@@ -654,5 +639,5 @@ class CoinDetailsState extends State<CoinDetails> with SingleTickerProviderState
                 childCount: transactionList.length)),
       ],
     );
-  }
+  }*/
 }

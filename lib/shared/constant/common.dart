@@ -43,6 +43,10 @@ class _String {
   String total_market_cap = 'total_market_cap'.tr;
   String total_24h_volume = 'total_24h_volume'.tr;
   String price_24h = 'price_24h'.tr;
+  String bottom_stats = 'bottom_stats'.tr;
+  String bottom_markets = 'bottom_markets'.tr;
+  String bottom_transactions = 'bottom_transactions'.tr;
+  String bottom_aggregate = 'bottom_aggregate'.tr;
 }
 
 class _Storage {

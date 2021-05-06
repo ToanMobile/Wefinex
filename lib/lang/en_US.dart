@@ -9,4 +9,8 @@ const Map<String, String> en_US = {
   'currency':'Tiền tệ',
   'market_cap': 'Vốn hóa thị trường',
   'price_24h':'Giá/24h',
+  'bottom_stats': 'Thống kê',
+  'bottom_markets': 'Thị trường',
+  'bottom_transactions': 'Giao dịch',
+  'bottom_aggregate': 'Thống kê Tổng hợp',
 };

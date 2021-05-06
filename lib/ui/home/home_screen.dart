@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
 import 'package:wefinex/shared/constant/common.dart';
+import 'package:wefinex/shared/utils/market_utils.dart';
 
 import 'home_binding.dart';
-import 'market/market_coin_item.dart';
+import 'market/coin_list_screen.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -60,8 +61,8 @@ class HomeScreen extends BaseView<HomeController> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
-                                Text("\$" + normalizeNum(globalData!["total_market_cap"]), style: Common().textStyle.styleRegular12White),
-                                Text("\$" + normalizeNum(globalData!["total_volume_24h"]), style: Common().textStyle.styleRegular12White),
+                                Text("\$" + MarketUtil.normalizeNum(globalData!["total_market_cap"]), style: Common().textStyle.styleRegular12White),
+                                Text("\$" + MarketUtil.normalizeNum(globalData!["total_volume_24h"]), style: Common().textStyle.styleRegular12White),
                               ],
                             )
                           ],
@@ -88,7 +89,8 @@ class HomeScreen extends BaseView<HomeController> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           width: ScreenUtil.defaultSize.width * marketColumnProps[0],
                           child: marketSortType[0] == "Name"
-                              ? Text(marketSortType[1] ? "${Common().string.currency} " + upArrow : "${Common().string.currency} " + downArrow, style: Common().textStyle.styleRegular12White)
+                              ? Text(marketSortType[1] ? "${Common().string.currency} " + upArrow : "${Common().string.currency} " + downArrow,
+                                  style: Common().textStyle.styleRegular12White)
                               : Text(Common().string.currency, style: Common().textStyle.styleRegular12White),
                         ),
                       ),
@@ -111,7 +113,8 @@ class HomeScreen extends BaseView<HomeController> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: marketSortType[0] == "MKTCAP"
-                                      ? Text(marketSortType[1] ? "${Common().string.market_cap} " + downArrow : "${Common().string.market_cap} " + upArrow, style: Common().textStyle.styleRegular12White)
+                                      ? Text(marketSortType[1] ? "${Common().string.market_cap} " + downArrow : "${Common().string.market_cap} " + upArrow,
+                                          style: Common().textStyle.styleRegular12White)
                                       : Text(Common().string.market_cap, style: Common().textStyle.styleRegular12White),
                                 )),
                             Text("/", style: Common().textStyle.styleRegular12White),
@@ -152,7 +155,8 @@ class HomeScreen extends BaseView<HomeController> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           width: ScreenUtil.defaultSize.width * marketColumnProps[2],
                           child: marketSortType[0] == "CHANGEPCT24HOUR"
-                              ? Text(marketSortType[1] == true ? "${Common().string.price_24h} " + downArrow : "${Common().string.price_24h} " + upArrow, style: Common().textStyle.styleRegular12White)
+                              ? Text(marketSortType[1] == true ? "${Common().string.price_24h} " + downArrow : "${Common().string.price_24h} " + upArrow,
+                                  style: Common().textStyle.styleRegular12White)
                               : Text(Common().string.price_24h, style: Common().textStyle.styleRegular12White),
                         ),
                       ),
@@ -177,37 +181,6 @@ class HomeScreen extends BaseView<HomeController> {
       : Container(
           child: Center(child: CircularProgressIndicator()),
         );
-
-  normalizeNum(num? input) {
-    if (input == null) {
-      input = 0;
-    }
-    if (input >= 100000) {
-      return numCommaParse(input.round().toString());
-    } else if (input >= 1000) {
-      return numCommaParse(input.toStringAsFixed(2));
-    } else {
-      return input.toStringAsFixed(6 - input.round().toString().length);
-    }
-  }
-
-  numCommaParse(numString) {
-    final shortenOn = false;
-    if (shortenOn) {
-      String str = num.parse(numString ?? "0").round().toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
-      List<String> strList = str.split(",");
-
-      if (strList.length > 3) {
-        return strList[0] + "." + strList[1].substring(0, 4 - strList[0].length) + "B";
-      } else if (strList.length > 2) {
-        return strList[0] + "." + strList[1].substring(0, 4 - strList[0].length) + "M";
-      } else {
-        return num.parse(numString ?? "0").toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
-      }
-    }
-
-    return num.parse(numString ?? "0").toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},");
-  }
 
   _filterMarketData() {
     print("filtering market data");
