@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wefinex/base/base_controller.dart';
+import 'package:wefinex/repository/model/coin_entity.dart';
 import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/utils/market_utils.dart';
 
@@ -450,7 +451,7 @@ class CoinListItem extends StatelessWidget {
   CoinListItem(this.snapshot, this.columnProps);
 
   final columnProps;
-  final Map snapshot;
+  final CoinData snapshot;
 
   _getImage() {
     if (assetImages.contains(snapshot["CoinInfo"]["Name"].toLowerCase())) {

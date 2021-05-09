@@ -14,22 +14,38 @@ class CoinEntity with JsonConvert<CoinEntity> {
 	List<CoinData>? data;
 	@JSONField(name: "RateLimit")
 	CoinRateLimit? rateLimit;
-	@JSONField(name: "HasWarning")
+  @JSONField(name: "HasWarning")
 	bool? hasWarning;
+
+	@override
+	String toString() {
+		return 'CoinEntity{message: $message, type: $type, metaData: $metaData, sponsoredData: $sponsoredData, data: $data, rateLimit: $rateLimit, hasWarning: $hasWarning}';
+	}
 }
 
 class CoinMetaData with JsonConvert<CoinMetaData> {
 	@JSONField(name: "Count")
 	int? count;
+
+	@override
+  String toString() {
+    return 'CoinMetaData{count: $count}';
+  }
 }
 
 class CoinSponsoredData with JsonConvert<CoinSponsoredData> {
 	@JSONField(name: "CoinInfo")
 	CoinSponsoredDataCoinInfo? coinInfo;
-	@JSONField(name: "RAW")
+  @JSONField(name: "RAW")
 	CoinSponsoredDataRAW? rAW;
 	@JSONField(name: "DISPLAY")
 	CoinSponsoredDataDISPLAY? dISPLAY;
+
+	@override
+	String toString() {
+		return 'CoinSponsoredData{coinInfo: $coinInfo, rAW: $rAW, dISPLAY: $dISPLAY}';
+	}
+
 }
 
 class CoinSponsoredDataCoinInfo with JsonConvert<CoinSponsoredDataCoinInfo> {
@@ -63,15 +79,26 @@ class CoinSponsoredDataCoinInfo with JsonConvert<CoinSponsoredDataCoinInfo> {
 	String? assetLaunchDate;
 	@JSONField(name: "MaxSupply")
 	int? maxSupply;
-	@JSONField(name: "Type")
+  @JSONField(name: "Type")
 	int? type;
 	@JSONField(name: "DocumentType")
 	String? documentType;
+
+	@override
+	String toString() {
+		return 'CoinSponsoredDataCoinInfo{id: $id, name: $name, fullName: $fullName, internal: $internal, imageUrl: $imageUrl, url: $url, algorithm: $algorithm, proofType: $proofType, rating: $rating, netHashesPerSecond: $netHashesPerSecond, blockNumber: $blockNumber, blockTime: $blockTime, blockReward: $blockReward, assetLaunchDate: $assetLaunchDate, maxSupply: $maxSupply, type: $type, documentType: $documentType}';
+	}
+
 }
 
 class CoinSponsoredDataCoinInfoRating with JsonConvert<CoinSponsoredDataCoinInfoRating> {
 	@JSONField(name: "Weiss")
 	CoinSponsoredDataCoinInfoRatingWeiss? weiss;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataCoinInfoRating{weiss: $weiss}';
+  }
 }
 
 class CoinSponsoredDataCoinInfoRatingWeiss with JsonConvert<CoinSponsoredDataCoinInfoRatingWeiss> {
@@ -81,11 +108,21 @@ class CoinSponsoredDataCoinInfoRatingWeiss with JsonConvert<CoinSponsoredDataCoi
 	String? technologyAdoptionRating;
 	@JSONField(name: "MarketPerformanceRating")
 	String? marketPerformanceRating;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataCoinInfoRatingWeiss{rating: $rating, technologyAdoptionRating: $technologyAdoptionRating, marketPerformanceRating: $marketPerformanceRating}';
+  }
 }
 
 class CoinSponsoredDataRAW with JsonConvert<CoinSponsoredDataRAW> {
 	@JSONField(name: "USD")
 	CoinSponsoredDataRAWUSD? uSD;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataRAW{uSD: $uSD}';
+  }
 }
 
 class CoinSponsoredDataRAWUSD with JsonConvert<CoinSponsoredDataRAWUSD> {
@@ -179,11 +216,21 @@ class CoinSponsoredDataRAWUSD with JsonConvert<CoinSponsoredDataRAWUSD> {
 	int? tOTALTOPTIERVOLUME24HTO;
 	@JSONField(name: "IMAGEURL")
 	String? iMAGEURL;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataRAWUSD{tYPE: $tYPE, mARKET: $mARKET, fROMSYMBOL: $fROMSYMBOL, tOSYMBOL: $tOSYMBOL, fLAGS: $fLAGS, pRICE: $pRICE, lASTUPDATE: $lASTUPDATE, mEDIAN: $mEDIAN, lASTVOLUME: $lASTVOLUME, lASTVOLUMETO: $lASTVOLUMETO, lASTTRADEID: $lASTTRADEID, vOLUMEDAY: $vOLUMEDAY, vOLUMEDAYTO: $vOLUMEDAYTO, vOLUME24HOUR: $vOLUME24HOUR, vOLUME24HOURTO: $vOLUME24HOURTO, oPENDAY: $oPENDAY, hIGHDAY: $hIGHDAY, lOWDAY: $lOWDAY, oPEN24HOUR: $oPEN24HOUR, hIGH24HOUR: $hIGH24HOUR, lOW24HOUR: $lOW24HOUR, lASTMARKET: $lASTMARKET, vOLUMEHOUR: $vOLUMEHOUR, vOLUMEHOURTO: $vOLUMEHOURTO, oPENHOUR: $oPENHOUR, hIGHHOUR: $hIGHHOUR, lOWHOUR: $lOWHOUR, tOPTIERVOLUME24HOUR: $tOPTIERVOLUME24HOUR, tOPTIERVOLUME24HOURTO: $tOPTIERVOLUME24HOURTO, cHANGE24HOUR: $cHANGE24HOUR, cHANGEPCT24HOUR: $cHANGEPCT24HOUR, cHANGEDAY: $cHANGEDAY, cHANGEPCTDAY: $cHANGEPCTDAY, cHANGEHOUR: $cHANGEHOUR, cHANGEPCTHOUR: $cHANGEPCTHOUR, cONVERSIONTYPE: $cONVERSIONTYPE, cONVERSIONSYMBOL: $cONVERSIONSYMBOL, sUPPLY: $sUPPLY, mKTCAP: $mKTCAP, mKTCAPPENALTY: $mKTCAPPENALTY, tOTALVOLUME24H: $tOTALVOLUME24H, tOTALVOLUME24HTO: $tOTALVOLUME24HTO, tOTALTOPTIERVOLUME24H: $tOTALTOPTIERVOLUME24H, tOTALTOPTIERVOLUME24HTO: $tOTALTOPTIERVOLUME24HTO, iMAGEURL: $iMAGEURL}';
+  }
 }
 
 class CoinSponsoredDataDISPLAY with JsonConvert<CoinSponsoredDataDISPLAY> {
 	@JSONField(name: "USD")
 	CoinSponsoredDataDISPLAYUSD? uSD;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataDISPLAY{uSD: $uSD}';
+  }
 }
 
 class CoinSponsoredDataDISPLAYUSD with JsonConvert<CoinSponsoredDataDISPLAYUSD> {
@@ -271,15 +318,26 @@ class CoinSponsoredDataDISPLAYUSD with JsonConvert<CoinSponsoredDataDISPLAYUSD> 
 	String? tOTALTOPTIERVOLUME24HTO;
 	@JSONField(name: "IMAGEURL")
 	String? iMAGEURL;
+
+	@override
+  String toString() {
+    return 'CoinSponsoredDataDISPLAYUSD{fROMSYMBOL: $fROMSYMBOL, tOSYMBOL: $tOSYMBOL, mARKET: $mARKET, pRICE: $pRICE, lASTUPDATE: $lASTUPDATE, lASTVOLUME: $lASTVOLUME, lASTVOLUMETO: $lASTVOLUMETO, lASTTRADEID: $lASTTRADEID, vOLUMEDAY: $vOLUMEDAY, vOLUMEDAYTO: $vOLUMEDAYTO, vOLUME24HOUR: $vOLUME24HOUR, vOLUME24HOURTO: $vOLUME24HOURTO, oPENDAY: $oPENDAY, hIGHDAY: $hIGHDAY, lOWDAY: $lOWDAY, oPEN24HOUR: $oPEN24HOUR, hIGH24HOUR: $hIGH24HOUR, lOW24HOUR: $lOW24HOUR, lASTMARKET: $lASTMARKET, vOLUMEHOUR: $vOLUMEHOUR, vOLUMEHOURTO: $vOLUMEHOURTO, oPENHOUR: $oPENHOUR, hIGHHOUR: $hIGHHOUR, lOWHOUR: $lOWHOUR, tOPTIERVOLUME24HOUR: $tOPTIERVOLUME24HOUR, tOPTIERVOLUME24HOURTO: $tOPTIERVOLUME24HOURTO, cHANGE24HOUR: $cHANGE24HOUR, cHANGEPCT24HOUR: $cHANGEPCT24HOUR, cHANGEDAY: $cHANGEDAY, cHANGEPCTDAY: $cHANGEPCTDAY, cHANGEHOUR: $cHANGEHOUR, cHANGEPCTHOUR: $cHANGEPCTHOUR, cONVERSIONTYPE: $cONVERSIONTYPE, cONVERSIONSYMBOL: $cONVERSIONSYMBOL, sUPPLY: $sUPPLY, mKTCAP: $mKTCAP, mKTCAPPENALTY: $mKTCAPPENALTY, tOTALVOLUME24H: $tOTALVOLUME24H, tOTALVOLUME24HTO: $tOTALVOLUME24HTO, tOTALTOPTIERVOLUME24H: $tOTALTOPTIERVOLUME24H, tOTALTOPTIERVOLUME24HTO: $tOTALTOPTIERVOLUME24HTO, iMAGEURL: $iMAGEURL}';
+  }
 }
 
 class CoinData with JsonConvert<CoinData> {
 	@JSONField(name: "CoinInfo")
 	CoinDataCoinInfo? coinInfo;
-	@JSONField(name: "RAW")
+  @JSONField(name: "RAW")
 	CoinDataRAW? rAW;
 	@JSONField(name: "DISPLAY")
 	CoinDataDISPLAY? dISPLAY;
+
+	@override
+	String toString() {
+		return 'CoinData{coinInfo: $coinInfo, rAW: $rAW, dISPLAY: $dISPLAY}';
+	}
+
 }
 
 class CoinDataCoinInfo with JsonConvert<CoinDataCoinInfo> {
@@ -287,7 +345,7 @@ class CoinDataCoinInfo with JsonConvert<CoinDataCoinInfo> {
 	String? id;
 	@JSONField(name: "Name")
 	String? name;
-	@JSONField(name: "FullName")
+  @JSONField(name: "FullName")
 	String? fullName;
 	@JSONField(name: "Internal")
 	String? internal;
@@ -317,11 +375,22 @@ class CoinDataCoinInfo with JsonConvert<CoinDataCoinInfo> {
 	int? type;
 	@JSONField(name: "DocumentType")
 	String? documentType;
+
+	@override
+	String toString() {
+		return 'CoinDataCoinInfo{id: $id, name: $name, fullName: $fullName, internal: $internal, imageUrl: $imageUrl, url: $url, algorithm: $algorithm, proofType: $proofType, rating: $rating, netHashesPerSecond: $netHashesPerSecond, blockNumber: $blockNumber, blockTime: $blockTime, blockReward: $blockReward, assetLaunchDate: $assetLaunchDate, maxSupply: $maxSupply, type: $type, documentType: $documentType}';
+	}
+
 }
 
 class CoinDataCoinInfoRating with JsonConvert<CoinDataCoinInfoRating> {
 	@JSONField(name: "Weiss")
 	CoinDataCoinInfoRatingWeiss? weiss;
+
+	@override
+  String toString() {
+    return 'CoinDataCoinInfoRating{weiss: $weiss}';
+  }
 }
 
 class CoinDataCoinInfoRatingWeiss with JsonConvert<CoinDataCoinInfoRatingWeiss> {
@@ -331,11 +400,21 @@ class CoinDataCoinInfoRatingWeiss with JsonConvert<CoinDataCoinInfoRatingWeiss> 
 	String? technologyAdoptionRating;
 	@JSONField(name: "MarketPerformanceRating")
 	String? marketPerformanceRating;
+
+	@override
+  String toString() {
+    return 'CoinDataCoinInfoRatingWeiss{rating: $rating, technologyAdoptionRating: $technologyAdoptionRating, marketPerformanceRating: $marketPerformanceRating}';
+  }
 }
 
 class CoinDataRAW with JsonConvert<CoinDataRAW> {
 	@JSONField(name: "USD")
 	CoinDataRAWUSD? uSD;
+
+	@override
+  String toString() {
+    return 'CoinDataRAW{uSD: $uSD}';
+  }
 }
 
 class CoinDataRAWUSD with JsonConvert<CoinDataRAWUSD> {
@@ -357,7 +436,7 @@ class CoinDataRAWUSD with JsonConvert<CoinDataRAWUSD> {
 	double? mEDIAN;
 	@JSONField(name: "LASTVOLUME")
 	double? lASTVOLUME;
-	@JSONField(name: "LASTVOLUMETO")
+  @JSONField(name: "LASTVOLUMETO")
 	double? lASTVOLUMETO;
 	@JSONField(name: "LASTTRADEID")
 	String? lASTTRADEID;
@@ -429,11 +508,22 @@ class CoinDataRAWUSD with JsonConvert<CoinDataRAWUSD> {
 	double? tOTALTOPTIERVOLUME24HTO;
 	@JSONField(name: "IMAGEURL")
 	String? iMAGEURL;
+
+	@override
+	String toString() {
+		return 'CoinDataRAWUSD{tYPE: $tYPE, mARKET: $mARKET, fROMSYMBOL: $fROMSYMBOL, tOSYMBOL: $tOSYMBOL, fLAGS: $fLAGS, pRICE: $pRICE, lASTUPDATE: $lASTUPDATE, mEDIAN: $mEDIAN, lASTVOLUME: $lASTVOLUME, lASTVOLUMETO: $lASTVOLUMETO, lASTTRADEID: $lASTTRADEID, vOLUMEDAY: $vOLUMEDAY, vOLUMEDAYTO: $vOLUMEDAYTO, vOLUME24HOUR: $vOLUME24HOUR, vOLUME24HOURTO: $vOLUME24HOURTO, oPENDAY: $oPENDAY, hIGHDAY: $hIGHDAY, lOWDAY: $lOWDAY, oPEN24HOUR: $oPEN24HOUR, hIGH24HOUR: $hIGH24HOUR, lOW24HOUR: $lOW24HOUR, lASTMARKET: $lASTMARKET, vOLUMEHOUR: $vOLUMEHOUR, vOLUMEHOURTO: $vOLUMEHOURTO, oPENHOUR: $oPENHOUR, hIGHHOUR: $hIGHHOUR, lOWHOUR: $lOWHOUR, tOPTIERVOLUME24HOUR: $tOPTIERVOLUME24HOUR, tOPTIERVOLUME24HOURTO: $tOPTIERVOLUME24HOURTO, cHANGE24HOUR: $cHANGE24HOUR, cHANGEPCT24HOUR: $cHANGEPCT24HOUR, cHANGEDAY: $cHANGEDAY, cHANGEPCTDAY: $cHANGEPCTDAY, cHANGEHOUR: $cHANGEHOUR, cHANGEPCTHOUR: $cHANGEPCTHOUR, cONVERSIONTYPE: $cONVERSIONTYPE, cONVERSIONSYMBOL: $cONVERSIONSYMBOL, sUPPLY: $sUPPLY, mKTCAP: $mKTCAP, mKTCAPPENALTY: $mKTCAPPENALTY, tOTALVOLUME24H: $tOTALVOLUME24H, tOTALVOLUME24HTO: $tOTALVOLUME24HTO, tOTALTOPTIERVOLUME24H: $tOTALTOPTIERVOLUME24H, tOTALTOPTIERVOLUME24HTO: $tOTALTOPTIERVOLUME24HTO, iMAGEURL: $iMAGEURL}';
+	}
+
 }
 
 class CoinDataDISPLAY with JsonConvert<CoinDataDISPLAY> {
 	@JSONField(name: "USD")
 	CoinDataDISPLAYUSD? uSD;
+
+	@override
+  String toString() {
+    return 'CoinDataDISPLAY{uSD: $uSD}';
+  }
 }
 
 class CoinDataDISPLAYUSD with JsonConvert<CoinDataDISPLAYUSD> {
@@ -447,7 +537,7 @@ class CoinDataDISPLAYUSD with JsonConvert<CoinDataDISPLAYUSD> {
 	String? pRICE;
 	@JSONField(name: "LASTUPDATE")
 	String? lASTUPDATE;
-	@JSONField(name: "LASTVOLUME")
+  @JSONField(name: "LASTVOLUME")
 	String? lASTVOLUME;
 	@JSONField(name: "LASTVOLUMETO")
 	String? lASTVOLUMETO;
@@ -521,6 +611,12 @@ class CoinDataDISPLAYUSD with JsonConvert<CoinDataDISPLAYUSD> {
 	String? tOTALTOPTIERVOLUME24HTO;
 	@JSONField(name: "IMAGEURL")
 	String? iMAGEURL;
+
+	@override
+	String toString() {
+		return 'CoinDataDISPLAYUSD{fROMSYMBOL: $fROMSYMBOL, tOSYMBOL: $tOSYMBOL, mARKET: $mARKET, pRICE: $pRICE, lASTUPDATE: $lASTUPDATE, lASTVOLUME: $lASTVOLUME, lASTVOLUMETO: $lASTVOLUMETO, lASTTRADEID: $lASTTRADEID, vOLUMEDAY: $vOLUMEDAY, vOLUMEDAYTO: $vOLUMEDAYTO, vOLUME24HOUR: $vOLUME24HOUR, vOLUME24HOURTO: $vOLUME24HOURTO, oPENDAY: $oPENDAY, hIGHDAY: $hIGHDAY, lOWDAY: $lOWDAY, oPEN24HOUR: $oPEN24HOUR, hIGH24HOUR: $hIGH24HOUR, lOW24HOUR: $lOW24HOUR, lASTMARKET: $lASTMARKET, vOLUMEHOUR: $vOLUMEHOUR, vOLUMEHOURTO: $vOLUMEHOURTO, oPENHOUR: $oPENHOUR, hIGHHOUR: $hIGHHOUR, lOWHOUR: $lOWHOUR, tOPTIERVOLUME24HOUR: $tOPTIERVOLUME24HOUR, tOPTIERVOLUME24HOURTO: $tOPTIERVOLUME24HOURTO, cHANGE24HOUR: $cHANGE24HOUR, cHANGEPCT24HOUR: $cHANGEPCT24HOUR, cHANGEDAY: $cHANGEDAY, cHANGEPCTDAY: $cHANGEPCTDAY, cHANGEHOUR: $cHANGEHOUR, cHANGEPCTHOUR: $cHANGEPCTHOUR, cONVERSIONTYPE: $cONVERSIONTYPE, cONVERSIONSYMBOL: $cONVERSIONSYMBOL, sUPPLY: $sUPPLY, mKTCAP: $mKTCAP, mKTCAPPENALTY: $mKTCAPPENALTY, tOTALVOLUME24H: $tOTALVOLUME24H, tOTALVOLUME24HTO: $tOTALVOLUME24HTO, tOTALTOPTIERVOLUME24H: $tOTALTOPTIERVOLUME24H, tOTALTOPTIERVOLUME24HTO: $tOTALTOPTIERVOLUME24HTO, iMAGEURL: $iMAGEURL}';
+	}
+
 }
 
 class CoinRateLimit with JsonConvert<CoinRateLimit> {

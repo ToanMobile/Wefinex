@@ -1,8 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
+import 'package:wefinex/repository/model/coin_entity.dart';
 import 'package:wefinex/shared/constant/common.dart';
 import 'package:wefinex/shared/utils/market_utils.dart';
 
@@ -17,8 +16,7 @@ Email: hvtoan.dev@gmail.com
 
 class HomeScreen extends BaseView<HomeController> {
   final marketColumnProps = [.32, .35, .28];
-  List? filteredMarketData;
-  Map? globalData;
+  List<CoinData>? filteredMarketData;
   List marketSortType = ["MKTCAP", true];
   String filter = "";
   final String upArrow = "⬆";
@@ -30,6 +28,8 @@ class HomeScreen extends BaseView<HomeController> {
       );
 
   _body() {
+    _filterMarketData();
+    print("filteredMarketData==" + (filteredMarketData?.length ?? 0).toString());
     if (controller.screenStateIsLoading) return Center(child: CircularProgressIndicator());
     if (controller.screenStateIsError) return Text(Common().string.error_message);
     if (controller.screenStateIsOK) return buildWidgetMarket();
@@ -42,32 +42,6 @@ class HomeScreen extends BaseView<HomeController> {
             slivers: <Widget>[
               SliverList(
                   delegate: SliverChildListDelegate(<Widget>[
-                globalData != null
-                    ? Container(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(Common().string.total_market_cap, style: Common().textStyle.styleRegular12White),
-                                Padding(padding: const EdgeInsets.symmetric(vertical: 1.0)),
-                                Text(Common().string.total_24h_volume, style: Common().textStyle.styleRegular12White),
-                              ],
-                            ),
-                            Padding(padding: const EdgeInsets.symmetric(horizontal: 1.0)),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Text("\$" + MarketUtil.normalizeNum(globalData!["total_market_cap"]), style: Common().textStyle.styleRegular12White),
-                                Text("\$" + MarketUtil.normalizeNum(globalData!["total_volume_24h"]), style: Common().textStyle.styleRegular12White),
-                              ],
-                            )
-                          ],
-                        ))
-                    : Container(),
                 Container(
                   margin: const EdgeInsets.only(left: 6.0, right: 6.0),
                   decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Common().color.darkGray, width: 1.0))),
@@ -100,42 +74,24 @@ class HomeScreen extends BaseView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             InkWell(
-                                onTap: () {
-                                  if (marketSortType[0] == "MKTCAP") {
-                                    marketSortType[1] = !marketSortType[1];
-                                  } else {
-                                    marketSortType = ["MKTCAP", true];
-                                  }
-                                  /*setState(() {
-                                    _sortMarketData();
-                                  });*/
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: marketSortType[0] == "MKTCAP"
-                                      ? Text(marketSortType[1] ? "${Common().string.market_cap} " + downArrow : "${Common().string.market_cap} " + upArrow,
-                                          style: Common().textStyle.styleRegular12White)
-                                      : Text(Common().string.market_cap, style: Common().textStyle.styleRegular12White),
-                                )),
-                            Text("/", style: Common().textStyle.styleRegular12White),
-                            InkWell(
                               onTap: () {
-                                if (marketSortType[0] == "TOTALVOLUME24H") {
+                                if (marketSortType[0] == "MKTCAP") {
                                   marketSortType[1] = !marketSortType[1];
                                 } else {
-                                  marketSortType = ["TOTALVOLUME24H", true];
+                                  marketSortType = ["MKTCAP", true];
                                 }
                                 /*setState(() {
-                                  _sortMarketData();
-                                });*/
+                                    _sortMarketData();
+                                  });*/
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: marketSortType[0] == "TOTALVOLUME24H"
-                                    ? Text(marketSortType[1] ? "24h " + downArrow : "24h " + upArrow, style: Common().textStyle.styleRegular12White)
-                                    : Text("24h", style: Common().textStyle.styleRegular12White),
+                                child: marketSortType[0] == "MKTCAP"
+                                    ? Text(marketSortType[1] ? "${Common().string.market_cap} " + downArrow : "${Common().string.market_cap} " + upArrow,
+                                        style: Common().textStyle.styleRegular12White)
+                                    : Text(Common().string.market_cap, style: Common().textStyle.styleRegular12White),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -183,12 +139,12 @@ class HomeScreen extends BaseView<HomeController> {
         );
 
   _filterMarketData() {
-    print("filtering market data");
     filteredMarketData = controller.listData;
+    print("filteredMarketData==" + (filteredMarketData?.length ?? 0).toString());
     if (filter != "" && filter != null) {
-      List tempFilteredMarketData = [];
+      List<CoinData> tempFilteredMarketData = [];
       filteredMarketData?.forEach((item) {
-        if (item["CoinInfo"]["Name"].toLowerCase().contains(filter.toLowerCase()) || item["CoinInfo"]["FullName"].toLowerCase().contains(filter.toLowerCase())) {
+        if ((item.coinInfo?.name ?? "").toLowerCase().contains(filter.toLowerCase()) || (item.coinInfo?.fullName ?? "").toLowerCase().contains(filter.toLowerCase())) {
           tempFilteredMarketData.add(item);
         }
       });
@@ -205,18 +161,18 @@ class HomeScreen extends BaseView<HomeController> {
     if (marketSortType[1]) {
       if (marketSortType[0] == "MKTCAP" || marketSortType[0] == "TOTALVOLUME24H" || marketSortType[0] == "CHANGEPCT24HOUR") {
         print(filteredMarketData);
-        filteredMarketData?.sort((a, b) => (b["RAW"]["USD"][marketSortType[0]] ?? 0).compareTo(a["RAW"]["USD"][marketSortType[0]] ?? 0));
+        filteredMarketData?.sort((a, b) => (b.rAW?.uSD?.lASTMARKET?[marketSortType[0]] ?? 0).compareTo(a["RAW"]["USD"][marketSortType[0]] ?? 0));
         if (marketSortType[0] == "MKTCAP") {
           print("adding ranks to filteredMarketData");
           int i = 1;
-          for (Map coin in filteredMarketData!) {
+          for (CoinData coin in filteredMarketData!) {
             coin["rank"] = i;
             i++;
           }
         }
       } else {
         // Handle sorting by name
-        filteredMarketData?.sort((a, b) => (b["CoinInfo"][marketSortType[0]] ?? 0).compareTo(a["CoinInfo"][marketSortType[0]] ?? 0));
+        filteredMarketData?.sort((a, b) => (b.coinInfo[marketSortType[0]] ?? 0).compareTo(a["CoinInfo"][marketSortType[0]] ?? 0));
       }
       // lowest to highest
     } else {

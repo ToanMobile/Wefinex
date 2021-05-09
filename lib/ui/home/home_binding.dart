@@ -30,11 +30,10 @@ class HomeController extends BaseController {
     setScreenState = screenStateLoading;
     final res = await getDataCoin();
     String text = '';
-    print("onGetListCoin="+ res.toString());
     if (res.status == true && res.body != null) {
       try {
         listData = CoinEntity().fromJson(res.body).data;
-        print("listData=="+ listData.toString());
+        logWhenDebug("listData===", listData.toString());
         setScreenState = screenStateOk;
       } catch (e) {
         text = e.toString();
