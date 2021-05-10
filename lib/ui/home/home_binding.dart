@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
 import 'package:wefinex/base/super_base_controller.dart';
@@ -17,7 +19,7 @@ class HomeBinding extends Bindings {
 }
 
 class HomeController extends BaseController {
-  var listData;
+  List<CoinEntity>? listData;
 
   @override
   void onInit() async {
@@ -28,11 +30,11 @@ class HomeController extends BaseController {
 
   Future<void> onGetListCoin() async {
     setScreenState = screenStateLoading;
-    final res = await getDataCoin();
+    final res = await getListCoin();
     String text = '';
     if (res.status == true && res.body != null) {
       try {
-        listData = CoinEntity().fromJson(res.body).data;
+        listData = List<CoinEntity>.from(JsonDecoder().convert(res.body).map((x) => CoinEntity.fromJson(x)));
         logWhenDebug("listData===", listData.toString());
         setScreenState = screenStateOk;
       } catch (e) {

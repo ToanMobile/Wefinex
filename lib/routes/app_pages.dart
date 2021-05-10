@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:wefinex/ui/bongda/bongda_binding.dart';
-import 'package:wefinex/ui/bongda/bongda_screen.dart';
 import 'package:wefinex/ui/bottom_nav_view/bottom_navigation_binding.dart';
 import 'package:wefinex/ui/bottom_nav_view/bottom_navigation_view.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
@@ -42,11 +40,6 @@ class AppPages {
       name: Routes.SO_XO,
       page: () => XoSoScreen(),
       binding: XoSoBinding(),
-    ),
-    GetPage(
-      name: Routes.BONG_DA,
-      page: () => BongDaScreen(),
-      binding: BongDaBinding(),
     ),
     GetPage(
       name: Routes.WEB_VIEW,

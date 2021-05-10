@@ -19,7 +19,7 @@ class ApiService {
   }
 
   Future<Result> getData({String? baseUrl, required String endPoint, Map<String, String>? query, bool withToken = false}) async {
-    return await _api.getData(baseUrl : baseUrl, endPoint: endPoint, query: query, withToken: withToken);
+    return await _api.getData(baseUrl: baseUrl, endPoint: endPoint, query: query, withToken: withToken);
   }
 
   Future<Result> postData({required String endPoint, Map? data, bool withToken = false}) async {
@@ -32,22 +32,22 @@ class ApiService {
 class _Api extends GetConnect {
   Result _result = Result(status: false, isError: false, text: "${Common().string.error_message}");
   bool _withToken = false;
-  String baseURL = "";
+
   @override
   void onInit() async {
-    httpClient.baseUrl = baseURL;
-    httpClient.addRequestModifier((request) {
-   /*   request.headers['platform'] = pf;
+    httpClient.baseUrl = Common().myConfig.BASE_URL_COIN;
+    /*httpClient.addRequestModifier((request) {
+      request.headers['platform'] = pf;
       request.headers['device-id'] = "$deviceId";
       request.headers['device-name'] = "$deviceName";
-      _showLogWhenDebug("_withToken",_withToken.toString());*/
+      _showLogWhenDebug("_withToken",_withToken.toString());
       if (_withToken){
         String token = Common().myConfig.TOKEN_STRING_KEY;
         if(token != null)request.headers['X-Auth-Token'] = "$token";
       }
       _showLogWhenDebug("HEADERS",request.headers.toString());
       return request;
-    });
+    });*/
     httpClient.maxAuthRetries = 2;
     super.onInit();
   }
@@ -94,7 +94,6 @@ class _Api extends GetConnect {
   /// RETURN DATA WITH [Result] MODEL
   Future<Result> getData({String? baseUrl, String endPoint = "", Map<String, String>? query, bool withToken = false}) async {
     _withToken = withToken;
-    baseURL = baseUrl ?? Common().myConfig.BASE_URL_BONGDA;
     onInit();
     _showLogWhenDebug("GET", (httpClient.baseUrl ?? "") + endPoint);
     _showLogWhenDebug("PARAMS", query.toString());

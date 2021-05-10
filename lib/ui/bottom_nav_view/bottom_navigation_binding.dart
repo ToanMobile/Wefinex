@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_controller.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/ui/bongda/bongda_binding.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
 import 'package:wefinex/ui/xoso/xoso_binding.dart';
 import 'bottom_navigation_view_controller.dart';
@@ -18,6 +17,5 @@ class BottomNavigationBinding extends Bindings {
     Get.lazyPut(() => BottomNavigationViewController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => XoSoController());
-    Get.lazyPut(() => BongDaController());
   }
 }

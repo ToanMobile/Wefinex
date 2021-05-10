@@ -36,7 +36,6 @@ class _String {
   String title_app = 'title_app'.tr;
   String coin = 'coin'.tr;
   String xoso = 'xoso'.tr;
-  String bongda = 'bongda'.tr;
   String error_message = 'error_message'.tr;
   String currency = 'currency'.tr;
   String market_cap = 'market_cap'.tr;
@@ -47,6 +46,16 @@ class _String {
   String bottom_markets = 'bottom_markets'.tr;
   String bottom_transactions = 'bottom_transactions'.tr;
   String bottom_aggregate = 'bottom_aggregate'.tr;
+  String coin_rank = 'coin_rank'.tr;
+  String coin_name = 'coin_name'.tr;
+  String coin_symbol = 'coin_symbol'.tr;
+  String coin_market_cap = 'coin_market_cap'.tr;
+  String coin_price = 'coin_price'.tr;
+  String coin_circulating = 'coin_circulating'.tr;
+  String coin_volume = 'coin_volume'.tr;
+  String coin_change_1h = 'coin_change_1h'.tr;
+  String coin_change_24h = 'coin_change_24h'.tr;
+  String coin_change_7d = 'coin_change_7d'.tr;
 }
 
 class _Storage {
@@ -109,6 +118,13 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleBold12Black = TextStyle(
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleRegular16Black = TextStyle(
     color: Colors.black,
     fontSize: 16,
@@ -137,7 +153,8 @@ class _MyConfig {
   final String BASE_URL_XOSO = "https://xskt.com.vn/rss-feed/";
   final String BASE_URL_BONGDA = "https://api.football-data.org/";
   final String BASE_URL_GITHUB = "https://api.github.com/";
-  final String BASE_URL_COIN = "https://min-api.cryptocompare.com/";
+  final String BASE_URL_COIN_OLD = "https://min-api.cryptocompare.com/";
+  final String BASE_URL_COIN = "https://api.coingecko.com/api/v3/";
   final String TOKEN_STRING_KEY = '1e6002e19a5144a387916a5129045c12';
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';

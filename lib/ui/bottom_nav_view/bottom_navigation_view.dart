@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wefinex/base/base_view_view_model.dart';
 import 'package:wefinex/shared/constant/common.dart';
-import 'package:wefinex/ui/bongda/bongda_screen.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
 import 'package:wefinex/ui/xoso/xoso_screen.dart';
-
 import 'bottom_navigation_view_controller.dart';
 
 /*
@@ -45,7 +43,7 @@ class BottomNavigationView extends BaseView<BottomNavigationViewController> {
             children: [
               HomeScreen(),
               XoSoScreen(),
-              BongDaScreen(),
+              XoSoScreen(),
             ],
           ),
         ),

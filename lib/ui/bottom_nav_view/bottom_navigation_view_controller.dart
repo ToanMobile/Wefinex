@@ -62,7 +62,7 @@ class BottomNavigationViewController extends BaseController {
           width: withHeight,
           height: withHeight,
         ),
-        label: Common().string.bongda,
+        label: Common().string.xoso,
         backgroundColor: Colors.white,
       ),
     ];
