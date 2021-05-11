@@ -32,9 +32,13 @@ class HomeController extends BaseController {
     setScreenState = screenStateLoading;
     final res = await getListCoin();
     String text = '';
-    if (res.status == true && res.body != null) {
+    if (res.status == true) {
       try {
-        listData = List<CoinEntity>.from(JsonDecoder().convert(res.body).map((x) => CoinEntity.fromJson(x)));
+        logWhenDebug("x===", res.body.toString());
+        jsonDecode(res.body).map((x) {
+          logWhenDebug("x===", x.toString());
+        });
+        listData = List<CoinEntity>.from(json.decode(res.body).map((x) => CoinEntity.fromJson(x)));
         logWhenDebug("listData===", listData.toString());
         setScreenState = screenStateOk;
       } catch (e) {
