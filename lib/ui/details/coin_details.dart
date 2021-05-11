@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wefinex/base/base_view_view_model.dart';
+import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/shared/constant/common.dart';
 import 'coin_details_binding.dart';
 
@@ -9,10 +9,10 @@ Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
 
-class HomeScreen extends BaseView<HomeController> {
-
+class HomeScreen extends GetView<HomeController> {
   @override
-  Widget vBuilder() => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         body: SafeArea(
           child: Center(
             child: Text("Home"),
