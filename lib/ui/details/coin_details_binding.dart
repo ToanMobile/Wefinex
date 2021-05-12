@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/model/bong_da_entity.dart';
+import 'package:wefinex/repository/model/coin_entity.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -8,14 +8,14 @@ Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
 
-class HomeBinding extends Bindings {
+class CoinDetailsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeController());
+    Get.lazyPut(() => CoinDetailsController());
   }
 }
 
-class HomeController extends SuperBaseController<BongDaEntity> {
+class CoinDetailsController extends SuperBaseController<CoinEntity> {
 
   @override
   void onInit() {

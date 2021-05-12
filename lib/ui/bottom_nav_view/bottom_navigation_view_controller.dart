@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/model/bong_da_entity.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
 /*
@@ -11,7 +10,7 @@ Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
 
-class BottomNavigationViewController extends SuperBaseController<BongDaEntity> {
+class BottomNavigationViewController extends SuperBaseController {
   // Fields
   RxInt _currentNavPageIndex = 0.obs;
 
@@ -30,7 +29,6 @@ class BottomNavigationViewController extends SuperBaseController<BongDaEntity> {
   @override
   void onInit() async {
     super.onInit();
-
     _bottomNavigationBarItems = populateNavBar(withHeight: 36.0);
   }
 
@@ -62,7 +60,7 @@ class BottomNavigationViewController extends SuperBaseController<BongDaEntity> {
           width: withHeight,
           height: withHeight,
         ),
-        label: Common().string.bongda,
+        label: Common().string.xoso,
         backgroundColor: Colors.white,
       ),
     ];

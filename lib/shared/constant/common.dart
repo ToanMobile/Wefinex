@@ -1,6 +1,5 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 /*
 Created by ToanDev on 02/05/2021
 Company: Netacom.
@@ -37,8 +36,26 @@ class _String {
   String title_app = 'title_app'.tr;
   String coin = 'coin'.tr;
   String xoso = 'xoso'.tr;
-  String bongda = 'bongda'.tr;
   String error_message = 'error_message'.tr;
+  String currency = 'currency'.tr;
+  String market_cap = 'market_cap'.tr;
+  String total_market_cap = 'total_market_cap'.tr;
+  String total_24h_volume = 'total_24h_volume'.tr;
+  String price_24h = 'price_24h'.tr;
+  String bottom_stats = 'bottom_stats'.tr;
+  String bottom_markets = 'bottom_markets'.tr;
+  String bottom_transactions = 'bottom_transactions'.tr;
+  String bottom_aggregate = 'bottom_aggregate'.tr;
+  String coin_rank = 'coin_rank'.tr;
+  String coin_name = 'coin_name'.tr;
+  String coin_symbol = 'coin_symbol'.tr;
+  String coin_market_cap = 'coin_market_cap'.tr;
+  String coin_price = 'coin_price'.tr;
+  String coin_circulating = 'coin_circulating'.tr;
+  String coin_volume = 'coin_volume'.tr;
+  String coin_change_1h = 'coin_change_1h'.tr;
+  String coin_change_24h = 'coin_change_24h'.tr;
+  String coin_change_7d = 'coin_change_7d'.tr;
 }
 
 class _Storage {
@@ -68,29 +85,15 @@ Color hexToColor(String hex) {
 }
 
 class _Dimen {
-  /// Padding
-  final double paddingZero = 0.0;
-  final double paddingXS = 2.0;
-  final double paddingS = 4.0;
-  final double paddingM = 8.0;
-  final double paddingL = 16.0;
-  final double paddingXL = 32.0;
-  final double paddingXXL = 36.0;
-
-  /// Margin
-  final double marginZero = 0.0;
-  final double marginXS = 2.0;
-  final double marginS = 4.0;
-  final double marginM = 8.0;
-  final double marginL = 16.0;
-  final double marginXL = 32.0;
-
-  /// Spacing
-  final double spaceXS = 2.0;
-  final double spaceS = 4.0;
-  final double spaceM = 8.0;
-  final double spaceL = 16.0;
-  final double spaceXL = 32.0;
+  final double margin_0 = 0.0;
+  final double margin_4 = 4.0;
+  final double margin_8 = 8.0;
+  final double margin_10 = 10.0;
+  final double margin_12 = 12.0;
+  final double margin_16 = 16.0;
+  final double margin_20 = 20.0;
+  final double margin_24 = 24.0;
+  final double margin_30 = 30.0;
 }
 
 class _TextStyle {
@@ -115,10 +118,31 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleBold12Black = TextStyle(
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleRegular16Black = TextStyle(
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleBold18White = TextStyle(
     color: Colors.white,
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold18Black = TextStyle(
+    color: Colors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
     fontStyle: FontStyle.normal,
   );
 }
@@ -129,6 +153,8 @@ class _MyConfig {
   final String BASE_URL_XOSO = "https://xskt.com.vn/rss-feed/";
   final String BASE_URL_BONGDA = "https://api.football-data.org/";
   final String BASE_URL_GITHUB = "https://api.github.com/";
+  final String BASE_URL_COIN_OLD = "https://min-api.cryptocompare.com/";
+  final String BASE_URL_COIN = "https://api.coingecko.com/api/v3/";
   final String TOKEN_STRING_KEY = '1e6002e19a5144a387916a5129045c12';
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';

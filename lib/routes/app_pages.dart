@@ -1,14 +1,10 @@
 import 'package:get/get.dart';
-import 'package:wefinex/ui/bongda/bongda_binding.dart';
-import 'package:wefinex/ui/bongda/bongda_screen.dart';
 import 'package:wefinex/ui/bottom_nav_view/bottom_navigation_binding.dart';
 import 'package:wefinex/ui/bottom_nav_view/bottom_navigation_view.dart';
+import 'package:wefinex/ui/details/coin_details.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
 import 'package:wefinex/ui/webview/webview_screen.dart';
-import 'package:wefinex/ui/xoso/xoso_binding.dart';
-import 'package:wefinex/ui/xoso/xoso_screen.dart';
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -19,16 +15,22 @@ class AppPages {
       name: Routes.COIN,
       page: () => HomeScreen(),
       binding: HomeBinding(),
-    ),
-    GetPage(
-      name: Routes.SO_XO,
-      page: () => XoSoScreen(),
-      binding: XoSoBinding(),
-    ),
-    GetPage(
-      name: Routes.BONG_DA,
-      page: () => BongDaScreen(),
-      binding: BongDaBinding(),
+      children: [
+        /*GetPage(
+          name: Routes.COIN_LIST,
+          page: () => CoinListItem(),
+          children: [
+            GetPage(
+              name: Routes.COIN_DETAILS,
+              page: () => CoinDetails(),
+            ),
+          ],
+        ),*/
+        GetPage(
+          name: Routes.COIN_DETAILS,
+          page: () => CoinDetailsScreen(),
+        ),
+      ],
     ),
     GetPage(
       name: Routes.WEB_VIEW,

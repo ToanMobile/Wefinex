@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wefinex/shared/constant/common.dart';
+import 'package:wefinex/ui/details/coin_details.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
+
 import 'bottom_navigation_view_controller.dart';
 
 /*
@@ -39,9 +41,9 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
           () => IndexedStack(
             index: controller.currentNavPageIndex,
             children: [
-              BongDaScreen(),
               HomeScreen(),
-              HomeScreen(),
+              CoinDetailsScreen(),
+              CoinDetailsScreen(),
             ],
           ),
         ),

@@ -1,6 +1,5 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'base_controller.dart';
+import 'package:get/get.dart';
 
 /*
 Created by ToanDev on 02/05/2021
