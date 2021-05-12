@@ -19,13 +19,11 @@ class HomeController extends SuperBaseController<List<CoinEntity>> {
   void onInit() async {
     super.onInit();
     getListCoin().then((data) {
-      if (data.isOk) {
-        change(data.body, status: RxStatus.success());
-        logWhenDebug("CURRENT listCoin: ", data.body.toString());
-      } else {
-        change(null, status: RxStatus.error(data.statusText.toString()));
-      }
+      print("CURRENT listCoin== $data");
+      change(data, status: RxStatus.success());
+      update();
     }, onError: (err) {
+      print("CURRENT Error== $err");
       change(null, status: RxStatus.error(err.toString()));
     });
   }

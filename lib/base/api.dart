@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -57,7 +58,8 @@ class _Api extends GetConnect {
       } else {
         response = await post(endPoint, param);
       }
-      return Response(statusCode: 200, body: response);
+      _showLogWhenDebug("LOADED", response.bodyString);
+      return Response(statusCode: 200, body: response.bodyString);
     } catch (e) {
       _showLogWhenDebug("ERROR 1", e.toString());
       return Response(statusCode: 201);

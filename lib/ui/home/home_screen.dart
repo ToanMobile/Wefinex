@@ -15,62 +15,68 @@ class HomeScreen extends GetView<HomeController> {
         body: buildWidgetMarket(),
       );
 
-  buildWidgetMarket() => controller.state?.length == 0
-      ? Container()
-      : Container(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    Common().string.coin_rank,
-                    style: Common().textStyle.styleBold12Black,
-                  ),
-                  Text(
-                    Common().string.coin_name,
-                    style: Common().textStyle.styleBold12Black,
-                  ),
-                  Text(
-                    Common().string.coin_symbol,
-                    style: Common().textStyle.styleBold12Black,
-                  ),
-                  Text(
-                    Common().string.coin_price,
-                    style: Common().textStyle.styleBold12Black,
-                  ),
-                  Text(
-                    Common().string.coin_change_1h,
-                    style: Common().textStyle.styleBold12Black,
-                  ),
-                ],
-              ),
-              ListView.builder(
-                itemCount: controller.state?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = controller.state![index];
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Card(
-                      child: Row(
+  buildWidgetMarket() => controller.obx(
+        (state) {
+          return (state?.length != null)
+              ? Container(
+                  child: Column(
+                    children: [
+                      Row(
                         children: [
-                          buildWidgetTitleRank(item.marketCapRank.toString()),
-                          buildWidgetNameRank(item.name.toString(), item.image.toString()),
-                          buildWidgetSymbolRank(item.symbol.toString()),
-                          buildWidgetPrice(item.currentPrice.toString()),
-                          buildWidgetChange1h(item.priceChangePercentage24h.toString()),
+                          Text(
+                            Common().string.coin_rank,
+                            style: Common().textStyle.styleBold12Black,
+                          ),
+                          Text(
+                            Common().string.coin_name,
+                            style: Common().textStyle.styleBold12Black,
+                          ),
+                          Text(
+                            Common().string.coin_symbol,
+                            style: Common().textStyle.styleBold12Black,
+                          ),
+                          Text(
+                            Common().string.coin_price,
+                            style: Common().textStyle.styleBold12Black,
+                          ),
+                          Text(
+                            Common().string.coin_change_1h,
+                            style: Common().textStyle.styleBold12Black,
+                          ),
                         ],
                       ),
-                    ),
-                  );
-                },
-              )
-            ],
-          ),
-        );
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: controller.state?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = controller.state![index];
+                            return Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Card(
+                                child: Row(
+                                  children: [
+                                    buildWidgetTitleRank(item.marketCapRank.toString()),
+                                    buildWidgetNameRank(item.name.toString(), item.image.toString()),
+                                    buildWidgetSymbolRank(item.symbol.toString()),
+                                    buildWidgetPrice(item.currentPrice.toString()),
+                                    buildWidgetChange1h(item.priceChangePercentage24h.toString()),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : Container();
+        },
+      );
 
   buildWidgetTitleRank(String title) => Text(
         title,

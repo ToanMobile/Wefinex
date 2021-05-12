@@ -30,25 +30,25 @@ class CoinEntity {
   String? _symbol;
   String? _name;
   String? _image;
-  int? _currentPrice;
-  int? _marketCap;
-  int? _marketCapRank;
-  int? _fullyDilutedValuation;
-  int? _totalVolume;
-  int? _high24h;
-  int? _low24h;
-  double? _priceChange24h;
-  double? _priceChangePercentage24h;
-  int? _marketCapChange24h;
-  double? _marketCapChangePercentage24h;
-  double? _circulatingSupply;
-  double? _totalSupply;
-  double? _maxSupply;
-  int? _ath;
-  double? _athChangePercentage;
+  num? _currentPrice;
+  num? _marketCap;
+  num? _marketCapRank;
+  num? _fullyDilutedValuation;
+  num? _totalVolume;
+  num? _high24h;
+  num? _low24h;
+  num? _priceChange24h;
+  num? _priceChangePercentage24h;
+  num? _marketCapChange24h;
+  num? _marketCapChangePercentage24h;
+  num? _circulatingSupply;
+  num? _totalSupply;
+  num? _maxSupply;
+  num? _ath;
+  num? _athChangePercentage;
   String? _athDate;
-  double? _atl;
-  double? _atlChangePercentage;
+  num? _atl;
+  num? _atlChangePercentage;
   String? _atlDate;
   dynamic? _roi;
   String? _lastUpdated;
@@ -57,53 +57,58 @@ class CoinEntity {
   String? get symbol => _symbol;
   String? get name => _name;
   String? get image => _image;
-  int? get currentPrice => _currentPrice;
-  int? get marketCap => _marketCap;
-  int? get marketCapRank => _marketCapRank;
-  int? get fullyDilutedValuation => _fullyDilutedValuation;
-  int? get totalVolume => _totalVolume;
-  int? get high24h => _high24h;
-  int? get low24h => _low24h;
-  double? get priceChange24h => _priceChange24h;
-  double? get priceChangePercentage24h => _priceChangePercentage24h;
-  int? get marketCapChange24h => _marketCapChange24h;
-  double? get marketCapChangePercentage24h => _marketCapChangePercentage24h;
-  double? get circulatingSupply => _circulatingSupply;
-  double? get totalSupply => _totalSupply;
-  double? get maxSupply => _maxSupply;
-  int? get ath => _ath;
-  double? get athChangePercentage => _athChangePercentage;
+  num? get currentPrice => _currentPrice;
+  num? get marketCap => _marketCap;
+  num? get marketCapRank => _marketCapRank;
+  num? get fullyDilutedValuation => _fullyDilutedValuation;
+  num? get totalVolume => _totalVolume;
+  num? get high24h => _high24h;
+  num? get low24h => _low24h;
+  num? get priceChange24h => _priceChange24h;
+  num? get priceChangePercentage24h => _priceChangePercentage24h;
+  num? get marketCapChange24h => _marketCapChange24h;
+  num? get marketCapChangePercentage24h => _marketCapChangePercentage24h;
+  num? get circulatingSupply => _circulatingSupply;
+  num? get totalSupply => _totalSupply;
+  num? get maxSupply => _maxSupply;
+  num? get ath => _ath;
+  num? get athChangePercentage => _athChangePercentage;
   String? get athDate => _athDate;
-  double? get atl => _atl;
-  double? get atlChangePercentage => _atlChangePercentage;
+  num? get atl => _atl;
+  num? get atlChangePercentage => _atlChangePercentage;
   String? get atlDate => _atlDate;
   dynamic? get roi => _roi;
   String? get lastUpdated => _lastUpdated;
+
+  @override
+  String toString() {
+    return 'CoinEntity{_id: $_id, _symbol: $_symbol, _name: $_name, _image: $_image, _currentPrice: $_currentPrice, _marketCap: $_marketCap, _marketCapRank: $_marketCapRank, _fullyDilutedValuation: $_fullyDilutedValuation, _totalVolume: $_totalVolume, _high24h: $_high24h, _low24h: $_low24h, _priceChange24h: $_priceChange24h, _priceChangePercentage24h: $_priceChangePercentage24h, _marketCapChange24h: $_marketCapChange24h, _marketCapChangePercentage24h: $_marketCapChangePercentage24h, _circulatingSupply: $_circulatingSupply, _totalSupply: $_totalSupply, _maxSupply: $_maxSupply, _ath: $_ath, _athChangePercentage: $_athChangePercentage, _athDate: $_athDate, _atl: $_atl, _atlChangePercentage: $_atlChangePercentage, _atlDate: $_atlDate, _roi: $_roi, _lastUpdated: $_lastUpdated}';
+  }
 
   CoinEntity({
       String? id, 
       String? symbol, 
       String? name, 
       String? image, 
-      int? currentPrice, 
-      int? marketCap, 
-      int? marketCapRank, 
-      int? fullyDilutedValuation, 
-      int? totalVolume, 
-      int? high24h, 
-      int? low24h, 
-      double? priceChange24h, 
-      double? priceChangePercentage24h, 
-      int? marketCapChange24h, 
-      double? marketCapChangePercentage24h, 
-      double? circulatingSupply, 
-      double? totalSupply, 
-      double? maxSupply, 
-      int? ath, 
-      double? athChangePercentage, 
+      num? currentPrice, 
+      num? marketCap, 
+      num? marketCapRank, 
+      num? fullyDilutedValuation, 
+      num? totalVolume, 
+      num? high24h, 
+      num? low24h, 
+      num? priceChange24h, 
+      num? priceChangePercentage24h, 
+      num? marketCapChange24h, 
+      num? marketCapChangePercentage24h, 
+      num? circulatingSupply, 
+      num? totalSupply, 
+      num? maxSupply, 
+      num? ath, 
+      num? athChangePercentage, 
       String? athDate, 
-      double? atl, 
-      double? atlChangePercentage, 
+      num? atl, 
+      num? atlChangePercentage, 
       String? atlDate, 
       dynamic? roi, 
       String? lastUpdated}){
