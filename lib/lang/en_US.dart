@@ -12,7 +12,7 @@ const Map<String, String> en_US = {
   'bottom_markets': 'Thị trường',
   'bottom_transactions': 'Giao dịch',
   'bottom_aggregate': 'Thống kê Tổng hợp',
-  'coin_rank': 'Xếp hạng',
+  'coin_rank': 'Top',
   'coin_name': 'Tên',
   'coin_symbol': 'Ký hiệu',
   'coin_market_cap': 'Vốn hóa thị trường',

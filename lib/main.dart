@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'di.dart';
 import 'lang/translation_service.dart';
@@ -28,15 +29,17 @@ Future<void> initServices() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      enableLog: true,
-      logWriterCallback: Logger.write,
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-      locale: TranslationService.locale,
-      fallbackLocale: TranslationService.fallbackLocale,
-      translations: TranslationService(),
-    );
+    return ScreenUtilInit(
+        designSize: ScreenUtil.defaultSize,
+        builder: () => GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              enableLog: true,
+              logWriterCallback: Logger.write,
+              initialRoute: AppPages.INITIAL,
+              getPages: AppPages.routes,
+              locale: TranslationService.locale,
+              fallbackLocale: TranslationService.fallbackLocale,
+              translations: TranslationService(),
+            ));
   }
 }

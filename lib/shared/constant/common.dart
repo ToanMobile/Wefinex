@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 /*
 Created by ToanDev on 02/05/2021
 Company: Netacom.
@@ -99,49 +101,63 @@ class _Dimen {
 class _TextStyle {
   final styleRegular10White = TextStyle(
     color: Colors.white,
-    fontSize: 10,
+    fontSize: 10.sp,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
   );
 
   final styleRegular12White = TextStyle(
     color: Colors.white,
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
   );
 
   final styleRegular12Black = TextStyle(
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
   );
 
   final styleBold12Black = TextStyle(
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold14Black = TextStyle(
+    color: Colors.black,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
 
   final styleRegular16Black = TextStyle(
     color: Colors.black,
-    fontSize: 16,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold16Black = TextStyle(
+    color: Colors.black,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
   );
 
   final styleBold18White = TextStyle(
     color: Colors.white,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     fontStyle: FontStyle.normal,
   );
 
   final styleBold18Black = TextStyle(
     color: Colors.black,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w700,
     fontStyle: FontStyle.normal,
   );
