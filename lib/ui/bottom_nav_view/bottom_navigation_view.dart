@@ -42,8 +42,8 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
             index: controller.currentNavPageIndex,
             children: [
               HomeScreen(),
-              CoinDetailsScreen(),
-              CoinDetailsScreen(),
+              HomeScreen(),
+              HomeScreen(),
             ],
           ),
         ),

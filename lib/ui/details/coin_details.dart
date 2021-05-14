@@ -11,12 +11,9 @@ Email: hvtoan.dev@gmail.com
 
 class CoinDetailsScreen extends GetView<CoinDetailsController> {
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Text("Home"),
-          ),
-        ),
+  Widget build(BuildContext context) => Scaffold(
+        body: controller.obx((state) {
+          return Container();
+        }),
       );
 }

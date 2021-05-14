@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wefinex/base/super_base_controller.dart';
+import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/constant/common.dart';
 import 'home_binding.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,12 +77,8 @@ class HomeScreen extends GetView<HomeController> {
                       itemCount: controller.state?.length,
                       itemBuilder: (BuildContext context, int index) {
                         final item = controller.state![index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                        return ElevatedButton(
+                          onPressed: () => Get.offNamed(Routes.COIN_DETAILS),
                           child: Card(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,

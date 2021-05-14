@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:wefinex/base/api.dart';
 import 'package:wefinex/base/super_base_controller.dart';
+import 'package:wefinex/repository/model/chart_entity.dart';
 import 'package:wefinex/repository/model/coin_entity.dart';
 import 'package:wefinex/shared/constant/common.dart';
 import 'model/xoso_entity.dart';
@@ -32,11 +33,24 @@ class Repositories {
   Future<Response> getDataCoin() async => await _service.callData(baseUrl: Common().myConfig.BASE_URL_COIN, endPoint: "data/top/mktcapfull?tsym=USD&limit=100");
 
   Future<List<CoinEntity>> getListCoin() async {
-    final response = await _service.callData(endPoint: "coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false");
+    final response = await _service.callData(endPoint: "coins/markets?vs_currency=vnd&order=market_cap_desc&per_page=100&page=1&sparkline=false");
     if (response.isOk) {
       try {
         final listData = List<CoinEntity>.from(json.decode(response.body).map((x) => CoinEntity.fromJson(x)));
         return Future.value(listData);
+      } catch (e) {
+        print("Error:"+ e.toString());
+      }
+    }
+    return Future.value(null);
+  }
+
+  Future<ChartEntity> getChart(String symbol) async {
+    final response = await _service.callData(endPoint: "/$symbol/market_chart?vs_currency=vnd&days=1");
+    if (response.isOk) {
+      try {
+        final chartData = ChartEntity.fromJson(response);
+        return Future.value(chartData);
       } catch (e) {
         print("Error:"+ e.toString());
       }

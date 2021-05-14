@@ -12,20 +12,10 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: Routes.COIN,
+      name: Routes.COIN_LIST,
       page: () => HomeScreen(),
       binding: HomeBinding(),
       children: [
-        /*GetPage(
-          name: Routes.COIN_LIST,
-          page: () => CoinListItem(),
-          children: [
-            GetPage(
-              name: Routes.COIN_DETAILS,
-              page: () => CoinDetails(),
-            ),
-          ],
-        ),*/
         GetPage(
           name: Routes.COIN_DETAILS,
           page: () => CoinDetailsScreen(),

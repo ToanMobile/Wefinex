@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
+import 'package:wefinex/repository/model/chart_entity.dart';
 import 'package:wefinex/repository/model/coin_entity.dart';
 
 /*
@@ -15,14 +16,19 @@ class CoinDetailsBinding extends Bindings {
   }
 }
 
-class CoinDetailsController extends SuperBaseController<CoinEntity> {
+class CoinDetailsController extends SuperBaseController<ChartEntity> {
 
   @override
   void onInit() {
     super.onInit();
-    logWhenDebug("HomeController", "1");
-   /* MyTranslations.init();
-    logWhenDebug("CURRENT LANGUAGE : ", Get.locale.languageCode.toString());*/
+    /*getChart("bitcoin").then((data) {
+      print("CURRENT listCoin== $data");
+      change(data, status: RxStatus.success());
+      update();
+    }, onError: (err) {
+      print("CURRENT Error== $err");
+      change(null, status: RxStatus.error(err.toString()));
+    });*/
   }
 
 }
