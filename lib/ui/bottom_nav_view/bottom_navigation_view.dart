@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wefinex/shared/constant/common.dart';
-import 'package:wefinex/ui/details/coin_details.dart';
+import 'package:wefinex/ui/favourite/favourite_screen.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
+import 'package:wefinex/ui/search/search_screen.dart';
 
 import 'bottom_navigation_view_controller.dart';
 
@@ -15,14 +15,14 @@ Email: hvtoan.dev@gmail.com
 class BottomNavigationView extends GetView<BottomNavigationViewController> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
+        /*appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
             Common().string.title_app,
             style: TextStyle(color: Colors.black),
           ),
-        ),
+        ),*/
         bottomNavigationBar: Obx(() => Theme(
               data: ThemeData(splashColor: Colors.transparent),
               child: BottomNavigationBar(
@@ -37,14 +37,16 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
                 items: controller.bottomNavigationBarItems,
               ),
             )),
-        body: Obx(
-          () => IndexedStack(
-            index: controller.currentNavPageIndex,
-            children: [
-              HomeScreen(),
-              HomeScreen(),
-              HomeScreen(),
-            ],
+        body: SafeArea(
+          child: Obx(
+            () => IndexedStack(
+              index: controller.currentNavPageIndex,
+              children: [
+                HomeScreen(),
+                SearchScreen(),
+                FavouriteScreen(),
+              ],
+            ),
           ),
         ),
       );

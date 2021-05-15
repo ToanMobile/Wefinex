@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -32,6 +32,9 @@ class _AssetsImage {
 
   //Get data Xoso
   String getListXoso = 'assets/json/soxo.json';
+
+  //Icon coin
+  String icon_top = icons + 'fire.webp';
 }
 
 class _String {
@@ -172,6 +175,7 @@ class _MyConfig {
   final String BASE_URL_COIN_OLD = "https://min-api.cryptocompare.com/";
   final String BASE_URL_COIN = "https://api.coingecko.com/api/v3/";
   final String TOKEN_STRING_KEY = '1e6002e19a5144a387916a5129045c12';
+
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
 }

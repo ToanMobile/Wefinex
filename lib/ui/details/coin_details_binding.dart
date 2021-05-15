@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/model/chart_entity.dart';
-import 'package:wefinex/repository/model/coin_entity.dart';
+import 'package:wefinex/repository/model/crypto.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -16,8 +15,7 @@ class CoinDetailsBinding extends Bindings {
   }
 }
 
-class CoinDetailsController extends SuperBaseController<ChartEntity> {
-
+class CoinDetailsController extends SuperBaseController<CoinEntity> {
   @override
   void onInit() {
     super.onInit();
@@ -30,5 +28,4 @@ class CoinDetailsController extends SuperBaseController<ChartEntity> {
       change(null, status: RxStatus.error(err.toString()));
     });*/
   }
-
 }

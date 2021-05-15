@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/constant/common.dart';
+
 import 'home_binding.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -13,116 +14,104 @@ Email: hvtoan.dev@gmail.com
 */
 
 class HomeScreen extends GetView<HomeController> {
+  final String currencySetting = '\$';
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: buildWidgetMarket(),
       );
 
-  buildWidgetMarket() => controller.obx(
-        (state) {
-          if ((state?.length != null)) {
-            return Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20.h,
+  buildWidgetMarket() => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 10.h, 0.0, 10.h),
+            child: Container(
+              height: 40.h,
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                border: Border(
+                  bottom: BorderSide(
+                    width: 2.0,
+                    color: Common().color.darkGray,
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 60.w,
-                        child: Text(
-                          Common().string.coin_rank,
-                          style: Common().textStyle.styleBold14Black,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Container(
-                        width: 90.w,
-                        child: Text(
-                          Common().string.coin_name,
-                          style: Common().textStyle.styleBold14Black,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Container(
-                        width: 60.w,
-                        child: Text(
-                          Common().string.coin_symbol,
-                          style: Common().textStyle.styleBold14Black,
-                        ),
-                      ),
-                      Container(
-                        width: 60.w,
-                        child: Text(
-                          Common().string.coin_price,
-                          style: Common().textStyle.styleBold14Black,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          Common().string.coin_change_1h,
-                          style: Common().textStyle.styleBold14Black,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ImageIcon(
+                    AssetImage(Common().assetsImage.icon_top),
+                    color: Colors.amberAccent[400],
                   ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: controller.state?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = controller.state![index];
-                        return ElevatedButton(
-                          onPressed: () => Get.offNamed(Routes.COIN_DETAILS),
-                          child: Card(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                buildWidgetTitleRank(item.marketCapRank.toString()),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                buildWidgetNameRank(item.name.toString(), item.image.toString()),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                buildWidgetSymbolRank(item.symbol.toString()),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                buildWidgetPrice(item.currentPrice.toString()),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                buildWidgetChange1h(item.priceChangePercentage24h.toString()),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+                  SizedBox(width: 10.w),
+                  Text(
+                    'TOP COINS',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amberAccent[400],
                     ),
-                  )
+                  ),
+                  SizedBox(width: 10.w),
+                  ImageIcon(
+                    AssetImage(Common().assetsImage.icon_top),
+                    color: Colors.amberAccent[400],
+                  ),
                 ],
               ),
-            );
-          } else {
-            return Container(
-              child: Text("Empty"),
-            );
-          }
-        },
+            ),
+          ),
+          controller.obx(
+            (state) {
+              print("object==" + state.toString());
+              if ((state?.length != null)) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.state?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = controller.state![index];
+                      return ElevatedButton(
+                        onPressed: () => Get.offNamed(Routes.COIN_DETAILS),
+                        child: Card(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              buildWidgetTitleRank(item.marketCapRank.toString()),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              buildWidgetNameRank(item.name.toString(), item.logoUrl.toString()),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              buildWidgetChange(item.price, item.change, item.changeValue),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return Container(
+                  child: Text(
+                    "Empty",
+                    style: Common().textStyle.styleBold14Black,
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       );
 
-  buildWidgetTitleRank(String title) => Expanded(
-        flex: 1,
+  buildWidgetTitleRank(String title) => Container(
+        width: 20.w,
         child: Text(
           title,
           style: Common().textStyle.styleBold12Black,
@@ -130,13 +119,12 @@ class HomeScreen extends GetView<HomeController> {
       );
 
   buildWidgetNameRank(String name, String icon) => Expanded(
-        flex: 7,
+        flex: 1,
         child: Row(
           children: [
-            Image.network(
-              icon,
-              height: 50.h,
-              width: 25.w,
+            CircleAvatar(
+              backgroundImage: NetworkImage(icon),
+              backgroundColor: Colors.transparent,
             ),
             SizedBox(
               width: 10.w,
@@ -153,27 +141,24 @@ class HomeScreen extends GetView<HomeController> {
         ),
       );
 
-  buildWidgetSymbolRank(String symbol) => Expanded(
-        flex: 3,
-        child: Text(
-          symbol.toUpperCase(),
-          style: Common().textStyle.styleBold12Black,
-        ),
-      );
-
-  buildWidgetPrice(String price) => Expanded(
-        flex: 4,
-        child: Text(
-          price,
-          style: Common().textStyle.styleBold12Black,
-        ),
-      );
-
-  buildWidgetChange1h(String price1h) => Expanded(
-        flex: 4,
-        child: Text(
-          price1h,
-          style: Common().textStyle.styleBold12Black,
-        ),
+  buildWidgetChange(String? price, String? change, String? changeValue) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            double.parse(price ?? "0").toStringAsFixed(2) + currencySetting,
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[300],
+            ),
+          ),
+          Text(
+            change ?? "0" + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
+            style: TextStyle(
+              color: Colors.greenAccent[700],
+            ),
+          ),
+        ],
       );
 }
