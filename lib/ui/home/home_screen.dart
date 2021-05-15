@@ -65,15 +65,14 @@ class HomeScreen extends GetView<HomeController> {
           ),
           controller.obx(
             (state) {
-              print("object==" + state.toString());
-              if ((state?.length != null)) {
+              if (state?.length != null) {
                 return Expanded(
                   child: ListView.builder(
                     itemCount: controller.state?.length,
                     itemBuilder: (BuildContext context, int index) {
                       final item = controller.state![index];
                       return ElevatedButton(
-                        onPressed: () => Get.offNamed(Routes.COIN_DETAILS),
+                        onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item.name),
                         child: Card(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -147,17 +146,11 @@ class HomeScreen extends GetView<HomeController> {
         children: <Widget>[
           Text(
             double.parse(price ?? "0").toStringAsFixed(2) + currencySetting,
-            style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[300],
-            ),
+            style: Common().textStyle.styleBold14Black,
           ),
           Text(
             change ?? "0" + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
-            style: TextStyle(
-              color: Colors.greenAccent[700],
-            ),
+            style: Common().textStyle.styleBold14Green,
           ),
         ],
       );

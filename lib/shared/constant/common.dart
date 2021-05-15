@@ -137,6 +137,13 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleBold14Green = TextStyle(
+    color: Colors.green,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleRegular16Black = TextStyle(
     color: Colors.black,
     fontSize: 16.sp,

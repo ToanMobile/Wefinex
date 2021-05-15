@@ -12,7 +12,8 @@ Email: hvtoan.dev@gmail.com
 
 class FavouriteScreen extends GetView<FavouriteController> {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         body: buildWidgetMarket(),
       );
 

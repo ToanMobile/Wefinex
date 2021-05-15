@@ -12,7 +12,8 @@ Email: hvtoan.dev@gmail.com
 
 class SearchScreen extends GetView<SearchController> {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      Scaffold(
         body: buildWidgetMarket(),
       );
 

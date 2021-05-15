@@ -32,16 +32,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
-      builder: () => GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        enableLog: true,
-        logWriterCallback: Logger.write,
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
-        locale: TranslationService.locale,
-        fallbackLocale: TranslationService.fallbackLocale,
-        translations: TranslationService(),
-      ),
+      builder: () =>
+          GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            enableLog: true,
+            logWriterCallback: Logger.write,
+            initialRoute: AppPages.INITIAL,
+            getPages: AppPages.routes,
+            locale: TranslationService.locale,
+            fallbackLocale: TranslationService.fallbackLocale,
+            translations: TranslationService(),
+          ),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
 import 'package:wefinex/base/api.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/shared/constant/common.dart';
@@ -40,7 +42,7 @@ class Repositories {
         /*final listData = List<CoinEntity>.from(json.decode(response.body).map((x) => CoinEntity.fromJson(x)));
         return Future.value(listData);*/
         cryptos.clear();
-        json.decode(response.body).forEach((element) {
+        await json.decode(response.body).forEach((element) {
           cryptos.add(CoinEntity(
             marketCapRank: element['market_cap_rank'].toString(),
             name: element['name'],
@@ -67,10 +69,12 @@ class Repositories {
             return double.parse(a.changeValue!).compareTo(double.parse(b.changeValue!));
         });
         if (hotCryptos.length > 4) hotCryptos.removeRange(4, hotCryptos.length);
+        return Future.value(cryptos);
       } catch (e) {
         print("Error:" + e.toString());
       }
     }
+    print("cryptos===:" + cryptos.toString());
     return Future.value(cryptos);
   }
 
@@ -87,6 +91,53 @@ class Repositories {
       try {
         //final chartData = ChartEntity.fromJson(response);
         // return Future.value(chartData);
+      } catch (e) {
+        print("Error:" + e.toString());
+      }
+    }
+    return Future.value(null);
+  }
+
+  Future<List<charts.Series<Data, DateTime>>> getHistoricalData(String name, HistoricalDataType type) async {
+    print('[TYPE]: ${type.toString()}');
+    HistoricalData historicalData = HistoricalData();
+    // Get timestamp correctly
+    String to = (DateTime.now().toUtc().millisecondsSinceEpoch / 1000).round().toString();
+    String from = 'N/A';
+    switch (type) {
+      case HistoricalDataType.eight_hour:
+        from = (DateTime.now().subtract(Duration(hours: 8)).toUtc().millisecondsSinceEpoch / 1000).round().toString();
+        break;
+      case HistoricalDataType.one_day:
+        from = (DateTime.now().subtract(Duration(days: 1)).toUtc().millisecondsSinceEpoch / 1000).round().toString();
+        break;
+      case HistoricalDataType.one_week:
+        from = (DateTime.now().subtract(Duration(days: 7)).toUtc().millisecondsSinceEpoch / 1000).round().toString();
+        break;
+      case HistoricalDataType.one_month:
+        from = (DateTime.now().subtract(Duration(days: 30)).toUtc().millisecondsSinceEpoch / 1000).round().toString();
+        break;
+      case HistoricalDataType.six_month:
+        from = (DateTime.now().subtract(Duration(days: 180)).toUtc().millisecondsSinceEpoch / 1000).round().toString();
+        break;
+    }
+    // Execute the request
+    final response = await _service.callData(endPoint: "/coins/${name.toLowerCase()}/market_chart/range?vs_currency=vnd&from=$from&to=$to");
+    if (response.isOk) {
+      try {
+        await json.decode(response.body)['prices'].forEach((element) {
+          historicalData.data.add(Data(element[1].toString(), new DateTime.fromMillisecondsSinceEpoch(element[0])));
+        });
+        List<charts.Series<Data, DateTime>> series = [
+          charts.Series(
+              id: "HistoricalData",
+              data: historicalData.data,
+              domainFn: (Data series, _) => series.date,
+              measureFn: (Data series, _) => double.parse(series.price),
+              colorFn: (Data series, _) => charts.ColorUtil.fromDartColor(Colors.amberAccent[400]))
+        ];
+        print("historicalData:" + historicalData.data.toString());
+        return Future.value(series);
       } catch (e) {
         print("Error:" + e.toString());
       }

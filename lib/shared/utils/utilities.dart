@@ -12,7 +12,7 @@ import 'package:wefinex/shared/constant/common.dart';
 /// Especialy in [Function]ality.
 /// You can find and use on your Controller wich is the Controller extends [BaseController].
 class Utilities {
-  void logWhenDebug(String tag,String message){
+  void logWhenDebug(String tag, String message) {
     if (kDebugMode) log("$tag => ${message.toString()}", name: Common().myConfig.APP_NAME);
   }
 }

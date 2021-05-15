@@ -1,4 +1,4 @@
-class MarketUtil{
+class MarketUtil {
   static normalizeNum(num? input) {
     if (input == null) {
       input = 0;
@@ -8,7 +8,10 @@ class MarketUtil{
     } else if (input >= 1000) {
       return numCommaParse(input.toStringAsFixed(2));
     } else {
-      return input.toStringAsFixed(6 - input.round().toString().length);
+      return input.toStringAsFixed(6 - input
+          .round()
+          .toString()
+          .length);
     }
   }
 
@@ -19,7 +22,10 @@ class MarketUtil{
     if (input >= 1000) {
       return input.toStringAsFixed(2);
     } else {
-      return input.toStringAsFixed(6 - input.round().toString().length);
+      return input.toStringAsFixed(6 - input
+          .round()
+          .toString()
+          .length);
     }
   }
 

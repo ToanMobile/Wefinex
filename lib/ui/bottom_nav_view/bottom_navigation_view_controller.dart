@@ -17,6 +17,7 @@ class BottomNavigationViewController extends SuperBaseController {
   late List<BottomNavigationBarItem> _bottomNavigationBarItems;
 
   int get currentNavPageIndex => _currentNavPageIndex.value;
+
   List<BottomNavigationBarItem> get bottomNavigationBarItems =>
       _bottomNavigationBarItems;
 
