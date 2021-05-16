@@ -18,7 +18,8 @@ class SearchController extends SuperBaseController<List<CoinEntity>> {
   List<CoinEntity> cryptos = [];
 
   @override
-  void onReady() async {
+  void onInit() async {
+    super.onInit();
     getListAllCoin().then((data) {
       print("CURRENT listCoin== $data");
       cryptos = data;
@@ -31,6 +32,5 @@ class SearchController extends SuperBaseController<List<CoinEntity>> {
       print("CURRENT Error== $err");
       change(null, status: RxStatus.error(err.toString()));
     });
-    super.onReady();
   }
 }

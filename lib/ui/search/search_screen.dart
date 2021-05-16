@@ -22,7 +22,7 @@ class SearchScreen extends GetView<SearchController> {
   TextEditingController _textController = TextEditingController();
   List<CoinEntity> queryList = <CoinEntity>[];
   bool isSearching = false;
-
+  bool isFirst = true;
   bool _containsIgnoreCase(String s1, String s2) {
     return s1.toLowerCase().contains(s2.toLowerCase());
   }
@@ -79,19 +79,21 @@ class SearchScreen extends GetView<SearchController> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.grey[900],
-        appBar: AppBar(
-          title: Text(
-            'Tìm kiếm coin',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.grey[900],
-          elevation: 0.0,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
+        title: Text(
+          'Tìm kiếm coin',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: buildWidgetMarket(),
-      );
+        centerTitle: true,
+        backgroundColor: Colors.grey[900],
+        elevation: 0.0,
+      ),
+      body: buildWidgetMarket(),
+    );
+  }
 
   buildWidgetMarket() => Column(
         children: [

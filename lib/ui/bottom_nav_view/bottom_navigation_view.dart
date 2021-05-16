@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wefinex/ui/favourite/favourite_binding.dart';
 import 'package:wefinex/ui/favourite/favourite_screen.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
+import 'package:wefinex/ui/search/search_binding.dart';
 import 'package:wefinex/ui/search/search_screen.dart';
 
 import 'bottom_navigation_view_controller.dart';
@@ -39,14 +41,22 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
             )),
         body: SafeArea(
           child: Obx(
-            () => IndexedStack(
-              index: controller.currentNavPageIndex,
-              children: [
-                HomeScreen(),
-                SearchScreen(),
-                FavouriteScreen(),
-              ],
-            ),
+            () {
+              if (controller.currentNavPageIndex == 1) {
+                Get.find<SearchController>().onInit();
+              }
+              if (controller.currentNavPageIndex == 2) {
+                Get.find<FavouriteController>().onInit();
+              }
+              return IndexedStack(
+                index: controller.currentNavPageIndex,
+                children: [
+                  HomeScreen(),
+                  SearchScreen(),
+                  FavouriteScreen(),
+                ],
+              );
+            },
           ),
         ),
       );

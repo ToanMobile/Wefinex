@@ -16,7 +16,8 @@ class FavouriteBinding extends Bindings {
 
 class FavouriteController extends SuperBaseController<List<CoinEntity>> {
   @override
-  void onReady() async {
+  void onInit() async {
+    super.onInit();
     getListTop().then(
       (data) {
         if (data != null && data.length > 0) {
@@ -30,6 +31,5 @@ class FavouriteController extends SuperBaseController<List<CoinEntity>> {
         change(null, status: RxStatus.error(err.toString()));
       },
     );
-    super.onReady();
   }
 }

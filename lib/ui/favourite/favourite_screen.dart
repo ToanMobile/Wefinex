@@ -16,27 +16,29 @@ Email: hvtoan.dev@gmail.com
 
 class FavouriteScreen extends GetView<FavouriteController> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Column(
-          children: [
-            buildTitleTop(),
-            controller.obx(
-              (state) {
-                if (state?.length != null) {
-                  return buildWidgetTopCoin(state);
-                } else {
-                  return Container(
-                    child: Text(
-                      "Empty",
-                      style: Common().textStyle.styleBold14Black,
-                    ),
-                  );
-                }
-              },
-            )
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          buildTitleTop(),
+          controller.obx(
+            (state) {
+              if (state?.length != null) {
+                return buildWidgetTopCoin(state);
+              } else {
+                return Container(
+                  child: Text(
+                    "Empty",
+                    style: Common().textStyle.styleBold14Black,
+                  ),
+                );
+              }
+            },
+          )
+        ],
+      ),
+    );
+  }
 
   buildTitleTop() => Padding(
         padding: EdgeInsets.fromLTRB(0.0, 10.h, 0.0, 10.h),
