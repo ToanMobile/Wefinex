@@ -17,12 +17,16 @@ class CoinDetailsBinding extends Bindings {
 }
 
 class CoinDetailsController extends SuperBaseController<List<charts.Series<Data, DateTime>>> {
-  HistoricalDataType dataType = HistoricalDataType.eight_hour;
+  HistoricalDataType dataType = HistoricalDataType.one_day;
+  final coinName = Get.arguments;
 
   @override
   void onInit() {
     super.onInit();
-    final coinName = Get.arguments;
+    getRefreshList();
+  }
+
+  void getRefreshList() {
     getHistoricalData(coinName, dataType).then(
       (data) {
         print("CURRENT getHistoricalData== ${data.length}");
@@ -37,7 +41,7 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<Data,
   }
 
   void setTypeTime(HistoricalDataType type) {
-    //dataType = type;
-    //update();
+    dataType = type;
+    getRefreshList();
   }
 }

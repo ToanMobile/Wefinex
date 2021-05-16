@@ -18,8 +18,7 @@ class BottomNavigationViewController extends SuperBaseController {
 
   int get currentNavPageIndex => _currentNavPageIndex.value;
 
-  List<BottomNavigationBarItem> get bottomNavigationBarItems =>
-      _bottomNavigationBarItems;
+  List<BottomNavigationBarItem> get bottomNavigationBarItems => _bottomNavigationBarItems;
 
   // Setters
   set currentNavPageIndex(int value) {
@@ -52,7 +51,7 @@ class BottomNavigationViewController extends SuperBaseController {
           width: withHeight,
           height: withHeight,
         ),
-        label: Common().string.xoso,
+        label: Common().string.search_coin,
         backgroundColor: Colors.white,
       ),
       BottomNavigationBarItem(
@@ -61,7 +60,7 @@ class BottomNavigationViewController extends SuperBaseController {
           width: withHeight,
           height: withHeight,
         ),
-        label: Common().string.xoso,
+        label: Common().string.favourite,
         backgroundColor: Colors.white,
       ),
     ];

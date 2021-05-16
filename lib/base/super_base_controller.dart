@@ -39,8 +39,7 @@ class SuperBaseController<T> extends SuperController<T> with BaseCommonWidgets, 
 
   @override
   void onReady() {
-    print('The build method is done. '
-        'Your controller is ready to call dialogs and snackbars');
+    print('The build method is done. ' 'Your controller is ready to call dialogs and snackbars');
     super.onReady();
   }
 

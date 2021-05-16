@@ -1,7 +1,8 @@
 const Map<String, String> en_US = {
   'title_app': 'Wefinex',
   'coin': 'Tiền ảo',
-  'xoso': 'Xổ số',
+  'search_coin': 'Tìm kiếm coin',
+  'favourite': 'Danh sách yêu thích',
   'error_message': 'Có lỗi xảy ra!',
   'total_market_cap': 'Tổng vốn hóa thị trường',
   'total_24h_volume': 'Tổng khối lượng 24h',

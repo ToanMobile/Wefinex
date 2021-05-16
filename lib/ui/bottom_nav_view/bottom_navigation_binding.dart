@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/ui/details/coin_details_binding.dart';
+import 'package:wefinex/ui/favourite/favourite_binding.dart';
 import 'package:wefinex/ui/home/home_binding.dart';
+import 'package:wefinex/ui/search/search_binding.dart';
+
 import 'bottom_navigation_view_controller.dart';
 
 /*
@@ -15,6 +18,8 @@ class BottomNavigationBinding extends Bindings {
   void dependencies() {
     Get.lazyPut(() => BottomNavigationViewController());
     Get.lazyPut(() => HomeController());
+    Get.lazyPut(() => FavouriteController());
+    Get.lazyPut(() => SearchController());
     Get.lazyPut(() => CoinDetailsController());
   }
 }

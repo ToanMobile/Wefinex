@@ -40,7 +40,8 @@ class _AssetsImage {
 class _String {
   String title_app = 'title_app'.tr;
   String coin = 'coin'.tr;
-  String xoso = 'xoso'.tr;
+  String search_coin = 'search_coin'.tr;
+  String favourite = 'favourite'.tr;
   String error_message = 'error_message'.tr;
   String currency = 'currency'.tr;
   String market_cap = 'market_cap'.tr;
@@ -79,6 +80,7 @@ class _Color {
   Color darkGray = Color(0xFF9F9F9F);
   Color black = Color(0xFF000000);
   Color white = Color(0xFFFFFFFF);
+  Color blueAccent = Colors.lightBlueAccent;
 }
 
 Color hexToColor(String hex) {
@@ -185,4 +187,5 @@ class _MyConfig {
 
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
+  final String currencySetting = '\$';
 }

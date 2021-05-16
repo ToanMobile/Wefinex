@@ -78,24 +78,42 @@ class Repositories {
     return Future.value(cryptos);
   }
 
+  Future<List<CoinEntity>> getListAllCoin() async {
+    print("cryptos===:" + cryptos.toString());
+    if (cryptos.length > 0) {
+      return Future.value(cryptos);
+    }
+    return Future.value(null);
+  }
+
   Future<List<CoinEntity>> getListTop() async {
+    print("hotCryptos===:" + hotCryptos.toString());
     if (hotCryptos.length > 0) {
       return Future.value(hotCryptos);
     }
     return Future.value(null);
   }
 
-  Future<Fiat> getChart(String symbol) async {
-    final response = await _service.callData(endPoint: "/$symbol/market_chart?vs_currency=vnd&days=1");
+  Future<String> changeCoin(bool side, CoinEntity selectedCrypto, Fiat selectedFiat, String value) async {
+    var stringError = "N/A";
+    if (selectedCrypto.name == null) return Future.value(stringError);
+    final response = await _service.callData(endPoint: "simple/price?ids=${selectedCrypto.name ?? "".toLowerCase()}&vs_currencies=${selectedFiat.diminutive ?? "".toLowerCase()}");
     if (response.isOk) {
       try {
-        //final chartData = ChartEntity.fromJson(response);
-        // return Future.value(chartData);
+        var jsonResponse = json.decode(response.body);
+        double priceForOne = jsonResponse['${selectedCrypto.name ?? "".toLowerCase()}']['${selectedFiat.diminutive ?? "".toLowerCase()}'];
+        if (side) {
+          // Right side -> fiat to crypto
+          stringError = (double.parse(value) / priceForOne).toStringAsFixed(8);
+        } else {
+          // Left side -> crypto to fiat
+          stringError = (double.parse(value) * priceForOne).toStringAsFixed(2);
+        }
       } catch (e) {
         print("Error:" + e.toString());
       }
     }
-    return Future.value(null);
+    return Future.value(stringError);
   }
 
   Future<List<charts.Series<Data, DateTime>>> getHistoricalData(String name, HistoricalDataType type) async {

@@ -15,16 +15,22 @@ class SearchBinding extends Bindings {
 }
 
 class SearchController extends SuperBaseController<List<CoinEntity>> {
+  List<CoinEntity> cryptos = [];
+
   @override
-  void onInit() async {
-    super.onInit();
-    /*getListCoin().then((data) {
+  void onReady() async {
+    getListAllCoin().then((data) {
       print("CURRENT listCoin== $data");
-      change(data, status: RxStatus.success());
-      update();
+      cryptos = data;
+      if (cryptos != null && cryptos.length > 0) {
+        change(cryptos, status: RxStatus.success());
+      } else {
+        change(cryptos, status: RxStatus.empty());
+      }
     }, onError: (err) {
       print("CURRENT Error== $err");
       change(null, status: RxStatus.error(err.toString()));
-    });*/
+    });
+    super.onReady();
   }
 }

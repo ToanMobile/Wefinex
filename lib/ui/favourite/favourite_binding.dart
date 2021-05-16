@@ -16,15 +16,20 @@ class FavouriteBinding extends Bindings {
 
 class FavouriteController extends SuperBaseController<List<CoinEntity>> {
   @override
-  void onInit() async {
-    super.onInit();
-    /*getListCoin().then((data) {
-      print("CURRENT listCoin== $data");
-      change(data, status: RxStatus.success());
-      update();
-    }, onError: (err) {
-      print("CURRENT Error== $err");
-      change(null, status: RxStatus.error(err.toString()));
-    });*/
+  void onReady() async {
+    getListTop().then(
+      (data) {
+        if (data != null && data.length > 0) {
+          change(data, status: RxStatus.success());
+        } else {
+          change(data, status: RxStatus.empty());
+        }
+      },
+      onError: (err) {
+        print("CURRENT Error== $err");
+        change(null, status: RxStatus.error(err.toString()));
+      },
+    );
+    super.onReady();
   }
 }

@@ -14,8 +14,7 @@ Email: hvtoan.dev@gmail.com
 
 class BottomNavigationView extends GetView<BottomNavigationViewController> {
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         /*appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
@@ -24,8 +23,7 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
             style: TextStyle(color: Colors.black),
           ),
         ),*/
-        bottomNavigationBar: Obx(() =>
-            Theme(
+        bottomNavigationBar: Obx(() => Theme(
               data: ThemeData(splashColor: Colors.transparent),
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
@@ -41,15 +39,14 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
             )),
         body: SafeArea(
           child: Obx(
-                () =>
-                IndexedStack(
-                  index: controller.currentNavPageIndex,
-                  children: [
-                    HomeScreen(),
-                    SearchScreen(),
-                    FavouriteScreen(),
-                  ],
-                ),
+            () => IndexedStack(
+              index: controller.currentNavPageIndex,
+              children: [
+                HomeScreen(),
+                SearchScreen(),
+                FavouriteScreen(),
+              ],
+            ),
           ),
         ),
       );

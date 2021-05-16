@@ -72,9 +72,9 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
                       fontWeight: FontWeight.bold,
                       fontSize: 14.0,
                     ),
-                    color: Colors.amberAccent[400],
+                    color: Common().color.blueAccent,
                     selectedColor: Colors.grey[900],
-                    fillColor: Colors.amberAccent[400],
+                    fillColor: Common().color.blueAccent,
                     isSelected: isSelected,
                     children: [
                       Text('8H'),
