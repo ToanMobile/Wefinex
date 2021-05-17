@@ -18,6 +18,7 @@ class FavouriteScreen extends GetView<FavouriteController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Common().color.backgroundColor,
       body: Column(
         children: [
           buildTitleTop(),
@@ -86,9 +87,10 @@ class FavouriteScreen extends GetView<FavouriteController> {
           itemCount: state?.length ?? 0,
           itemBuilder: (BuildContext context, int index) {
             final item = state![index];
-            return ElevatedButton(
+            return MaterialButton(
               onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item.name),
               child: Card(
+                color: Colors.transparent,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -143,7 +145,15 @@ class FavouriteScreen extends GetView<FavouriteController> {
         ),
       );
 
-  buildWidgetChange(String? price, String? change, String? changeValue) => Column(
+  buildWidgetChange(String? price, String? change, String? changeValue) {
+    final changeColor = double.tryParse(changeValue ?? "0") == null
+        ? Common().textStyle.styleBold14Grey
+        : (double.parse(changeValue ?? "0") >= 0)
+            ? Common().textStyle.styleBold14Green
+            : Common().textStyle.styleBold14Red;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
@@ -152,9 +162,11 @@ class FavouriteScreen extends GetView<FavouriteController> {
             style: Common().textStyle.styleBold14Black,
           ),
           Text(
-            change ?? "0" + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
-            style: Common().textStyle.styleBold14Green,
+            (change ?? "0") + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
+            style: changeColor,
           ),
         ],
-      );
+      ),
+    );
+  }
 }

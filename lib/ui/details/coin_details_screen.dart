@@ -110,7 +110,7 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
     }
   }
 
-  buildChart(List<charts.Series<Data, DateTime>>? listData) => Container(
+  buildChart(List<charts.Series<DataPrice, DateTime>>? listData) => Container(
         child: listData != null
             ? charts.TimeSeriesChart(
                 listData,
@@ -154,4 +154,6 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
                 ),
               ),
       );
+
+  buildFavourite() => TextButton.icon(onPressed: () => controller.addFavourite(), icon: Icon(Icons.favorite_border_outlined), label: Text(Common().string.favourite));
 }

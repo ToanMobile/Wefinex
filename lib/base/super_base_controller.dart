@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:wefinex/repository/repositories.dart';
 import 'package:wefinex/shared/utils/utilities.dart';
 
@@ -35,7 +35,7 @@ Email: hvtoan.dev@gmail.com
 /// read the [Example] above.
 
 class SuperBaseController<T> extends SuperController<T> with BaseCommonWidgets, Utilities, Repositories {
-  final box = GetStorage();
+  final hive = Hive.box('myBox');
 
   @override
   void onReady() {

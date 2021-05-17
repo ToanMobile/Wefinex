@@ -17,6 +17,7 @@ Email: hvtoan.dev@gmail.com
 class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Common().color.backgroundColor,
         body: Column(
           children: [
             buildTitleTop(),
@@ -43,9 +44,10 @@ class HomeScreen extends GetView<HomeController> {
           itemCount: state?.length,
           itemBuilder: (BuildContext context, int index) {
             final item = state![index];
-            return ElevatedButton(
+            return MaterialButton(
               onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item.name),
               child: Card(
+                color: Colors.transparent,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -111,9 +113,12 @@ class HomeScreen extends GetView<HomeController> {
 
   buildWidgetTitleRank(String title) => Container(
         width: 20.w,
-        child: Text(
-          title,
-          style: Common().textStyle.styleBold12Black,
+        height: 50.h,
+        child: Center(
+          child: Text(
+            title,
+            style: Common().textStyle.styleBold12Black,
+          ),
         ),
       );
 
@@ -140,7 +145,15 @@ class HomeScreen extends GetView<HomeController> {
         ),
       );
 
-  buildWidgetChange(String? price, String? change, String? changeValue) => Column(
+  buildWidgetChange(String? price, String? change, String? changeValue) {
+    final changeColor = double.tryParse(changeValue ?? "0") == null
+        ? Common().textStyle.styleBold14Grey
+        : (double.parse(changeValue ?? "0") >= 0)
+            ? Common().textStyle.styleBold14Green
+            : Common().textStyle.styleBold14Red;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
@@ -149,9 +162,11 @@ class HomeScreen extends GetView<HomeController> {
             style: Common().textStyle.styleBold14Black,
           ),
           Text(
-            change ?? "0" + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
-            style: Common().textStyle.styleBold14Green,
+            (change ?? "0") + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
+            style: changeColor,
           ),
         ],
-      );
+      ),
+    );
+  }
 }

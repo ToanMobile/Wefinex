@@ -1,12 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
-final box = GetStorage();
+final hive = Hive.box('myBox');
 enum Method { GET, POST }
 
 /// This class must be instantiated in the [Repositories] class

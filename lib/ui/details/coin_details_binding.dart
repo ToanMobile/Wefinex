@@ -2,6 +2,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/repository/model/crypto.dart';
+import 'package:wefinex/repository/model/db_coin.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -16,7 +17,7 @@ class CoinDetailsBinding extends Bindings {
   }
 }
 
-class CoinDetailsController extends SuperBaseController<List<charts.Series<Data, DateTime>>> {
+class CoinDetailsController extends SuperBaseController<List<charts.Series<DataPrice, DateTime>>> {
   HistoricalDataType dataType = HistoricalDataType.one_day;
   final coinName = Get.arguments;
 
@@ -43,5 +44,9 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<Data,
   void setTypeTime(HistoricalDataType type) {
     dataType = type;
     getRefreshList();
+  }
+
+  void addFavourite() {
+    hive.add(DbCoin(name: coinName));
   }
 }

@@ -81,6 +81,7 @@ class _Color {
   Color black = Color(0xFF000000);
   Color white = Color(0xFFFFFFFF);
   Color blueAccent = Colors.lightBlueAccent;
+  Color backgroundColor = Colors.white;
 }
 
 Color hexToColor(String hex) {
@@ -139,8 +140,22 @@ class _TextStyle {
     fontStyle: FontStyle.normal,
   );
 
+  final styleBold14Grey = TextStyle(
+    color: Colors.grey[400],
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
   final styleBold14Green = TextStyle(
     color: Colors.green,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold14Red = TextStyle(
+    color: Colors.red,
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
@@ -187,5 +202,5 @@ class _MyConfig {
 
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
-  final String currencySetting = '\$';
+  final String currencySetting = 'vnđ';
 }

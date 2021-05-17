@@ -32,4 +32,9 @@ class FavouriteController extends SuperBaseController<List<CoinEntity>> {
       },
     );
   }
+
+  void getListFavourite() {
+    final list = hive.get("favourite");
+    print("getListFavourite=" + list.toString());
+  }
 }

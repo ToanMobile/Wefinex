@@ -22,8 +22,8 @@ Email: hvtoan.dev@gmail.com
 /// You can find and use on your Controller wich is the Controller extends [BaseController].
 class Repositories {
   ApiService _service = ApiService();
-  List<CoinEntity> cryptos = [];
-  List<CoinEntity> hotCryptos = [];
+  static List<CoinEntity> cryptos = [];
+  static List<CoinEntity> hotCryptos = [];
 
   /*Future<List<XosoEntity>> getDataXoSo() async {
     final String assets = await rootBundle.loadString(Common().assetsImage.getListXoso);
@@ -42,23 +42,27 @@ class Repositories {
         /*final listData = List<CoinEntity>.from(json.decode(response.body).map((x) => CoinEntity.fromJson(x)));
         return Future.value(listData);*/
         cryptos.clear();
-        await json.decode(response.body).forEach((element) {
-          cryptos.add(CoinEntity(
-            marketCapRank: element['market_cap_rank'].toString(),
-            name: element['name'],
-            diminutive: element['symbol'].toString().toUpperCase(),
-            price: element['current_price'].toString(),
-            logoUrl: element['image'],
-            change: (element['price_change_percentage_24h'] == null)
-                ? "N/A"
-                : (element['price_change_percentage_24h'] >= 0)
-                    ? '+'
-                    : '-',
-            changeValue: (element['price_change_percentage_24h'] == null) ? "N/A" : element['price_change_percentage_24h'].toString(),
-            marketCap: (element['market_cap'] == null) ? "N/A" : element['market_cap'].toString(),
-            totalVolume: (element['total_volume'] == null) ? "N/A" : element['total_volume'].toString(),
-          ));
-        });
+        await json.decode(response.body).forEach(
+          (element) {
+            cryptos.add(
+              CoinEntity(
+                marketCapRank: element['market_cap_rank'].toString(),
+                name: element['name'],
+                diminutive: element['symbol'].toString().toUpperCase(),
+                price: element['current_price'].toString(),
+                logoUrl: element['image'],
+                change: (element['price_change_percentage_24h'] == null)
+                    ? "N/A"
+                    : (element['price_change_percentage_24h'] >= 0)
+                        ? '+'
+                        : '-',
+                changeValue: (element['price_change_percentage_24h'] == null) ? "N/A" : element['price_change_percentage_24h'].toString(),
+                marketCap: (element['market_cap'] == null) ? "N/A" : element['market_cap'].toString(),
+                totalVolume: (element['total_volume'] == null) ? "N/A" : element['total_volume'].toString(),
+              ),
+            );
+          },
+        );
         //Hot coin
         hotCryptos.clear();
         hotCryptos.addAll(cryptos);
@@ -68,7 +72,7 @@ class Repositories {
           else
             return double.parse(a.changeValue!).compareTo(double.parse(b.changeValue!));
         });
-        if (hotCryptos.length > 4) hotCryptos.removeRange(4, hotCryptos.length);
+        if (hotCryptos.length > 5) hotCryptos.removeRange(5, hotCryptos.length);
         return Future.value(cryptos);
       } catch (e) {
         print("Error:" + e.toString());
@@ -116,7 +120,7 @@ class Repositories {
     return Future.value(stringError);
   }
 
-  Future<List<charts.Series<Data, DateTime>>> getHistoricalData(String name, HistoricalDataType type) async {
+  Future<List<charts.Series<DataPrice, DateTime>>> getHistoricalData(String name, HistoricalDataType type) async {
     print('[TYPE]: ${type.toString()}');
     HistoricalData historicalData = HistoricalData();
     // Get timestamp correctly
@@ -144,15 +148,15 @@ class Repositories {
     if (response.isOk) {
       try {
         await json.decode(response.body)['prices'].forEach((element) {
-          historicalData.data.add(Data(element[1].toString(), new DateTime.fromMillisecondsSinceEpoch(element[0])));
+          historicalData.data.add(DataPrice(element[1].toString(), new DateTime.fromMillisecondsSinceEpoch(element[0])));
         });
-        List<charts.Series<Data, DateTime>> series = [
+        List<charts.Series<DataPrice, DateTime>> series = [
           charts.Series(
               id: "HistoricalData",
               data: historicalData.data,
-              domainFn: (Data series, _) => series.date,
-              measureFn: (Data series, _) => double.parse(series.price),
-              colorFn: (Data series, _) => charts.ColorUtil.fromDartColor(Colors.amberAccent[400]))
+              domainFn: (DataPrice series, _) => series.date,
+              measureFn: (DataPrice series, _) => double.parse(series.price),
+              colorFn: (DataPrice series, _) => charts.ColorUtil.fromDartColor(Colors.amberAccent[400]))
         ];
         print("historicalData:" + historicalData.data.toString());
         return Future.value(series);

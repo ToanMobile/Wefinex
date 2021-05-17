@@ -38,14 +38,14 @@ class CoinEntity {
 }
 
 class HistoricalData {
-  List<Data> data = [];
+  List<DataPrice> data = [];
 }
 
-class Data {
+class DataPrice {
   String price;
   DateTime date;
 
-  Data(this.price, this.date);
+  DataPrice(this.price, this.date);
 
   @override
   String toString() {
