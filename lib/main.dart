@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:wefinex/repository/model/db_coin.dart';
 
 import 'lang/translation_service.dart';
 import 'routes/app_pages.dart';
@@ -26,7 +27,7 @@ Future<void> initServices() async {
   print('starting services ...');
   //await DependencyInjection.init();
   await Hive.initFlutter();
-  Hive.openBox("myBox");
+  Hive.registerAdapter(DbCoinAdapter());
   print('All services started...');
 }
 

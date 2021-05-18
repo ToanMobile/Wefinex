@@ -20,11 +20,13 @@ class CoinDetailsBinding extends Bindings {
 class CoinDetailsController extends SuperBaseController<List<charts.Series<DataPrice, DateTime>>> {
   HistoricalDataType dataType = HistoricalDataType.one_day;
   final coinName = Get.arguments;
+  RxBool isFavorite = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     getRefreshList();
+    //checkFavourite();
   }
 
   void getRefreshList() {
@@ -46,7 +48,25 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
     getRefreshList();
   }
 
+  void checkFavourite() {
+    print("checkFavourite==" + hive.getAt(0));
+    if (hive.getAt(0) != null) {
+      isFavorite.value = true;
+    } else {
+      isFavorite.value = false;
+    }
+  }
+
   void addFavourite() {
-    hive.add(DbCoin(name: coinName));
+    print("get==" + hive.getAt(0));
+    if (hive.getAt(0) != null) {
+      hive.delete(DbCoin(name: coinName));
+      isFavorite.value = false;
+      print("delete==" + hive.get(coinName));
+    } else {
+      hive.add(DbCoin(name: coinName));
+      isFavorite.value = true;
+      print("add==" + hive.get(coinName));
+    }
   }
 }
