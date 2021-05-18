@@ -44,8 +44,7 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
             () {
               if (controller.currentNavPageIndex == 1) {
                 Get.find<SearchController>().onInit();
-              }
-              if (controller.currentNavPageIndex == 2) {
+              } else if (controller.currentNavPageIndex == 2) {
                 Get.find<FavouriteController>().onInit();
               }
               return IndexedStack(

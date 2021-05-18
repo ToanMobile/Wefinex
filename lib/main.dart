@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import 'di.dart';
 import 'lang/translation_service.dart';
 import 'routes/app_pages.dart';
 import 'shared/logger/logger_utils.dart';
@@ -23,7 +24,9 @@ void initApp() {
 
 Future<void> initServices() async {
   print('starting services ...');
-  await DependencyInjection.init();
+  //await DependencyInjection.init();
+  await Hive.initFlutter();
+  Hive.openBox("myBox");
   print('All services started...');
 }
 
@@ -32,17 +35,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: ScreenUtil.defaultSize,
-      builder: () =>
-          GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            enableLog: true,
-            logWriterCallback: Logger.write,
-            initialRoute: AppPages.INITIAL,
-            getPages: AppPages.routes,
-            locale: TranslationService.locale,
-            fallbackLocale: TranslationService.fallbackLocale,
-            translations: TranslationService(),
-          ),
+      builder: () => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        enableLog: true,
+        logWriterCallback: Logger.write,
+        initialRoute: AppPages.INITIAL,
+        getPages: AppPages.routes,
+        locale: TranslationService.locale,
+        fallbackLocale: TranslationService.fallbackLocale,
+        translations: TranslationService(),
+      ),
     );
   }
 }

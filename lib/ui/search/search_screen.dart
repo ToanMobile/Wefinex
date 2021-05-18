@@ -23,6 +23,7 @@ class SearchScreen extends GetView<SearchController> {
   List<CoinEntity> queryList = <CoinEntity>[];
   bool isSearching = false;
   bool isFirst = true;
+
   bool _containsIgnoreCase(String s1, String s2) {
     return s1.toLowerCase().contains(s2.toLowerCase());
   }
@@ -222,13 +223,12 @@ class SearchScreen extends GetView<SearchController> {
                                 ),
                               ),
                               Text(
-                                currentCrypto.change ??
-                                    "" +
-                                        ' ' +
-                                        (double.tryParse(currentCrypto.changeValue ?? "") == null
-                                            ? 'N/A'.toString()
-                                            : double.parse(currentCrypto.changeValue ?? "").abs().toStringAsFixed(2)) +
-                                        '%',
+                                (currentCrypto.change ?? "") +
+                                    ' ' +
+                                    (double.tryParse(currentCrypto.changeValue ?? "") == null
+                                        ? 'N/A'.toString()
+                                        : double.parse(currentCrypto.changeValue ?? "").abs().toStringAsFixed(2)) +
+                                    '%',
                                 style: TextStyle(
                                   color: changeColor,
                                 ),
