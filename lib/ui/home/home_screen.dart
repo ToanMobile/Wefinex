@@ -5,6 +5,9 @@ import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/repository/model/crypto.dart';
 import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/constant/common.dart';
+import 'package:wefinex/ui/widget/icon_name.dart';
+import 'package:wefinex/ui/widget/price_coin.dart';
+import 'package:wefinex/ui/widget/title_rank.dart';
 
 import 'home_binding.dart';
 
@@ -45,7 +48,7 @@ class HomeScreen extends GetView<HomeController> {
           itemBuilder: (BuildContext context, int index) {
             final item = state![index];
             return MaterialButton(
-              onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item),
+              onPressed: () => Get.toNamed(Routes.COIN_DETAILS, arguments: item),
               child: Card(
                 color: Colors.transparent,
                 child: Row(
@@ -54,15 +57,15 @@ class HomeScreen extends GetView<HomeController> {
                     SizedBox(
                       width: 10.w,
                     ),
-                    buildWidgetTitleRank(item.marketCapRank.toString()),
+                    BuildWidgetTitleRank(item.marketCapRank.toString()),
                     SizedBox(
                       width: 10.w,
                     ),
-                    buildWidgetNameRank(item.name.toString(), item.logoUrl.toString()),
+                    BuildWidgetIconName(item.name.toString(), item.logoUrl.toString()),
                     SizedBox(
                       width: 10.w,
                     ),
-                    buildWidgetChange(item.price, item.change, item.changeValue),
+                    BuildWidgetPrice(item.price, item.change, item.changeValue),
                   ],
                 ),
               ),
@@ -89,7 +92,7 @@ class HomeScreen extends GetView<HomeController> {
             children: <Widget>[
               ImageIcon(
                 AssetImage(Common().assetsImage.icon_top),
-                color: Common().color.blueAccent,
+                color: Common().color.white,
               ),
               SizedBox(width: 10.w),
               Text(
@@ -98,75 +101,16 @@ class HomeScreen extends GetView<HomeController> {
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  color: Common().color.blueAccent,
+                  color: Common().color.white,
                 ),
               ),
               SizedBox(width: 10.w),
               ImageIcon(
                 AssetImage(Common().assetsImage.icon_top),
-                color: Common().color.blueAccent,
+                color: Common().color.white,
               ),
             ],
           ),
         ),
       );
-
-  buildWidgetTitleRank(String title) => Container(
-        width: 20.w,
-        height: 50.h,
-        child: Center(
-          child: Text(
-            title,
-            style: Common().textStyle.styleBold12Black,
-          ),
-        ),
-      );
-
-  buildWidgetNameRank(String name, String icon) => Expanded(
-        flex: 1,
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(icon),
-              backgroundColor: Colors.transparent,
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Expanded(
-              child: Text(
-                name,
-                style: Common().textStyle.styleBold12Black,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            )
-          ],
-        ),
-      );
-
-  buildWidgetChange(String? price, String? change, String? changeValue) {
-    final changeColor = double.tryParse(changeValue ?? "0") == null
-        ? Common().textStyle.styleBold14Grey
-        : (double.parse(changeValue ?? "0") >= 0)
-            ? Common().textStyle.styleBold14Green
-            : Common().textStyle.styleBold14Red;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text(
-            double.parse(price ?? "0").toStringAsFixed(2) + Common().myConfig.currencySetting,
-            style: Common().textStyle.styleBold14Black,
-          ),
-          Text(
-            (change ?? "0") + ' ' + double.parse(changeValue ?? "0").abs().toStringAsFixed(2) + '%',
-            style: changeColor,
-          ),
-        ],
-      ),
-    );
-  }
 }

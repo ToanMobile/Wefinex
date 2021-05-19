@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/repository/model/crypto.dart';
+import 'package:wefinex/routes/app_pages.dart';
 import 'package:wefinex/shared/constant/common.dart';
+import 'package:wefinex/ui/widget/price_coin.dart';
 
 import 'search_binding.dart';
 
@@ -82,7 +84,7 @@ class SearchScreen extends GetView<SearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Common().color.backgroundColor,
       appBar: AppBar(
         title: Text(
           'Tìm kiếm coin',
@@ -169,7 +171,7 @@ class SearchScreen extends GetView<SearchController> {
                 if (queryList.length == 0 && !isSearching) {
                   queryList.addAll(controller.cryptos);
                 } else {
-                  queryList.add(CoinEntity(id: 0));
+                  queryList.add(CoinEntity(id: 1));
                 }
                 return ListView.separated(
                   itemCount: queryList.length,
@@ -189,9 +191,7 @@ class SearchScreen extends GetView<SearchController> {
                       return Padding(
                         padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
                         child: ListTile(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/crypto_details', arguments: currentCrypto);
-                          },
+                          onTap: () => Get.toNamed(Routes.COIN_DETAILS, arguments: currentCrypto),
                           title: Text(
                             currentCrypto.name ?? "",
                             style: TextStyle(
@@ -210,31 +210,7 @@ class SearchScreen extends GetView<SearchController> {
                             backgroundImage: NetworkImage(currentCrypto.logoUrl ?? ""),
                             backgroundColor: Colors.transparent,
                           ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                double.parse(currentCrypto.price ?? "").toStringAsFixed(2) + '€/\$',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[300],
-                                ),
-                              ),
-                              Text(
-                                (currentCrypto.change ?? "") +
-                                    ' ' +
-                                    (double.tryParse(currentCrypto.changeValue ?? "") == null
-                                        ? 'N/A'.toString()
-                                        : double.parse(currentCrypto.changeValue ?? "").abs().toStringAsFixed(2)) +
-                                    '%',
-                                style: TextStyle(
-                                  color: changeColor,
-                                ),
-                              ),
-                            ],
-                          ),
+                          trailing: BuildWidgetPrice(currentCrypto.price, currentCrypto.change, currentCrypto.changeValue),
                         ),
                       );
                     }

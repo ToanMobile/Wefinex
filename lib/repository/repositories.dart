@@ -4,6 +4,8 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:wefinex/base/api.dart';
 import 'package:wefinex/base/super_base_controller.dart';
+import 'package:wefinex/repository/db/coin_dao.dart';
+import 'package:wefinex/repository/db/database.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
 import 'model/crypto.dart';
@@ -25,6 +27,14 @@ class Repositories {
   ApiService _service = ApiService();
   static List<CoinEntity> cryptos = [];
   static List<CoinEntity> hotCryptos = [];
+  CoinDao? coinDao;
+
+  void initDatabase() async {
+    if (coinDao == null) {
+      final database = await $FloorFlutterDatabase.databaseBuilder('app_database.db').build();
+      coinDao = database.coinDao;
+    }
+  }
 
   /*Future<List<XosoEntity>> getDataXoSo() async {
     final String assets = await rootBundle.loadString(Common().assetsImage.getListXoso);
@@ -47,7 +57,6 @@ class Repositories {
           (element) {
             cryptos.add(
               CoinEntity(
-                id: int.parse(element['market_cap_rank'].toString()),
                 marketCapRank: element['market_cap_rank'].toString(),
                 name: element['name'],
                 diminutive: element['symbol'].toString().toUpperCase(),
@@ -98,6 +107,12 @@ class Repositories {
       return Future.value(hotCryptos);
     }
     return Future.value(null);
+  }
+
+  Future<List<CoinEntity>> getListFavourite() async {
+    final result = await coinDao?.findAllFavouriteCoins() ?? List.empty();
+    print("getListFavourite query== ${result.map((e) => e.toString())}");
+    return Future.value(result);
   }
 
   Future<String> changeCoin(bool side, CoinEntity selectedCrypto, Fiat selectedFiat, String value) async {

@@ -26,6 +26,10 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Text(Get.arguments.name),
+          centerTitle: true,
+          titleTextStyle: Common().textStyle.styleBold12White,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             iconSize: 20.0,
@@ -40,7 +44,7 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
         (state) {
           return Scrollbar(
             child: Padding(
-              padding: const EdgeInsets.only(top: 48.0, left: 16.0, right: 16.0, bottom: 16.0),
+              padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0, bottom: 16.0),
               child: Column(
                 children: [
                   buildFavourite(),
@@ -85,9 +89,9 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
                         fontWeight: FontWeight.bold,
                         fontSize: 14.0,
                       ),
-                      color: Common().color.blueAccent,
+                      color: Common().color.white,
                       selectedColor: Colors.grey[900],
-                      fillColor: Common().color.blueAccent,
+                      fillColor: Common().color.white,
                       isSelected: isSelected,
                       children: [
                         Text('8H'),

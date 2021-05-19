@@ -42,6 +42,7 @@ class _String {
   String coin = 'coin'.tr;
   String search_coin = 'search_coin'.tr;
   String favourite = 'favourite'.tr;
+  String topcoin = 'topcoin'.tr;
   String error_message = 'error_message'.tr;
   String currency = 'currency'.tr;
   String market_cap = 'market_cap'.tr;
@@ -81,7 +82,7 @@ class _Color {
   Color black = Color(0xFF000000);
   Color white = Color(0xFFFFFFFF);
   Color blueAccent = Colors.lightBlueAccent;
-  Color backgroundColor = Colors.white;
+  Color backgroundColor = Color(0xFF212121);
 }
 
 Color hexToColor(String hex) {
@@ -128,6 +129,13 @@ class _TextStyle {
 
   final styleBold12Black = TextStyle(
     color: Colors.black,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    fontStyle: FontStyle.normal,
+  );
+
+  final styleBold12White = TextStyle(
+    color: Colors.white,
     fontSize: 12.sp,
     fontWeight: FontWeight.w600,
     fontStyle: FontStyle.normal,
@@ -202,5 +210,4 @@ class _MyConfig {
 
   /// CUSTOM CONFIG APP
   final String LANGUAGE = 'LANGUAGE';
-  final String currencySetting = 'vnđ';
 }

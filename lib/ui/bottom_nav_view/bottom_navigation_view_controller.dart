@@ -47,6 +47,15 @@ class BottomNavigationViewController extends SuperBaseController {
       ),
       BottomNavigationBarItem(
         icon: SvgPicture.asset(
+          Common().assetsImage.icon_bottom_bongda,
+          width: withHeight,
+          height: withHeight,
+        ),
+        label: Common().string.topcoin,
+        backgroundColor: Colors.white,
+      ),
+      BottomNavigationBarItem(
+        icon: SvgPicture.asset(
           Common().assetsImage.icon_bottom_soxo,
           width: withHeight,
           height: withHeight,

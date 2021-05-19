@@ -5,6 +5,8 @@ import 'package:wefinex/ui/favourite/favourite_screen.dart';
 import 'package:wefinex/ui/home/home_screen.dart';
 import 'package:wefinex/ui/search/search_binding.dart';
 import 'package:wefinex/ui/search/search_screen.dart';
+import 'package:wefinex/ui/topcoin/topcoin_binding.dart';
+import 'package:wefinex/ui/topcoin/topcoin_screen.dart';
 
 import 'bottom_navigation_view_controller.dart';
 
@@ -45,12 +47,15 @@ class BottomNavigationView extends GetView<BottomNavigationViewController> {
               if (controller.currentNavPageIndex == 1) {
                 Get.find<SearchController>().onInit();
               } else if (controller.currentNavPageIndex == 2) {
+                Get.find<TopCoinController>().onInit();
+              } else if (controller.currentNavPageIndex == 3) {
                 Get.find<FavouriteController>().onInit();
               }
               return IndexedStack(
                 index: controller.currentNavPageIndex,
                 children: [
                   HomeScreen(),
+                  TopCoinScreen(),
                   SearchScreen(),
                   FavouriteScreen(),
                 ],

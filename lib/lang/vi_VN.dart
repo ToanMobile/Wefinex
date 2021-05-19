@@ -1,6 +1,7 @@
 const Map<String, String> vi_VN = {
   'title_app': 'Wefinex',
   'coin': 'Tiền ảo',
+  'topcoin': 'Top 5 coin',
   'search_coin': 'Tìm kiếm coin',
   'favourite': 'Danh sách yêu thích',
   'error_message': 'Có lỗi xảy ra!',

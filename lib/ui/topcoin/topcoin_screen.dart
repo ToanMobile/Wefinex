@@ -9,7 +9,7 @@ import 'package:wefinex/ui/widget/icon_name.dart';
 import 'package:wefinex/ui/widget/price_coin.dart';
 import 'package:wefinex/ui/widget/title_rank.dart';
 
-import 'favourite_binding.dart';
+import 'topcoin_binding.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -17,18 +17,18 @@ Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
 
-class FavouriteScreen extends GetView<FavouriteController> {
+class TopCoinScreen extends GetView<TopCoinController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Common().color.backgroundColor,
       body: Column(
         children: [
-          buildTitleFavourite(),
+          buildTitleTop(),
           controller.obx(
             (state) {
               if (state?.length != null) {
-                return buildWidgetFavouriteCoin(state);
+                return buildWidgetTopCoin(state);
               } else {
                 return Container(
                   child: Text(
@@ -39,12 +39,13 @@ class FavouriteScreen extends GetView<FavouriteController> {
               }
             },
           ),
+          buildWidgetChangeCoin()
         ],
       ),
     );
   }
 
-  buildTitleFavourite() => Padding(
+  buildTitleTop() => Padding(
         padding: EdgeInsets.fromLTRB(0.0, 10.h, 0.0, 10.h),
         child: Container(
           height: 40.h,
@@ -66,7 +67,7 @@ class FavouriteScreen extends GetView<FavouriteController> {
               ),
               SizedBox(width: 10.w),
               Text(
-                'FAVOURITE COINS',
+                'TOP 5 COINS',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20.0,
@@ -84,7 +85,7 @@ class FavouriteScreen extends GetView<FavouriteController> {
         ),
       );
 
-  buildWidgetFavouriteCoin(List<CoinEntity>? state) => Expanded(
+  buildWidgetTopCoin(List<CoinEntity>? state) => Expanded(
         flex: 1,
         child: ListView.builder(
           itemCount: state?.length ?? 0,
@@ -115,5 +116,10 @@ class FavouriteScreen extends GetView<FavouriteController> {
             );
           },
         ),
+      );
+
+  buildWidgetChangeCoin() => Expanded(
+        flex: 1,
+        child: Container(),
       );
 }

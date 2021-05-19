@@ -1,8 +1,9 @@
-import 'package:objectbox/objectbox.dart';
+import 'package:floor/floor.dart';
 
-@Entity()
+@Entity(tableName: 'coinEntity')
 class CoinEntity {
-  int id = 0;
+  @PrimaryKey(autoGenerate: true)
+  int? id;
   String? name; // name of the currency (ex: Bitcoin)
   String? marketCapRank;
   String? diminutive; // diminutive of the currency (ex: BTC)
@@ -15,11 +16,11 @@ class CoinEntity {
 
   @override
   String toString() {
-    return 'CoinEntity{marketCapRank: $marketCapRank, name: $name, diminutive: $diminutive, price: $price, change: $change, changeValue: $changeValue, logoUrl: $logoUrl, marketCap: $marketCap, totalVolume: $totalVolume}';
+    return 'CoinEntity{id:$id marketCapRank: $marketCapRank, name: $name, diminutive: $diminutive, price: $price, change: $change, changeValue: $changeValue, logoUrl: $logoUrl, marketCap: $marketCap, totalVolume: $totalVolume}';
   }
 
   CoinEntity({
-    required this.id,
+    this.id,
     this.marketCapRank,
     this.name,
     this.diminutive,

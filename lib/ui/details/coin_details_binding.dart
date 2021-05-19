@@ -24,22 +24,28 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
   @override
   void onInit() {
     super.onInit();
+    initDatabase();
     getRefreshList();
-    //checkFavourite();
   }
 
   void getRefreshList() {
-    getHistoricalData(coin.name, dataType).then(
-      (data) {
-        print("CURRENT getHistoricalData== ${data.length}");
-        change(data, status: RxStatus.success());
-        update();
-      },
-      onError: (err) {
-        print("CURRENT Error== $err");
-        change(null, status: RxStatus.error(err.toString()));
-      },
-    );
+    if (coin.name != null) {
+      getHistoricalData(coin.name, dataType).then(
+        (data) {
+          if (data != null && data.length > 0) {
+            change(data, status: RxStatus.success());
+          } else {
+            change(data, status: RxStatus.empty());
+          }
+          checkFavourite();
+        },
+        onError: (err) {
+          print("CURRENT Error== $err");
+          change(null, status: RxStatus.error(err.toString()));
+          checkFavourite();
+        },
+      );
+    }
   }
 
   void setTypeTime(HistoricalDataType type) {
@@ -47,23 +53,32 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
     getRefreshList();
   }
 
-  void checkFavourite() {
-    print("checkFavourite==" + box.get(coin.id).toString());
-    if (box.get(coin.id) != null) {
-      isFavorite.value = true;
-    } else {
-      isFavorite.value = false;
+  void checkFavourite() async {
+    try {
+      print("checkFavourite query== ${coin.name}");
+      final isFavourite = await coinDao?.findCoinByName(coin.name);
+      print("checkFavourite query== $isFavourite");
+      if (isFavourite != null) {
+        isFavorite.value = true;
+      } else {
+        isFavorite.value = false;
+      }
+    } catch (e) {
+      e.printError();
+      print("checkFavourite error== ${e.toString()}");
     }
   }
 
-  void addFavourite() {
-    print("get==coinName$coin" + box.get(coin.id).toString());
-    if (box.get(coin.id) != null) {
-      box.remove(coin.id);
+  void addFavourite() async {
+    print("addFavourite query== ${coin.name}");
+    final isFavourite = await coinDao?.findCoinByName(coin.name);
+    print("addFavourite query== $isFavourite");
+    if (isFavourite != null) {
+      await coinDao?.deleteCoin(coin.name);
       isFavorite.value = false;
       print("delete==");
     } else {
-      box.put(coin);
+      await coinDao?.insertCoin(coin);
       isFavorite.value = true;
       print("add==");
     }

@@ -7,19 +7,18 @@ Created by ToanDev on 05/05/2021
 Company: Netacom.
 Email: hvtoan.dev@gmail.com
 */
-class FavouriteBinding extends Bindings {
+class TopCoinBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => FavouriteController());
+    Get.lazyPut(() => TopCoinController());
   }
 }
 
-class FavouriteController extends SuperBaseController<List<CoinEntity>> {
+class TopCoinController extends SuperBaseController<List<CoinEntity>> {
   @override
   void onInit() async {
     super.onInit();
-    initDatabase();
-    getListFavourite().then(
+    getListTop().then(
       (data) {
         if (data != null && data.length > 0) {
           change(data, status: RxStatus.success());
