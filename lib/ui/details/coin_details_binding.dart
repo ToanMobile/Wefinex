@@ -1,8 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:get/get.dart';
 import 'package:wefinex/base/super_base_controller.dart';
-import 'package:wefinex/repository/model/crypto.dart';
-import 'package:wefinex/repository/model/db_coin.dart';
+import 'package:wefinex/repository/model/list_crypto.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -19,8 +18,8 @@ class CoinDetailsBinding extends Bindings {
 
 class CoinDetailsController extends SuperBaseController<List<charts.Series<DataPrice, DateTime>>> {
   HistoricalDataType dataType = HistoricalDataType.one_day;
-  final coinName = Get.arguments;
-  RxBool isFavorite = false.obs;
+  final coin = Get.arguments;
+  var isFavorite = false.obs;
 
   @override
   void onInit() {
@@ -30,7 +29,7 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
   }
 
   void getRefreshList() {
-    getHistoricalData(coinName, dataType).then(
+    getHistoricalData(coin.name, dataType).then(
       (data) {
         print("CURRENT getHistoricalData== ${data.length}");
         change(data, status: RxStatus.success());
@@ -49,8 +48,8 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
   }
 
   void checkFavourite() {
-    print("checkFavourite==" + hive.getAt(0));
-    if (hive.getAt(0) != null) {
+    print("checkFavourite==" + box.get(coin.id).toString());
+    if (box.get(coin.id) != null) {
       isFavorite.value = true;
     } else {
       isFavorite.value = false;
@@ -58,15 +57,15 @@ class CoinDetailsController extends SuperBaseController<List<charts.Series<DataP
   }
 
   void addFavourite() {
-    print("get==" + hive.getAt(0));
-    if (hive.getAt(0) != null) {
-      hive.delete(DbCoin(name: coinName));
+    print("get==coinName$coin" + box.get(coin.id).toString());
+    if (box.get(coin.id) != null) {
+      box.remove(coin.id);
       isFavorite.value = false;
-      print("delete==" + hive.get(coinName));
+      print("delete==");
     } else {
-      hive.add(DbCoin(name: coinName));
+      box.put(coin);
       isFavorite.value = true;
-      print("add==" + hive.get(coinName));
+      print("add==");
     }
   }
 }

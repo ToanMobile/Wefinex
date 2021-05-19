@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:wefinex/base/super_base_controller.dart';
 import 'package:wefinex/repository/model/crypto.dart';
+import 'package:wefinex/repository/model/list_crypto.dart';
 import 'package:wefinex/shared/constant/common.dart';
 
 import 'coin_details_binding.dart';
@@ -23,6 +24,14 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            iconSize: 20.0,
+            onPressed: () => Get.back(),
+          ),
+        ),
         backgroundColor: Common().color.darkScaffoldBackgroundColor,
         body: buildSettingChart(),
       );
@@ -161,9 +170,13 @@ class CoinDetailsScreen extends GetView<CoinDetailsController> {
       );
 
   buildFavourite() => Container(
-      height: 50.h,
-      child: TextButton.icon(
-          onPressed: () => controller.addFavourite(),
-          icon: controller.isFavorite.value ? Icon(Icons.favorite) : Icon(Icons.favorite_border_outlined),
-          label: Text(Common().string.favourite)));
+        height: 50.h,
+        child: Obx(
+          () => TextButton.icon(
+            onPressed: () => controller.addFavourite(),
+            icon: controller.isFavorite.value ? Icon(Icons.favorite) : Icon(Icons.favorite_border_outlined),
+            label: Text(Common().string.favourite),
+          ),
+        ),
+      );
 }

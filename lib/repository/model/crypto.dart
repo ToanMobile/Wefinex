@@ -1,14 +1,10 @@
-enum HistoricalDataType {
-  eight_hour,
-  one_day,
-  one_week,
-  one_month,
-  six_month,
-}
+import 'package:objectbox/objectbox.dart';
 
+@Entity()
 class CoinEntity {
-  String? marketCapRank;
+  int id = 0;
   String? name; // name of the currency (ex: Bitcoin)
+  String? marketCapRank;
   String? diminutive; // diminutive of the currency (ex: BTC)
   String? price; // price of the currency
   String? change;
@@ -19,12 +15,11 @@ class CoinEntity {
 
   @override
   String toString() {
-    return 'CoinEntity{marketCapRank: $marketCapRank, name: $name, diminutive: $diminutive, price: $price, change: $change, changeValue: $changeValue, logoUrl: $logoUrl, marketCap: $marketCap, totalVolume: $totalVolume, historicalData: $historicalData}';
+    return 'CoinEntity{marketCapRank: $marketCapRank, name: $name, diminutive: $diminutive, price: $price, change: $change, changeValue: $changeValue, logoUrl: $logoUrl, marketCap: $marketCap, totalVolume: $totalVolume}';
   }
 
-  HistoricalData historicalData = HistoricalData();
-
   CoinEntity({
+    required this.id,
     this.marketCapRank,
     this.name,
     this.diminutive,
@@ -35,20 +30,4 @@ class CoinEntity {
     this.marketCap,
     this.totalVolume,
   });
-}
-
-class HistoricalData {
-  List<DataPrice> data = [];
-}
-
-class DataPrice {
-  String price;
-  DateTime date;
-
-  DataPrice(this.price, this.date);
-
-  @override
-  String toString() {
-    return 'Data{price: $price, date: $date}';
-  }
 }

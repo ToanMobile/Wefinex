@@ -31,10 +31,11 @@ class FavouriteController extends SuperBaseController<List<CoinEntity>> {
         change(null, status: RxStatus.error(err.toString()));
       },
     );
+    getListFavourite();
   }
 
   void getListFavourite() {
-    final list = hive.get("favourite");
+    final list = box.getAll().toList();
     print("getListFavourite=" + list.toString());
   }
 }

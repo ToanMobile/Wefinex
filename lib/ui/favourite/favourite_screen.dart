@@ -35,6 +35,20 @@ class FavouriteScreen extends GetView<FavouriteController> {
                 );
               }
             },
+          ),
+          controller.obx(
+            (state) {
+              if (state?.length != null) {
+                return buildWidgetTopCoin(state);
+              } else {
+                return Container(
+                  child: Text(
+                    "Empty",
+                    style: Common().textStyle.styleBold14Black,
+                  ),
+                );
+              }
+            },
           )
         ],
       ),
@@ -82,6 +96,39 @@ class FavouriteScreen extends GetView<FavouriteController> {
       );
 
   buildWidgetTopCoin(List<CoinEntity>? state) => Expanded(
+        flex: 1,
+        child: ListView.builder(
+          itemCount: state?.length ?? 0,
+          itemBuilder: (BuildContext context, int index) {
+            final item = state![index];
+            return MaterialButton(
+              onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item.name),
+              child: Card(
+                color: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    buildWidgetTitleRank(item.marketCapRank.toString()),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    buildWidgetNameRank(item.name.toString(), item.logoUrl.toString()),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    buildWidgetChange(item.price, item.change, item.changeValue),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      );
+
+  buildWidgetFavouriteCoin(List<CoinEntity>? state) => Expanded(
         flex: 1,
         child: ListView.builder(
           itemCount: state?.length ?? 0,

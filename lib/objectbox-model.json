@@ -1,0 +1,77 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4604518750926524758",
+      "lastPropertyId": "10:4983799782174350807",
+      "name": "CoinEntity",
+      "properties": [
+        {
+          "id": "1:5347128561310709075",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3582025043361087105",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:7624935226829100435",
+          "name": "marketCapRank",
+          "type": 9
+        },
+        {
+          "id": "4:2515759174341585827",
+          "name": "diminutive",
+          "type": 9
+        },
+        {
+          "id": "5:1108753912648057479",
+          "name": "price",
+          "type": 9
+        },
+        {
+          "id": "6:8951471773983559319",
+          "name": "change",
+          "type": 9
+        },
+        {
+          "id": "7:4535254924590055020",
+          "name": "changeValue",
+          "type": 9
+        },
+        {
+          "id": "8:3320461284015607141",
+          "name": "logoUrl",
+          "type": 9
+        },
+        {
+          "id": "9:8632655845346635766",
+          "name": "marketCap",
+          "type": 9
+        },
+        {
+          "id": "10:4983799782174350807",
+          "name": "totalVolume",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:4604518750926524758",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

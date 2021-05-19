@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:wefinex/repository/model/db_coin.dart';
+import 'package:objectbox/objectbox.dart';
+import 'package:wefinex/objectbox.g.dart';
+import 'package:wefinex/repository/model/crypto.dart';
 import 'package:wefinex/repository/repositories.dart';
 import 'package:wefinex/shared/utils/utilities.dart';
 
@@ -36,19 +37,20 @@ Email: hvtoan.dev@gmail.com
 /// read the [Example] above.
 
 class SuperBaseController<T> extends SuperController<T> with BaseCommonWidgets, Utilities, Repositories {
-  var hive;
+  late Box box;
 
   @override
   void onReady() async {
     print('The build method is done. ' 'Your controller is ready to call dialogs and snackbars');
-    hive = Hive.openBox<DbCoin>('dbCoin');
+    final store = Store(getObjectBoxModel());
+    box = store.box<CoinEntity>();
     super.onReady();
   }
 
   @override
   void onClose() {
     print('onClose called');
-    hive.close();
+    //hive.close();
     super.onClose();
   }
 

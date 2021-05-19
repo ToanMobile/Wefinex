@@ -169,7 +169,7 @@ class SearchScreen extends GetView<SearchController> {
                 if (queryList.length == 0 && !isSearching) {
                   queryList.addAll(controller.cryptos);
                 } else {
-                  queryList.add(CoinEntity());
+                  queryList.add(CoinEntity(id: 0));
                 }
                 return ListView.separated(
                   itemCount: queryList.length,

@@ -20,10 +20,12 @@ class AppPages {
       name: Routes.WEB_VIEW,
       page: () => WebViewScreen(),
     ),
-    GetPage(
-      name: Routes.HOME,
-      page: () => BottomNavigationView(),
-      binding: BottomNavigationBinding(),
-    ),
+    GetPage(name: Routes.HOME, page: () => BottomNavigationView(), binding: BottomNavigationBinding(), children: [
+      GetPage(
+        name: Routes.COIN_DETAILS,
+        page: () => CoinDetailsScreen(),
+        binding: CoinDetailsBinding(),
+      ),
+    ]),
   ];
 }

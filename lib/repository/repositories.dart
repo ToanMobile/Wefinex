@@ -8,6 +8,7 @@ import 'package:wefinex/shared/constant/common.dart';
 
 import 'model/crypto.dart';
 import 'model/fiat.dart';
+import 'model/list_crypto.dart';
 
 /*
 Created by ToanDev on 02/05/2021
@@ -46,6 +47,7 @@ class Repositories {
           (element) {
             cryptos.add(
               CoinEntity(
+                id: int.parse(element['market_cap_rank'].toString()),
                 marketCapRank: element['market_cap_rank'].toString(),
                 name: element['name'],
                 diminutive: element['symbol'].toString().toUpperCase(),

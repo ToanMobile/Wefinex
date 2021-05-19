@@ -45,7 +45,7 @@ class HomeScreen extends GetView<HomeController> {
           itemBuilder: (BuildContext context, int index) {
             final item = state![index];
             return MaterialButton(
-              onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item.name),
+              onPressed: () => Get.offNamed(Routes.COIN_DETAILS, arguments: item),
               child: Card(
                 color: Colors.transparent,
                 child: Row(
